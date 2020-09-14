@@ -1,20 +1,41 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+
+
+//Components
+import Header from '../../components/Header';
+import Faq from '../../components/Faq';
 
 import "./styles.css";
 
-function Header() {
+function Home() {
   return (
-    <div className="header-container">
-      <div to="/" className="logo-container">
-        <img src="http://placehold.it/180x100" alt="Logo" />
+    <>
+      <Header />
+      <Faq />
+      
+      <div className="main-container">
+        <div className="shape-header">
+          <p>SHAPEFILE para POSTGREE</p>
+          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+        </div>
+        
+        <div className="shape-button">
+          <img src="http://placehold.it/520x360" alt="Shape-Button"/>
+        </div>
+
+        <div className="header-content">
+          <p>SHAPEFILE para POSTGREE</p>
+          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+        </div>
+        
+        <div className="shape-button">
+          <img src="http://placehold.it/520x360" alt="Shape-Button"/>
+        </div>
       </div>
-      <div className="buttons-container">
-        <Link to="/" className="converter">Conversor</Link>
-        <Link to="/" className="use-guide">Como usar</Link>
-      </div>
-    </div>
+
+      
+    </>
   );
 }
 
-export default Header;
+export default Home;

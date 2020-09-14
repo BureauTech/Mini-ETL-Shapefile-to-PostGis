@@ -9,7 +9,7 @@ function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" component={Home} exact/>
-        
+    
         </BrowserRouter>
     )
 }

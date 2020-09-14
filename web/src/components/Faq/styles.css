@@ -1,0 +1,36 @@
+.faq-container{
+    flex: 1;
+    display: flex;
+  
+    justify-content: center;
+    align-items: center;
+  
+    height: 200px;
+  
+    background: rgb(255,0,0);
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(9,47,121,1) 71%);
+    
+    padding: 25px;
+  }
+  
+  .faq-container p {
+    font: 700 3.0rem Archivo;
+    color: var(--color-box-base);
+    
+    display: block;
+  
+    align-items: center;
+    justify-content: center;
+  
+    margin-bottom: 3.5%;
+  }
+  
+  .faq-container span {
+    font: 700 2.0rem Archivo;
+    color: var(--color-box-base);
+  
+    align-items: center;
+    justify-content: center;
+  
+    display: block;
+  }
