@@ -1,0 +1,34 @@
+.faq-container{
+  flex: 1;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 200px;
+
+  background: coral;
+  
+}
+
+.faq-container p {
+  font: 700 3.0rem Archivo;
+  color: var(--color-box-base);
+  
+  display: block;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 3.5%;
+}
+
+.faq-container span {
+  font: 700 2.0rem Archivo;
+  color: var(--color-box-base);
+
+  align-items: center;
+  justify-content: center;
+
+  display: block;
+}

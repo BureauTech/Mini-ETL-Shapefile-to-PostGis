@@ -8,7 +8,15 @@ import "./styles.css";
 
 function Home() {
   return (
-    <Header />
+    <>
+      <Header />
+      <div className="faq-container">
+        <div className="text-content">
+          <p>Conversor Shapefile Online</p>
+          <span>Converta facilmente de e para Shapefile em segundos.</span>
+        </div>
+      </div>
+    </>
   );
 }
 
