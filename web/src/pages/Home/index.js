@@ -1,20 +1,16 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+
+
+//Components
+import Header from '../../components/Header';
 
 import "./styles.css";
 
-function Header() {
+function Home() {
   return (
-    <div className="header-container">
-      <div to="/" className="logo-container">
-        <img src="http://placehold.it/180x100" alt="Logo" />
-      </div>
-      <div className="buttons-container">
-        <Link to="/" className="converter">Conversor</Link>
-        <Link to="/" className="use-guide">Como usar</Link>
-      </div>
-    </div>
+    <Header />
+
   );
 }
 
-export default Header;
+export default Home;
