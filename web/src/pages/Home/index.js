@@ -9,7 +9,6 @@ import "./styles.css";
 function Home() {
   return (
     <Header />
-
   );
 }
 
