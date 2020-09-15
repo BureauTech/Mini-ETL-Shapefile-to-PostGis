@@ -10,13 +10,14 @@ Save time, save data. </h3> <br>
 
  
  
-A BureauTech está desenvolvendo um software capaz de realizar a carga de dados do ShapeFile para PostGIS e vice-e-versa. 
+Shapegis é um software que realiza a carga de dados do ShapeFile para PostGIS e vice-e-versa. 
 
 ShapeFiles são arquivos que trabalham com armazenamento de dados geoespaciais, que podem ser do tipo linhas, polígonos e pontos. Entre outras coisas, essas geometrias podem representar Poços, Rios, e Lagos, respectivamente. Cada item pode ter atributos que os descrevem, por exemplo: nome, temperatura ou profundidade.
 
-Este software é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixar a plataforma mais intuitiva. 
+O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixar a plataforma mais intuitiva. 
 
-Projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
+Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
+
 
 ### Equipe 
 
