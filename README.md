@@ -1,4 +1,4 @@
-![BureauTechFundoBranco-02](https://user-images.githubusercontent.com/56437644/93030422-5d590b80-f5f9-11ea-98ae-6d6711ff9222.png)
+![shapegislogotransparente](https://user-images.githubusercontent.com/56437644/93270432-83141b00-f787-11ea-8add-7fc1b4f0ee26.png)
 
 <h3 align="center"> 
 Save time, save data. </h3> <br>
@@ -21,8 +21,6 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 
 ### Equipe 
 
-<br/>
-
 [![GitHub Badge](https://img.shields.io/github/followers/anaclaragraciano?label=anaclaragraciano&style=for-the-badge&color=black&link=https://github.com/anaclaragraciano)](https://github.com/anaclaragraciano)<br/>
 
  [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho)<br/>
@@ -33,10 +31,12 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 
  [![GitHub Badge](https://img.shields.io/github/followers/fcostafelipe?label=fcostafelipe&style=for-the-badge&color=black&link=https://github.com/fcostafelipe)](https://github.com/fcostafelipe)<br/>
 
+ [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros)<br/>
+  
+ [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas)<br/>
+ 
  [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP)</br>
 
- [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros)<br/>
 
- [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas)<br/>
-
+#### :memo: Veja nosso kanban [aqui](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
 
