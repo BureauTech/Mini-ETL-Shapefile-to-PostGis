@@ -54,5 +54,3 @@ Projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São J
  [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas)
 [![LinkedIn Badge](https://img.shields.io/badge/marcelouchoas-blue?style=for-the-badge&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/marcelo-uch%C3%B4as-de-oliveira-b2536a18b/)](https://www.linkedin.com/in/marcelo-uch%C3%B4as-de-oliveira-b2536a18b/)
 [![Email Badge](https://img.shields.io/badge/contact-marcelouchoas@gmail.com-red?style=for-the-badge&link=https://www.linkedin.com/in/marcelo-uch%C3%B4as-de-oliveira-b2536a18b/)](https://www.linkedin.com/in/marcelo-uch%C3%B4as-de-oliveira-b2536a18b/)<br/>
-
-
