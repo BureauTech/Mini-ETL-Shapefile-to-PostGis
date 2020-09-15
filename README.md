@@ -38,5 +38,5 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
  [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP)</br>
 
 
-#### :memo: Veja nosso kanban [aqui](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
+#### :memo: Veja nosso Kanban [aqui](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
 
