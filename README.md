@@ -18,6 +18,13 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 
 Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
 
+## API Start-up/config
+#### 1. Open the API folder on eclipse
+#### 2. Right click on it and select export -> WAR
+#### 3. Put the WAR file in the webapps folder on tomcat 
+
+## API Services
+#### {localhost}/API/rest/bomdia -> Return String "bomdia"
 
 ### Equipe 
 
