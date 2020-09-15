@@ -38,6 +38,3 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
  [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros)<br/>
 
  [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas)<br/>
-
-
-
