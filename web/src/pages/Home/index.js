@@ -15,20 +15,20 @@ function Home() {
       <div className="main-container">
         <div className="shape-header">
           <p>SHAPEFILE para POSTGREE</p>
-          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+          <span> Importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
         </div>
         
         <div className="shape-button">
-          <img src="http://placehold.it/520x360" alt="Shape-Button"/>
+          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
         </div>
 
-        <div className="header-content">
+        <div className="post-header">
           <p>SHAPEFILE para POSTGREE</p>
           <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
         </div>
         
-        <div className="shape-button">
-          <img src="http://placehold.it/520x360" alt="Shape-Button"/>
+        <div className="post-button">
+          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
         </div>
       </div>
 
