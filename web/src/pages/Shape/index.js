@@ -4,6 +4,10 @@ import React from "react";
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 
+import shapeStep1 from '../../assets/img/shape-post.png';
+import shapeStep2 from '../../assets/img/db-conect.png';
+import shapeStep3 from '../../assets/img/de-para.png';
+
 import "./styles.css";
 
 function Shape() {
@@ -13,32 +17,34 @@ function Shape() {
       <Faq />
       
       <div className="main-container">
-        <div className="shape-header">
-          <p>SHAPEFILE para POSTGREE</p>
-          <span> Importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+        <div className="shape-step1-header">
+          <p>1</p>
+          <span> Carregue seus arquivos SHP para seu banco de dados POSTGRESQL com segurança.</span>
         </div>
         
-        <div className="shape-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+        <div className="shape-step1-button">
+          <img src={shapeStep1} alt="Shape-Button"/>
         </div>
 
-        <div className="post-header">
-          <p>SHAPEFILE para POSTGREE</p>
-          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+        <div className="shape-step2-header">
+          <p>2</p>
+          <span>Conecte-se com o seu Banco de Dados.</span>
         </div>
         
-        <div className="post-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+        <div className="shape-step2-button">
+          <img src={shapeStep2} alt="Shape-Button"/>
         </div>
 
-        <div className="post-header">
-          <p>SHAPEFILE para POSTGREE</p>
-          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+        <div className="shape-step3-header">
+          <p>3</p>
+          <span>Selecione os campos para a realização do de-para.</span>
         </div>
         
-        <div className="post-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+        <div className="shape-step3-button">
+          <img src={shapeStep3} alt="Shape-Button"/>
         </div>
+
+        
 
       </div>
       

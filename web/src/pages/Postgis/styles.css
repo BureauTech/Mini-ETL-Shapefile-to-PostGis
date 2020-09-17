@@ -11,16 +11,44 @@
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
     background: var(--color-box-base);
   }
-  .shape-header {
-    display: block;
-
+  .shape-step1-header {
+    display: flex;
     justify-content: start;
 
-    margin-bottom: 2%;
+    margin-bottom: 2rem;
 }
 
-.shape-header p {
+.shape-step1-header p {
+    color: #800000;
+        
+    text-align: start;
+    justify-content: center;
+    align-items: center;
+
+    font: 700 8.0rem Montserrat;
+}
+
+.shape-step1-header span {
+    text-align: start;
+
+    color: var(--color-text-complement);
+
+    font: 400 3rem Montserrat;
+    margin: 3rem 0 0 1rem;
+}
+
+.shape-step1-button {
     display: block;
+}
+
+.shape-step2-header {
+    display: flex;
+    justify-content: start;
+
+    margin: 3rem 0;
+}
+
+.shape-step2-header p {
 
     color: #800000;
         
@@ -28,18 +56,49 @@
     justify-content: center;
     align-items: center;
 
-    font: 700 4.0rem Montserrat;
+    font: 700 8.0rem Montserrat;
 }
 
-.shape-header span {
-    display: block;
+.shape-step2-header span {
     text-align: start;
 
     color: var(--color-text-complement);
 
-    font: 400 1.5rem Montserrat;
+    font: 400 3rem Montserrat;
+    margin: 3rem 0 0 1rem;
 }
 
-.shape-button {
+.shape-step2-button {
+    display: block;
+}
+
+.shape-step3-header {
+    display: flex;
+    justify-content: start;
+
+    margin: 3rem 0;
+}
+
+.shape-step3-header p {
+
+    color: #800000;
+        
+    text-align: start;
+    justify-content: center;
+    align-items: center;
+
+    font: 700 8.0rem Montserrat;
+}
+
+.shape-step3-header span {
+    text-align: start;
+
+    color: var(--color-text-complement);
+
+    font: 400 3rem Montserrat;
+    margin: 3rem 0 0 1rem;
+}
+
+.shape-step3-button {
     display: block;
 }
