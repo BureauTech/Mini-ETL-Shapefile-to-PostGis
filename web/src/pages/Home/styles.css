@@ -46,15 +46,6 @@
     display: block;
 }
 
-.header-content {
-    display: block;
-
-    color: red;
-    
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-
 .header-content p {
     display: block;
         
@@ -82,7 +73,7 @@
 .post-header p {
     display: block;
 
-    color: #800000;
+    color: #006680;
         
     text-align: start;
     justify-content: center;
@@ -106,14 +97,6 @@
     display: block;
 }
 
-.header-content {
-    display: block;
-
-    color: red;
-    
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
 
 .header-content p {
     display: block;
