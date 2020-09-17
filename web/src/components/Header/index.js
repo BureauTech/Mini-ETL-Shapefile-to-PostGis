@@ -11,8 +11,8 @@ function Header () {
               <img src="http://placehold.it/180x100" alt="Logo" />
             </div>
             <div className="buttons-container">
-              <Link to="/" className="converter">Conversor</Link>
-              <Link to="/" className="use-guide">Como usar</Link>
+              <Link to="/" className="converter">CONVERSOR</Link>
+              <Link to="/how-to-use" className="use-guide">COMO USAR</Link>
             </div>
         </div>
     )
