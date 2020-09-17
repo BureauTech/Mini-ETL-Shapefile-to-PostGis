@@ -1,0 +1,10 @@
+.spoiler-image {
+    flex: 1;
+    display: flex;
+    background: #fff;
+
+    height: 100vh;
+
+    align-items: center;
+    justify-content: center;
+}
