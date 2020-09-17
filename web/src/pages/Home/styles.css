@@ -41,7 +41,6 @@
 }
 
 
-
 .shape-button {
     display: block;
 }
@@ -54,12 +53,6 @@
     align-items: center;
 
     font: 700 4.0rem Montserrat;
-}
-
-.header-content span {
-    display: block;
-
-    font: 700 2.0rem Montserrat;
 }
 
 .post-header {
@@ -91,8 +84,6 @@
     font: 400 1.5rem Montserrat;
 }
 
-
-
 .post-button {
     display: block;
 }
@@ -106,10 +97,4 @@
     align-items: center;
 
     font: 700 4.0rem Montserrat;
-}
-
-.header-content span {
-    display: block;
-
-    font: 700 2.0rem Montserrat;
 }

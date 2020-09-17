@@ -13,30 +13,12 @@ function Post() {
       <Faq />
       
       <div className="main-container">
-        <div className="shape-header">
+        <div className="first-header">
           <p>SHAPEFILE para POSTGREE</p>
           <span> Importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
         </div>
         
-        <div className="shape-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
-        </div>
-
-        <div className="post-header">
-          <p>SHAPEFILE para POSTGREE</p>
-          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
-        </div>
-        
-        <div className="post-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
-        </div>
-        
-        <div className="post-header">
-          <p>SHAPEFILE para POSTGREE</p>
-          <span> importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
-        </div>
-        
-        <div className="post-button">
+        <div className="first-button">
           <img src="http://placehold.it/900x400" alt="Shape-Button"/>
         </div>
 
