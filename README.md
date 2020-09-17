@@ -13,6 +13,10 @@ Save time, save data. </h3> <br>
 Shapegis é um software que realiza a carga de dados do ShapeFile para PostGIS e vice-e-versa.  
 
 
+<div style="text-align:center">
+ <img data-src="/assets/images/gif/readme_1.gif"/>
+</div>
+
 ![blog_post_sql](https://user-images.githubusercontent.com/56437644/93402664-c6d85480-f85b-11ea-8385-28165b36fdfd.gif)
 
 ShapeFiles são arquivos que trabalham com armazenamento de dados geoespaciais, que podem ser do tipo linhas, polígonos e pontos. Entre outras coisas, essas geometrias podem representar Poços, Rios, e Lagos, respectivamente. Cada item pode ter atributos que os descrevem, por exemplo: nome, temperatura ou profundidade.
