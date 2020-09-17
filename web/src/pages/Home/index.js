@@ -1,6 +1,9 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
+import Shape from '../../assets/img/shape-post.png';
+import Post from '../../assets/img/post-shape.png'; 
+
 //Components
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
@@ -21,7 +24,7 @@ function Home() {
         
         <div className="shape-button">
           <Link to="/shape">
-            <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+            <img src={Shape} alt="Shape-Button"/>
           </Link>
         </div>
 
@@ -32,7 +35,7 @@ function Home() {
         
         <div className="post-button">
           <Link to="/post">
-            <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+            <img src={Post} alt="Shape-Button"/>
           </Link>
         </div>
       </div>
