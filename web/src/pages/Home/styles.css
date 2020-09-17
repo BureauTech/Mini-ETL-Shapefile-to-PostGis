@@ -41,18 +41,8 @@
 }
 
 
-
 .shape-button {
     display: block;
-}
-
-.header-content {
-    display: block;
-
-    color: red;
-    
-    margin-top: 2%;
-    margin-bottom: 2%;
 }
 
 .header-content p {
@@ -63,12 +53,6 @@
     align-items: center;
 
     font: 700 4.0rem Montserrat;
-}
-
-.header-content span {
-    display: block;
-
-    font: 700 2.0rem Montserrat;
 }
 
 .post-header {
@@ -82,7 +66,7 @@
 .post-header p {
     display: block;
 
-    color: #800000;
+    color: #006680;
         
     text-align: start;
     justify-content: center;
@@ -100,20 +84,10 @@
     font: 400 1.5rem Montserrat;
 }
 
-
-
 .post-button {
     display: block;
 }
 
-.header-content {
-    display: block;
-
-    color: red;
-    
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
 
 .header-content p {
     display: block;
@@ -123,10 +97,4 @@
     align-items: center;
 
     font: 700 4.0rem Montserrat;
-}
-
-.header-content span {
-    display: block;
-
-    font: 700 2.0rem Montserrat;
 }

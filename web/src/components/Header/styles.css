@@ -19,7 +19,7 @@
     right: 0;
     padding-left: 5%;
     padding-right: 5%;
-    background: var(--primary-dark);
+    background: var(--color-button-text);
     border-bottom: 2px solid var(--primary-main);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
   }
