@@ -12,7 +12,7 @@ function Header () {
             </div>
             <div className="buttons-container">
               <Link to="/" className="converter">CONVERSOR</Link>
-              <Link to="/" className="use-guide">COMO USAR</Link>
+              <Link to="/how-to-use" className="use-guide">COMO USAR</Link>
             </div>
         </div>
     )
