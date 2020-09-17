@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 //Components
 import Header from '../../components/Header';
@@ -19,7 +20,9 @@ function Home() {
         </div>
         
         <div className="shape-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+          <Link to="/shape">
+            <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+          </Link>
         </div>
 
         <div className="post-header">
@@ -28,7 +31,9 @@ function Home() {
         </div>
         
         <div className="post-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+          <Link to="/post">
+            <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+          </Link>
         </div>
       </div>
 
