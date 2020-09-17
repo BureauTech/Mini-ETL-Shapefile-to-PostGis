@@ -3,12 +3,14 @@ import {Link} from 'react-router-dom';
 
 import "./styles.css";
 
+import Logo from '../../assets/img/logo.png'
+
 
 function Header () {
     return (
         <div className="header-container">
             <div to="/" className="logo-container">
-              <img src="http://placehold.it/180x100" alt="Logo" />
+              <img src={Logo} alt="Logo" />
             </div>
             <div className="buttons-container">
               <Link to="/" className="converter">CONVERSOR</Link>
