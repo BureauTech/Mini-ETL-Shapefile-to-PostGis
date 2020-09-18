@@ -5,6 +5,7 @@ Save time, save data. </h3> <br>
 
  <p align="center">
     <a href="#Sobre-o-projeto">Sobre o projeto</a> •
+    <a href="#Cronograma">Cronograma</a> •
     <a href="#Equipe">Equipe</a>
  </p> 
  <br>
@@ -21,6 +22,16 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 
 Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
 
+### Cronograma 
+
+| Data | Links |
+| ------ | ------ |
+|    20/09/2020    |[Sprint 1](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-1) |
+|    04/10/2020    |[Sprint 2](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-2) |
+|    18/10/2020    |[Sprint 3](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3) |
+|    01/11/2020    |[Sprint 4](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4) |
+|    15/11/2020    |[Sprint 5](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-5) |
+|    29/11/2020    |[Sprint 6](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-6) |
 
 ### Equipe 
 
