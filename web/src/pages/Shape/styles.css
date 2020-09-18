@@ -102,3 +102,22 @@
 .shape-step3-button {
     display: block;
 }
+
+.shape-send-button {
+    flex: 1;
+    display: flex;
+
+    margin: 4rem 0 0 0;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    height: 125px;
+    width: 92rem;
+    
+    background: #ce0606;
+
+    font: 700 4.0rem Montserrat;
+    color: #fff;
+}

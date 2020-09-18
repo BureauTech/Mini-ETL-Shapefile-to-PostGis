@@ -18,7 +18,7 @@ function Home() {
       
       <div className="main-container">
         <div className="shape-header">
-          <p>SHAPEFILE para POSTGREE</p>
+          <p>SHAPEFILE para POSTGIS</p>
           <span>Importe seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
         
@@ -29,7 +29,7 @@ function Home() {
         </div>
 
         <div className="post-header">
-          <p>POSTGREE para SHAPEFILE</p>
+          <p>POSTGIS para SHAPEFILE</p>
           <span>Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
         

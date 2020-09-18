@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 //Components
 import Header from '../../components/Header';
@@ -19,7 +20,7 @@ function Post() {
       <div className="main-container">
         <div className="post-step1-header">
           <p>1</p>
-          <span> Carregue seus arquivos SHP para seu banco de dados POSTGRESQL com segurança.</span>
+          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
         
         <div className="post-step1-button">
@@ -43,6 +44,10 @@ function Post() {
         <div className="post-step3-button">
           <img src={postStep3} alt="Shape-Button"/>
         </div>
+
+        <Link to="/" className="post-send-button">
+          REALIZAR CARGA
+        </Link>
 
         
 

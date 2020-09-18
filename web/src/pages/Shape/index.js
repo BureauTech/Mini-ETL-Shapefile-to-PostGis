@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 //Components
 import Header from '../../components/Header';
@@ -44,7 +45,9 @@ function Shape() {
           <img src={shapeStep3} alt="Shape-Button"/>
         </div>
 
-        
+        <Link to="/" className="shape-send-button">
+          REALIZAR CARGA
+        </Link>
 
       </div>
       
