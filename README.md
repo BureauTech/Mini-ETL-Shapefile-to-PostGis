@@ -35,23 +35,22 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 |    15/11/2020    |[Sprint 5](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-5) |
 |    29/11/2020    |[Sprint 6](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-6) |
 
-### :memo: Acompanhe o progresso da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
+#### :memo: Acompanhe o progresso da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
 
 # Equipe 
 
-#### [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho) - Master <br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho) - Master <br/>
 
-#### [![GitHub Badge](https://img.shields.io/github/followers/charles-ramos?label=charles-ramos&style=for-the-badge&color=black&link=https://github.com/charles-ramos)](https://github.com/charles-ramos) - PO <br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/charles-ramos?label=charles-ramos&style=for-the-badge&color=black&link=https://github.com/charles-ramos)](https://github.com/charles-ramos) - PO <br/>
 
-#### [![GitHub Badge](https://img.shields.io/github/followers/anaclaragraciano?label=anaclaragraciano&style=for-the-badge&color=black&link=https://github.com/anaclaragraciano)](https://github.com/anaclaragraciano) - DEV Team<br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/anaclaragraciano?label=anaclaragraciano&style=for-the-badge&color=black&link=https://github.com/anaclaragraciano)](https://github.com/anaclaragraciano) - DEV Team<br/>
 
-#### [![GitHub Badge](https://img.shields.io/github/followers/danielsantosoliveira?label=danielsantosoliveira&style=for-the-badge&color=black&link=https://github.com/danielsantosoliveira)](https://github.com/danielsantosoliveira) - DEV Team<br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/danielsantosoliveira?label=danielsantosoliveira&style=for-the-badge&color=black&link=https://github.com/danielsantosoliveira)](https://github.com/danielsantosoliveira) - DEV Team<br/>
 
-#### [![GitHub Badge](https://img.shields.io/github/followers/fcostafelipe?label=fcostafelipe&style=for-the-badge&color=black&link=https://github.com/fcostafelipe)](https://github.com/fcostafelipe) - DEV Team<br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/fcostafelipe?label=fcostafelipe&style=for-the-badge&color=black&link=https://github.com/fcostafelipe)](https://github.com/fcostafelipe) - DEV Team<br/>
 
-#### [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros) - DEV Team<br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros) - DEV Team<br/>
   
-#### [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas) - DEV Team<br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas) - DEV Team<br/>
  
-#### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
-
+### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
