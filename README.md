@@ -12,7 +12,7 @@ Save time, save data. </h3> <br>
  </p> 
  <br>
 
-### Sobre o projeto 
+# Sobre o projeto 
  
 Shapegis é um software que realiza a carga de dados do ShapeFile para PostGIS e vice-e-versa.  
 
@@ -24,7 +24,7 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 
 Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
 
-### Cronograma 
+# Cronograma 
 
 | Data | Links |
 | ------ | ------ |
@@ -35,7 +35,7 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 |    15/11/2020    |[Sprint 5](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-5) |
 |    29/11/2020    |[Sprint 6](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-6) |
 
-### Equipe 
+# Equipe 
 
 #### [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho) - Master <br/>
 
