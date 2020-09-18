@@ -1,4 +1,6 @@
-![shapegislogotransparente](https://user-images.githubusercontent.com/56437644/93270432-83141b00-f787-11ea-8add-7fc1b4f0ee26.png)
+<div align="center">
+    <img src="/assets/images/png/shapegis-logo.png">
+</div>
 
 <h3 align="center"> 
 Save time, save data. </h3> <br>
@@ -15,7 +17,7 @@ Save time, save data. </h3> <br>
 Shapegis é um software que realiza a carga de dados do ShapeFile para PostGIS e vice-e-versa.  
 
 <div align="center">
-    <img src="/assets/images/gif/readme_1.gif">
+    <img src="/assets/images/gif/readme-1.gif">
 </div>
 
 O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixando a plataforma mais intuitiva. 
