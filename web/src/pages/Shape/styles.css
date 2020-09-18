@@ -1,0 +1,123 @@
+.main-container {
+    flex: 1;
+    
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  
+    margin: -5rem 30rem 2rem;
+    padding: 3rem;
+
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
+    background: var(--color-box-base);
+  }
+  .shape-step1-header {
+    display: flex;
+    justify-content: start;
+
+    margin-bottom: 2rem;
+}
+
+.shape-step1-header p {
+    color: #800000;
+        
+    text-align: start;
+    justify-content: center;
+    align-items: center;
+
+    font: 700 8.0rem Montserrat;
+}
+
+.shape-step1-header span {
+    text-align: start;
+
+    color: var(--color-text-complement);
+
+    font: 400 3rem Montserrat;
+    margin: 3rem 0 0 1rem;
+}
+
+.shape-step1-button {
+    display: block;
+}
+
+.shape-step2-header {
+    display: flex;
+    justify-content: start;
+
+    margin: 3rem 0;
+}
+
+.shape-step2-header p {
+
+    color: #800000;
+        
+    text-align: start;
+    justify-content: center;
+    align-items: center;
+
+    font: 700 8.0rem Montserrat;
+}
+
+.shape-step2-header span {
+    text-align: start;
+
+    color: var(--color-text-complement);
+
+    font: 400 3rem Montserrat;
+    margin: 3rem 0 0 1rem;
+}
+
+.shape-step2-button {
+    display: block;
+}
+
+.shape-step3-header {
+    display: flex;
+    justify-content: start;
+
+    margin: 3rem 0;
+}
+
+.shape-step3-header p {
+
+    color: #800000;
+        
+    text-align: start;
+    justify-content: center;
+    align-items: center;
+
+    font: 700 8.0rem Montserrat;
+}
+
+.shape-step3-header span {
+    text-align: start;
+
+    color: var(--color-text-complement);
+
+    font: 400 3rem Montserrat;
+    margin: 3rem 0 0 1rem;
+}
+
+.shape-step3-button {
+    display: block;
+}
+
+.shape-send-button {
+    flex: 1;
+    display: flex;
+
+    margin: 4rem 0 0 0;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    height: 125px;
+    width: 92rem;
+    
+    background: #ce0606;
+
+    font: 700 4.0rem Montserrat;
+    color: #fff;
+}

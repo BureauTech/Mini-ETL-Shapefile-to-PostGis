@@ -11,14 +11,14 @@
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
     background: var(--color-box-base);
   }
-  .shape-step1-header {
+  .post-step1-header {
     display: flex;
     justify-content: start;
 
     margin-bottom: 2rem;
 }
 
-.shape-step1-header p {
+.post-step1-header p {
     color: #800000;
         
     text-align: start;
@@ -28,7 +28,7 @@
     font: 700 8.0rem Montserrat;
 }
 
-.shape-step1-header span {
+.post-step1-header span {
     text-align: start;
 
     color: var(--color-text-complement);
@@ -37,18 +37,18 @@
     margin: 3rem 0 0 1rem;
 }
 
-.shape-step1-button {
+.post-step1-button {
     display: block;
 }
 
-.shape-step2-header {
+.post-step2-header {
     display: flex;
     justify-content: start;
 
     margin: 3rem 0;
 }
 
-.shape-step2-header p {
+.post-step2-header p {
 
     color: #800000;
         
@@ -59,7 +59,7 @@
     font: 700 8.0rem Montserrat;
 }
 
-.shape-step2-header span {
+.post-step2-header span {
     text-align: start;
 
     color: var(--color-text-complement);
@@ -68,18 +68,18 @@
     margin: 3rem 0 0 1rem;
 }
 
-.shape-step2-button {
+.post-step2-button {
     display: block;
 }
 
-.shape-step3-header {
+.post-step3-header {
     display: flex;
     justify-content: start;
 
     margin: 3rem 0;
 }
 
-.shape-step3-header p {
+.post-step3-header p {
 
     color: #800000;
         
@@ -90,7 +90,7 @@
     font: 700 8.0rem Montserrat;
 }
 
-.shape-step3-header span {
+.post-step3-header span {
     text-align: start;
 
     color: var(--color-text-complement);
@@ -99,6 +99,25 @@
     margin: 3rem 0 0 1rem;
 }
 
-.shape-step3-button {
+.post-step3-button {
     display: block;
+}
+
+.post-send-button {
+    flex: 1;
+    display: flex;
+
+    margin: 4rem 0 0 0;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    height: 125px;
+    width: 92rem;
+    
+    background: #06a6ce;
+
+    font: 700 4.0rem Montserrat;
+    color: #fff;
 }

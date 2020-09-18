@@ -1,8 +1,13 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 //Components
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
+
+import postStep1 from '../../assets/img/post-shape.png';
+import postStep2 from '../../assets/img/db-conect.png';
+import postStep3 from '../../assets/img/de-para-post.png';
 
 import "./styles.css";
 
@@ -13,16 +18,41 @@ function Post() {
       <Faq />
       
       <div className="main-container">
-        <div className="first-header">
-          <p>SHAPEFILE para POSTGREE</p>
-          <span> Importe seus arquivos SHAPEFILE para seu banco de dados POSTGREESQL com segurança e confiabilidade.</span>
+        <div className="post-step1-header">
+          <p>1</p>
+          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
         
-        <div className="first-button">
-          <img src="http://placehold.it/900x400" alt="Shape-Button"/>
+        <div className="post-step1-button">
+          <img src={postStep1} alt="Shape-Button"/>
         </div>
 
-      </div>      
+        <div className="post-step2-header">
+          <p>2</p>
+          <span>Conecte-se com o seu Banco de Dados.</span>
+        </div>
+        
+        <div className="post-step2-button">
+          <img src={postStep2} alt="Shape-Button"/>
+        </div>
+
+        <div className="post-step3-header">
+          <p>3</p>
+          <span>Selecione os campos para a realização do de-para.</span>
+        </div>
+        
+        <div className="post-step3-button">
+          <img src={postStep3} alt="Shape-Button"/>
+        </div>
+
+        <Link to="/" className="post-send-button">
+          REALIZAR CARGA
+        </Link>
+
+        
+
+      </div>
+      
     </>
   );
 }

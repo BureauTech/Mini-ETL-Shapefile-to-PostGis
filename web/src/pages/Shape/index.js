@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 //Components
 import Header from '../../components/Header';
@@ -6,7 +7,7 @@ import Faq from '../../components/Faq';
 
 import shapeStep1 from '../../assets/img/shape-post.png';
 import shapeStep2 from '../../assets/img/db-conect.png';
-import shapeStep3 from '../../assets/img/de-para.png';
+import shapeStep3 from '../../assets/img/de-para-shape.png';
 
 import "./styles.css";
 
@@ -44,7 +45,9 @@ function Shape() {
           <img src={shapeStep3} alt="Shape-Button"/>
         </div>
 
-        
+        <Link to="/" className="shape-send-button">
+          REALIZAR CARGA
+        </Link>
 
       </div>
       
