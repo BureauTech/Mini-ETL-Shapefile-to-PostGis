@@ -35,6 +35,8 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 |    15/11/2020    |[Sprint 5](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-5) |
 |    29/11/2020    |[Sprint 6](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-6) |
 
+### :memo: Acompanhe o progresso da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
+
 # Equipe 
 
 #### [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho) - Master <br/>
@@ -53,5 +55,3 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
  
 #### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
 
-
-#### :memo: Acompanhe o progresso da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
