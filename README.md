@@ -7,6 +7,7 @@ Save time, save data. </h3> <br>
 
  <p align="center">
     <a href="#Sobre-o-projeto">Sobre o projeto</a> •
+    <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
     <a href="#Cronograma">Cronograma</a> •
     <a href="#Equipe">Equipe</a>
  </p> 
@@ -23,6 +24,12 @@ Shapegis é um software que realiza a carga de dados do ShapeFile para PostGIS e
 O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixando a plataforma mais intuitiva. 
 
 Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
+
+# Diagrama de caso de uso
+
+<div align="center">
+    <img src="/assets/images/png/diagrama-use-case.png">
+</div>
 
 # Cronograma 
 
