@@ -4,11 +4,14 @@ import {Link} from 'react-router-dom';
 //Components
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
+import Footer from '../../components/Footer';
 
+//Assets
 import postStep1 from '../../assets/img/post-shape.png';
 import postStep2 from '../../assets/img/db-conect.png';
 import postStep3 from '../../assets/img/de-para-post.png';
 
+//Style
 import "./styles.css";
 
 function Post() {
@@ -52,6 +55,8 @@ function Post() {
         
 
       </div>
+
+      <Footer/>
       
     </>
   );
