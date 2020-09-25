@@ -7,8 +7,8 @@ import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 
 //Assets
-import postStep1 from '../../assets/img/post-shape-new.png';
-import postStep2 from '../../assets/img/db-conect.png';
+import postStep1 from '../../assets/img/db-conect.png';
+import postStep2 from '../../assets/img/post-shape-new.png';
 import postStep3 from '../../assets/img/de-para-post.png';
 
 //Style
@@ -21,9 +21,9 @@ function Post() {
       <Faq />
       
       <div className="main-container">
-        <div className="post-step1-header">
+      <div className="post-step1-header">
           <p>1</p>
-          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
+          <span>Conecte-se com o seu Banco de Dados.</span>
         </div>
         
         <div className="post-step1-button">
@@ -32,7 +32,7 @@ function Post() {
 
         <div className="post-step2-header">
           <p>2</p>
-          <span>Conecte-se com o seu Banco de Dados.</span>
+          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
         
         <div className="post-step2-button">
