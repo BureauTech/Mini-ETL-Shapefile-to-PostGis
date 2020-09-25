@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'; 
 
 import Shape from '../../assets/img/shape-post-home.png';
 import Post from '../../assets/img/post-shape-home.png'; 

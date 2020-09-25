@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
 //Assets
 import Background from '../../assets/img/coming-soon.jpg';
 import Logo from '../../assets/img/logo.png';
