@@ -7,7 +7,7 @@ import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 
 //Assets
-import postStep1 from '../../assets/img/post-shape.png';
+import postStep1 from '../../assets/img/post-shape-new.png';
 import postStep2 from '../../assets/img/db-conect.png';
 import postStep3 from '../../assets/img/de-para-post.png';
 

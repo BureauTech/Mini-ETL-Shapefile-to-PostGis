@@ -7,7 +7,7 @@ import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 
 //Assets
-import shapeStep1 from '../../assets/img/shape-post.png';
+import shapeStep1 from '../../assets/img/shape-post-new.png';
 import shapeStep2 from '../../assets/img/db-conect.png';
 import shapeStep3 from '../../assets/img/de-para-shape.png';
 
@@ -23,7 +23,7 @@ function Shape() {
       <div className="main-container">
         <div className="shape-step1-header">
           <p>1</p>
-          <span> Carregue seus arquivos SHP para seu banco de dados POSTGRESQL com segurança.</span>
+          <span> Carregue seus arquivos shapefile para seu banco de dados POSTGRESQL com segurança.</span>
         </div>
         
         <div className="shape-step1-button">
