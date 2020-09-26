@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
+import Connection from '../../components/Connection';
 
 //Assets
 import shapeStep1 from '../../assets/img/shape-post-new.png';
@@ -35,9 +36,7 @@ function Shape() {
           <span>Conecte-se com o seu Banco de Dados.</span>
         </div>
         
-        <div className="shape-step2-button">
-          <img src={shapeStep2} alt="Shape-Button"/>
-        </div>
+        <Connection />
 
         <div className="shape-step3-header">
           <p>3</p>

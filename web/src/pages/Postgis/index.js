@@ -5,9 +5,9 @@ import {Link} from 'react-router-dom';
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
+import Connection from '../../components/Connection';
 
 //Assets
-import postStep1 from '../../assets/img/notebook-background.png';
 import postStep2 from '../../assets/img/post-shape-new.png';
 import postStep3 from '../../assets/img/de-para-post.png';
 
@@ -26,9 +26,7 @@ function Post() {
           <span>Conecte-se com o seu Banco de Dados.</span>
         </div>
         
-        <div className="post-step1-button">
-          <img src={postStep1} alt="Shape-Button"/>
-        </div>
+        <Connection />
 
         <div className="post-step2-header">
           <p>2</p>
