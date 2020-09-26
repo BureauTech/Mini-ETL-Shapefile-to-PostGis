@@ -9,7 +9,6 @@ import Connection from '../../components/Connection';
 
 //Assets
 import shapeStep1 from '../../assets/img/shape-post-new.png';
-import shapeStep2 from '../../assets/img/db-conect.png';
 import shapeStep3 from '../../assets/img/de-para-shape.png';
 
 //Styles
