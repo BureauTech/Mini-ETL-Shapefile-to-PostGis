@@ -13,24 +13,24 @@ function Connection() {
           </div>
 
           <form className="forms-content">
-            <label htmlFor="">Bom dia flor</label>
+            <label htmlFor="">Local</label>
             <input type="text"/>
 
-            <label htmlFor="">Bom dia flor</label>
+            <label htmlFor="">Porta</label>
             <input type="text"/>
 
-            <label htmlFor="">Bom dia flor</label>
+            <label htmlFor="">Tabela</label>
             <input type="text"/>
 
-            <label htmlFor="">Bom dia flor</label>
+            <label htmlFor="">Usuário</label>
             <input type="text"/>
 
-            <label htmlFor="">Bom dia flor</label>
+            <label htmlFor="">Senha</label>
             <input type="text"/>
+
+            <button type="submit">CONECTAR BANCO DE DADOS</button>
 
           </form>
-
-          <button type="submit">CONECTAR COM O BANCO DE DADOS</button>
         </div>
     )
 }

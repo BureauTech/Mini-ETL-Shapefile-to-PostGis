@@ -34,7 +34,13 @@
 }
 
 .db-container button {
-    align-items: flex-end;
-    display: flex;
-    height: 100px;
+   color: #fff;
+   background-color: #f1b151;
+   font: 400 3rem Montserrat;
+   margin-top: 50px;
 }
+
+.db-container button:hover {
+    background-color:#e08012;
+    ;
+ }
