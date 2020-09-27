@@ -1,0 +1,46 @@
+.db-container {
+    flex: 1;
+    display: flex;
+    height: 100vh;
+
+    align-items: center;
+    flex-direction: row;
+
+    background: #e68d24;
+}
+
+.post-step1-button{
+    flex: 1;
+
+}
+.forms-content {
+    flex: 1;
+    align-items: flex-end;
+    
+    font: 400 2rem Montserrat;
+    padding: 2rem;  
+    justify-content: flex-end;
+
+}
+
+.forms-content label{
+    text-align: initial;
+    display: block;
+    margin: 1rem 0;
+}
+
+.forms-content input{
+    height: 28px;
+}
+
+.db-container button {
+   color: #fff;
+   background-color: #f1b151;
+   font: 400 3rem Montserrat;
+   margin-top: 50px;
+}
+
+.db-container button:hover {
+    background-color:#e08012;
+    ;
+ }
