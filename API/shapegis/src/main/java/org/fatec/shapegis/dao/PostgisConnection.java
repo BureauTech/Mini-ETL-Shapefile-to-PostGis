@@ -45,9 +45,7 @@ public class PostgisConnection {
 		Class.forName(this.driverName);
 		
 		//Iniciar conexao
-		connection = DriverManager.getConnection(this.url, this.usuario, this.senha);
-		
-		
+		connection = DriverManager.getConnection(this.url, this.usuario, this.senha);	
 	}
 
 	//Recupera os nomes das tabelas disponíveis ao atual usuário.
