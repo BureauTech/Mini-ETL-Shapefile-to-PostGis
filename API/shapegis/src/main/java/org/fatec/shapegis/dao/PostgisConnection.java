@@ -4,32 +4,86 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import lombok.Data;
+
+import org.fatec.shapegis.model.FormConexao;
+
+import lombok.*;
 
 @Data // Adiciona os métodos get e set, com a biblioteca lombok
-public class ShapegisConnection {
-	public String status = "Não conectou...";
-
+public class PostgisConnection {
 	private String driverName = "org.postgresql.Driver";
-	private String url;
-	private String serverLocal;
-	private String dataBase;
+	private String host;
+	private String porta;
+	private String bd;
 	private String usuario;
 	private String senha;
-	private int porta;
-
-	private List<String> result = new ArrayList<>();
+	// Formato -> jdbc:postgresql://host:port/database
+	private String url;
+	// Referência Global do tipo Connection
+	Connection connection;
 	
-	public ShapegisConnection(String usuario, String senha, String url) {
+	
+	//private List<String> result = new ArrayList<>();
+	
+	/* Old constructor
+	 public ShapegisConnection(String usuario, String senha, String url) {
 		super();
 		this.usuario = usuario;
 		this.senha = senha;
 		this.url = url;
+	}*/
+	public PostgisConnection(FormConexao form) throws SQLException, ClassNotFoundException {
+		this.host = form.host;
+		this.porta = form.porta;
+		this.bd = form.bd;
+		this.usuario = form.usuario;
+		this.senha = form.senha;
+		// Formato -> jdbc:postgresql://host:port/database
+		this.url = "jdbc:postgresql://" + this.host + ":" + this.porta + "/" + this.bd;
+				
+		// Carregando o JDBC Driver padrão
+		Class.forName(this.driverName);
+		
+		//Iniciar conexao
+		connection = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		
+	}
+
+	//Recupera os nomes das tabelas disponíveis ao atual usuário.
+	public ArrayList<String> tables() throws SQLException {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		String query = "SELECT table_name\n"
+				+ "  FROM information_schema.tables\n"
+				+ " WHERE table_schema='public'\n"
+				+ "   AND table_type='BASE TABLE';";
+		java.sql.Statement stmt = connection.createStatement();
+		java.sql.ResultSet rs = stmt.executeQuery(query);
+		while (rs.next()) {
+			System.out.println(rs.getString(1));
+			list.add(rs.getString(1));
+		}
+		return list;
 	}
 	
+	public String status() {
+		//Testar conexao
+		if (connection != null) {
+			return "STATUS--->Conectado com sucesso!";
+		} else {
+			return "STATUS--->Não foi possivel realizar conexão";
+		}
+	}
+	
+	public void close() throws SQLException {
+		connection.close();
+	}
+	
+	
+
 	// Método de Conexão//
-	public java.sql.Connection getConexao() {
+	/*public java.sql.Connection getConexao() {
 
 		Connection connection = null; // Variável de referência do tipo Connection
 
@@ -38,7 +92,7 @@ public class ShapegisConnection {
 			// Carregando o JDBC Driver padrão
 			Class.forName(this.driverName);
 
-			// padrão --> jdbc:postgresql://host:port/database
+			
 			connection = DriverManager.getConnection(this.url, this.usuario, this.senha);
 
 			// Testa sua conexão//
@@ -107,4 +161,5 @@ public class ShapegisConnection {
 			e.printStackTrace(System.err);
 		}
 	}
+	*/
 }
