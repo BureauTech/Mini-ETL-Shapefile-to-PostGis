@@ -25,7 +25,6 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 ### API Services
 {localhost}:{port}/bomdia -> Return String "bomdia" <br>
 {localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database <br>
-{localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database <br>
 {localhost}:{port}/tables -> Consumes a Json object with: host, porta, bd, usuario, senha to return all table names in expecified database <br>
 
 ### Equipe 
