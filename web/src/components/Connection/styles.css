@@ -34,13 +34,13 @@
 }
 
 .db-container button {
-   color: #fff;
-   background-color: #f1b151;
-   font: 400 3rem Montserrat;
-   margin-top: 50px;
-}
+    display: flex;
+    height: 40px;
 
-.db-container button:hover {
-    background-color:#e08012;
-    ;
- }
+
+    margin: 2rem -1rem;
+    font: 400 1.5rem Montserrat;
+
+    color: white;
+    background: rgba(255, 255, 0, 0.534);
+}
