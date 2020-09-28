@@ -16,7 +16,7 @@ function Connection() {
     return (
         <div className="db-container">
           <div className="post-step1-button">
-            <img src={postStep1} alt="Shape-Button"/>
+            <img src={postStep1} alt="Shape-Button" width="100%"/>
           </div>
 
           <form className="forms-content">
@@ -25,7 +25,7 @@ function Connection() {
               onChange={event => setLocal(event.target.value)}
             />
 
-            <label htmlFor="">Portal</label>
+            <label htmlFor="">Porta</label>
             <input type="text" 
               onChange={event => setPortal(event.target.value)}
             />
