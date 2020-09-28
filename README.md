@@ -23,10 +23,10 @@ Shapegis é um projeto desenvolvido pela equipe BureauTech do terceiro semestre 
 #### 2. Start the springboot
 
 ### API Services
-##### {localhost}:{port}/bomdia -> Return String "bomdia"
-##### {localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database
-##### {localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database
-##### {localhost}:{port}/tables -> Consumes a Json object with: host, porta, bd, usuario, senha to return all table names in expecified database
+{localhost}:{port}/bomdia -> Return String "bomdia"
+{localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database
+{localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database
+{localhost}:{port}/tables -> Consumes a Json object with: host, porta, bd, usuario, senha to return all table names in expecified database
 
 ### Equipe 
 
