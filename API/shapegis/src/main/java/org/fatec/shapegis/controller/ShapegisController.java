@@ -24,7 +24,7 @@ public class ShapegisController {
 		return "bomdia";
 	}
 	
-	@PostMapping(path="/connect/postgis",consumes="application/json")
+	@PostMapping(path="/connect",consumes="application/json")
 	public String getConexao(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		//Abre conexao
 		PostgisConnection conn = new PostgisConnection(form);
