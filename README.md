@@ -30,12 +30,13 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 </div>
 =======
 ## API Start-up/config
-#### 1. Open the API folder on eclipse
-#### 2. Right click on it and select export -> WAR
-#### 3. Put the WAR file in the webapps folder on tomcat 
+#### 1. Open the API/shapegis project on spring tool"
+#### 2. Start the springboot
 
-## API Services
-#### {localhost}/API/rest/bomdia -> Return String "bomdia"
+### API Services
+{localhost}:{port}/bomdia -> Return String "bomdia" <br>
+{localhost}:{port}/connect/postgis -> Consumes a Json object with: host, porta, bd, usuario, senha to test connection with expecified database <br>
+{localhost}:{port}/tables -> Consumes a Json object with: host, porta, bd, usuario, senha to return all table names in expecified database <br>
 
 
 # Cronograma 
@@ -68,3 +69,4 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 ### [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas) - DEV Team<br/>
  
 ### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
+
