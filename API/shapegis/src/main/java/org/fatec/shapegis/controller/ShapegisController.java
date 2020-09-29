@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,15 +38,29 @@ public class ShapegisController {
 	
 	@PostMapping(path="/tables",consumes="application/json")
 	public ArrayList<String> tables(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> tables = new ArrayList<String>();
 		//Abre conexao
 		PostgisConnection conn = new PostgisConnection(form);
 		//Cria JsonArray para o retorno
 		//Resgata os nomes das tabelas disponíveis no banco
-		list = conn.tables();
+		tables = conn.tables();
 		//Fecha conexao
 		conn.close();
-		return list;	
+		return tables;	
+	}
+	
+	@PostMapping(path="/fields/{name}",consumes="application/json")
+	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name) throws ClassNotFoundException, SQLException
+	{
+		ArrayList<String> fields = new ArrayList<String>();
+		//Abre conexao
+		PostgisConnection conn = new PostgisConnection(form);
+		//Cria JsonArray para o retorno
+		//Resgata os nomes das tabelas disponíveis no banco
+		fields = conn.fields(name);
+		//Fecha conexao
+		conn.close();
+		return fields;
 	}
 	
 	/*@RequestMapping("/database")

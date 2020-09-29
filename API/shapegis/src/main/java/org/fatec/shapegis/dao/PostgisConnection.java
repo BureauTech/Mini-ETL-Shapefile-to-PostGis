@@ -47,24 +47,8 @@ public class PostgisConnection {
 		//Iniciar conexao
 		connection = DriverManager.getConnection(this.url, this.usuario, this.senha);	
 	}
-
-	//Recupera os nomes das tabelas disponíveis ao atual usuário.
-	public ArrayList<String> tables() throws SQLException {
-		
-		ArrayList<String> list = new ArrayList<String>();
-		String query = "SELECT table_name\n"
-				+ "  FROM information_schema.tables\n"
-				+ " WHERE table_schema='public'\n"
-				+ "   AND table_type='BASE TABLE';";
-		java.sql.Statement stmt = connection.createStatement();
-		java.sql.ResultSet rs = stmt.executeQuery(query);
-		while (rs.next()) {
-			System.out.println(rs.getString(1));
-			list.add(rs.getString(1));
-		}
-		return list;
-	}
 	
+	//Retorma o status da conexao
 	public String status() {
 		//Testar conexao
 		if (connection != null) {
@@ -73,7 +57,41 @@ public class PostgisConnection {
 			return "STATUS--->Não foi possivel realizar conexão";
 		}
 	}
+	//Recupera os nomes das tabelas disponíveis ao atual usuário.
+	public ArrayList<String> tables() throws SQLException {
+		
+		ArrayList<String> list = new ArrayList<String>();
+		String query = "SELECT table_name\n"
+				+ "  FROM information_schema.tables\n"
+				+ " WHERE table_schema='public'\n"
+				//+ "  AND table_type='BASE TABLE\n' "
+				+ ";";
+		java.sql.Statement stmt = connection.createStatement();
+		java.sql.ResultSet rs = stmt.executeQuery(query);
+		while (rs.next()) {
+			//System.out.println(rs.getString(1));
+			list.add(rs.getString(1));
+		}
+		return list;
+	}
 	
+	public ArrayList<String> fields(String name) throws SQLException {
+		ArrayList<String> list = new ArrayList<String>();
+		String query = "SELECT column_name "
+				+ "FROM INFORMATION_SCHEMA.COLUMNS "
+				+ "WHERE TABLE_NAME =" + "'" + name + "'" 
+				//+ "AND table_schema = 'public'"
+				+ ";";
+		java.sql.Statement stmt = connection.createStatement();
+		java.sql.ResultSet rs = stmt.executeQuery(query);
+		while (rs.next()) {
+			//System.out.println(rs.getString(1));
+			list.add(rs.getString(1));
+		}
+		return list;
+	} 
+	
+	//Fecha a conexao
 	public void close() throws SQLException {
 		connection.close();
 	}
