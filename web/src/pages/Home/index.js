@@ -25,7 +25,7 @@ function Home() {
         
         <div className="shape-button">
           <Link to="/shape">
-            <img src={Shape} alt="Shape-Button"/>
+            <img src={Shape} alt="Shape-Button" width="100%"/>
           </Link>
         </div>
 
@@ -36,7 +36,7 @@ function Home() {
         
         <div className="post-button">
           <Link to="/post">
-            <img src={Post} alt="Shape-Button"/>
+            <img src={Post} alt="Shape-Button" width="100%"/>
           </Link>
         </div>
       </div>

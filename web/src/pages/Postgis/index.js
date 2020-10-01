@@ -34,7 +34,7 @@ function Post() {
         </div>
         
         <div className="post-step2-button">
-          <img src={postStep2} alt="Shape-Button"/>
+          <img src={postStep2} alt="Shape-Button" width="100%"/>
         </div>
 
         <div className="post-step3-header">
@@ -43,7 +43,7 @@ function Post() {
         </div>
         
         <div className="post-step3-button">
-          <img src={postStep3} alt="Shape-Button"/>
+          <img src={postStep3} alt="Shape-Button" width="100%"/>
         </div>
 
         <Link to="/" className="post-send-button">

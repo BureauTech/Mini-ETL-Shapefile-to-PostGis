@@ -27,7 +27,7 @@ function Shape() {
         </div>
         
         <div className="shape-step1-button">
-          <img src={shapeStep1} alt="Shape-Button"/>
+          <img src={shapeStep1} alt="Shape-Button" width="100%"/>
         </div>
 
         <div className="shape-step2-header">
@@ -43,7 +43,7 @@ function Shape() {
         </div>
         
         <div className="shape-step3-button">
-          <img src={shapeStep3} alt="Shape-Button"/>
+          <img src={shapeStep3} alt="Shape-Button" width="100%"/>
         </div>
 
         <Link to="/" className="shape-send-button">
