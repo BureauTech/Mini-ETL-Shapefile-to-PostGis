@@ -7,12 +7,17 @@ import './styles.css';
 
 function Connection() {
 
-  const [local, setLocal] = useState();
-  const [portal, setPortal] = useState();
-  const [table, setTable] = useState();
-  const [user, setUser] = useState();
-  const [password, setPassword] = useState();
+  const [host, setLocal] = useState();
+  const [porta, setPortal] = useState();
+  const [bd, setTable] = useState();
+  const [usuario, setUser] = useState();
+  const [senha, setPassword] = useState();
+  const url = "/bomdia"; // site that doesn’t send Access-Control-*
 
+  fetch(url)
+  .then((response) => response.text())
+  .then((data) => console.log('This is your data', data));
+  {
     return (
         <div className="db-container">
           <div className="post-step1-button">
@@ -30,7 +35,7 @@ function Connection() {
               onChange={event => setPortal(event.target.value)}
             />
 
-            <label htmlFor="">Tabela</label>
+            <label htmlFor="">Banco</label>
             <input type="text"
               onChange={event => setTable(event.target.value)}
             />
@@ -45,10 +50,11 @@ function Connection() {
               onChange={event => setPassword(event.target.value)}
             />
 
-            <button type="submit" onClick={() => console.log('CONSOLA AÍ DOIDAO', local, portal, table, user, password)}>CONECTAR COM O BANCO DE DADOS</button>
+            <button type="submit" onClick={() => alert(host + "\n" + porta + "\n" + bd + "\n" + usuario + "\n" + senha)}>CONECTAR COM O BANCO DE DADOS</button>
           </form>
         </div>
     )
+  }
 }
 
 export default Connection;
