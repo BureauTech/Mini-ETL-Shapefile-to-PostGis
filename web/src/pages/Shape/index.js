@@ -23,7 +23,7 @@ function Shape() {
       <div className="main-container">
         <div className="shape-step1-header">
           <p>1</p>
-          <span> Carregue seus arquivos shapefile para seu banco de dados POSTGRESQL com segurança.</span>
+          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
         </div>
         
         <div className="shape-step1-button">
