@@ -16,15 +16,24 @@ const Connection = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  const url = "/bomdia"; // site that doesn’t send Access-Control-*
 
-  fetch(url)
-  .then((response) => response.text())
-  .then((data) => console.log('This is your data', data));
-  {
+//  const url = "/bomdia"; // site that doesn’t send Access-Control-*
+
+//  fetch(url)
+//  .then((response) => response.text())
+//  .then((data) => console.log('This is your data', data));
+//  {
 
   const bdConnect = () => {
-    console.log('consola aí pf');
+    setLoading(true);
+    api.get('items')
+      .then(response => {
+        console.log('retorno do get', response);
+    })
+    .catch(err => {
+      console.log('deu ruim bb', err);
+    })
+    
   } 
     return (
         <div className="db-container">
@@ -58,14 +67,13 @@ const Connection = () => {
               onChange={event => setPassword(event.target.value)}
             />
 
-            <button type="submit" onClick={() => alert
-              (local + "\n" + portal + "\n" + table + "\n" + user + "\n" + password)}>
+            <button type="button" onClick={bdConnect}>
               CONECTAR COM O BANCO DE DADOS
             </button>
           </form>
         </div>
     )
-  }
 }
+
 
 export default Connection;
