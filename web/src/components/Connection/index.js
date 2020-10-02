@@ -16,11 +16,16 @@ const Connection = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+  const url = "/bomdia"; // site that doesn’t send Access-Control-*
+
+  fetch(url)
+  .then((response) => response.text())
+  .then((data) => console.log('This is your data', data));
+  {
 
   const bdConnect = () => {
     console.log('consola aí pf');
   } 
-
     return (
         <div className="db-container">
           <div className="post-step1-button">
@@ -38,7 +43,7 @@ const Connection = () => {
               onChange={event => setPortal(event.target.value)}
             />
 
-            <label htmlFor="">Tabela</label>
+            <label htmlFor="">Banco</label>
             <input type="text"
               onChange={event => setTable(event.target.value)}
             />
@@ -53,10 +58,14 @@ const Connection = () => {
               onChange={event => setPassword(event.target.value)}
             />
 
-            <button type="button" onClick={bdConnect}>CONECTAR COM O BANCO DE DADOS</button>
+            <button type="submit" onClick={() => alert
+              (local + "\n" + portal + "\n" + table + "\n" + user + "\n" + password)}>
+              CONECTAR COM O BANCO DE DADOS
+            </button>
           </form>
         </div>
     )
+  }
 }
 
 export default Connection;
