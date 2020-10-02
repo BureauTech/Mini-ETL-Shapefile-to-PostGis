@@ -1,17 +1,25 @@
 import React, {useEffect, useState} from 'react';
 
+//API
+import api from '../../services/api';
+
 import postStep1 from '../../assets/img/notebook-background.png';
 
 import './styles.css';
 
 
-function Connection() {
+const Connection = () => {
 
   const [local, setLocal] = useState();
   const [portal, setPortal] = useState();
   const [table, setTable] = useState();
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const bdConnect = () => {
+    console.log('consola aí pf');
+  } 
 
     return (
         <div className="db-container">
@@ -45,7 +53,7 @@ function Connection() {
               onChange={event => setPassword(event.target.value)}
             />
 
-            <button type="button" onClick={() => console.log('CONSOLA AÍ DOIDAO', local, portal, table, user, password)}>CONECTAR COM O BANCO DE DADOS</button>
+            <button type="button" onClick={bdConnect}>CONECTAR COM O BANCO DE DADOS</button>
           </form>
         </div>
     )
