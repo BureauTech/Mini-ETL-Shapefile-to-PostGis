@@ -1,6 +1,9 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
+//API
+import api from '../../services/api';
+
 //Components
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
@@ -14,7 +17,7 @@ import postStep3 from '../../assets/img/de-para-post.png';
 //Style
 import "./styles.css";
 
-function Post() {
+const Post = () => {
   return (
     <>
       <Header />

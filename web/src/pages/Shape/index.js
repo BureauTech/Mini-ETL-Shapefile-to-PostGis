@@ -14,7 +14,7 @@ import shapeStep3 from '../../assets/img/de-para-shape.png';
 //Styles
 import "./styles.css";
 
-function Shape() {
+const Shape = () => {
   return (
     <>
       <Header />

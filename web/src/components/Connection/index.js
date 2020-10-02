@@ -25,7 +25,7 @@ function Connection() {
               onChange={event => setLocal(event.target.value)}
             />
 
-            <label htmlFor="">Porta</label>
+            <label htmlFor="">Portal</label>
             <input type="text" 
               onChange={event => setPortal(event.target.value)}
             />
@@ -45,7 +45,7 @@ function Connection() {
               onChange={event => setPassword(event.target.value)}
             />
 
-            <button type="submit" onClick={() => console.log('CONSOLA AÍ DOIDAO', local, portal, table, user, password)}>CONECTAR COM O BANCO DE DADOS</button>
+            <button type="button" onClick={() => console.log('CONSOLA AÍ DOIDAO', local, portal, table, user, password)}>CONECTAR COM O BANCO DE DADOS</button>
           </form>
         </div>
     )
