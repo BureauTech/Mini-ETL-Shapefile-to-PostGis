@@ -20,7 +20,7 @@ function Footer() {
           <div>
             <p>CONVERSOR</p>
             <Link to="/shape">
-              <span>Shapefile - Postqgis</span>
+              <span>Shapefile - Postgis</span>
             </Link>
             <Link to="/post">
               <span>Postgis - Shapefile</span>
