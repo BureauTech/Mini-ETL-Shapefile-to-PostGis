@@ -99,10 +99,6 @@
     margin: 3rem 0 0 1rem;
 }
 
-.shape-step3-button {
-    display: block;
-}
-
 .shape-send-button {
     flex: 1;
     display: flex;
@@ -120,4 +116,48 @@
 
     font: 700 4.0rem Montserrat;
     color: #fff;
+}
+
+.shape-step3-de-para {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+
+    margin: 4rem 0 0 0;
+
+    border: 10px solid;
+    border-image-source: linear-gradient(135deg, #241140, #891750);
+    border-image-slice: 1;
+
+    background: #da1c5c;
+    background: linear-gradient(90deg, #da1c5c 0%,#75164d 71%);
+}
+
+.shape-step3-de-para h1 {
+color: #fff;
+font: 700 3.5rem Montserrat;
+margin: 3rem 0 0 0;
+}
+
+.shape-step3-selection {
+    flex:1;
+    display: flex;
+    flex-direction: row;
+
+    margin: 0;
+}
+
+.columns {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+
+    margin: 4rem 0 0 0;margin: 4rem;
+}
+
+.fields {
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    font: 1.4rem Montserrat;
+    margin-bottom: 1rem;
 }
