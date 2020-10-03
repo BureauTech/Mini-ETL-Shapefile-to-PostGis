@@ -11,7 +11,7 @@ import Footer from '../../components/Footer';
 
 import "./styles.css";
 
-function Home() {
+const Home = () => {
   return (
     <>
       <Header />

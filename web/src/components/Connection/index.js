@@ -45,6 +45,7 @@ const Connection = () => {
     .catch(err => {
       console.log('deu ruim bb', err);
     });
+
   } 
     return (
         <div className="db-container">
@@ -88,5 +89,6 @@ const Connection = () => {
       
     )
 }
+
 
 export default Connection;
