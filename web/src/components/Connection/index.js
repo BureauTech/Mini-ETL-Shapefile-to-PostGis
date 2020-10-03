@@ -7,7 +7,6 @@ import postStep1 from '../../assets/img/notebook-background.png';
 
 import './styles.css';
 
-
 const Connection = () => {
 
   const [local, setLocal] = useState();
@@ -26,14 +25,27 @@ const Connection = () => {
 
   const bdConnect = () => {
     setLoading(true);
-    api.get('items')
-      .then(response => {
-        console.log('retorno do get', response);
+    api({
+      method: 'post',
+      url: '/tables',
+      data: {
+        "host": local,
+        "porta": portal,
+        "bd": table,
+        "usuario": user,
+        "senha": password
+      }
+    })
+    .then(response => {
+      for (let i = 0; i < response.data.length; i++){
+        let object = response.data[i];
+        console.log(object)
+      }
     })
     .catch(err => {
       console.log('deu ruim bb', err);
-    })
-    
+    });
+
   } 
     return (
         <div className="db-container">
@@ -71,7 +83,10 @@ const Connection = () => {
               CONECTAR COM O BANCO DE DADOS
             </button>
           </form>
+        
         </div>
+     
+      
     )
 }
 

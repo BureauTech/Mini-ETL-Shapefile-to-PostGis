@@ -45,8 +45,26 @@ const Post = () => {
           <span>Selecione os campos para a realização do de-para.</span>
         </div>
         
-        <div className="post-step3-button">
-          <img src={postStep3} alt="Shape-Button" width="100%"/>
+        <div className="post-step3-de-para">
+        
+            <h1>DE-PARA</h1>
+
+            <div className="post-step3-selection">
+            <form className="columns">
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+            </form>
+
+            <form className="columns">
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+            </form>
+            </div>
+            
         </div>
 
         <Link to="/" className="post-send-button">

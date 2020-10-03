@@ -23,7 +23,7 @@ const Shape = () => {
       <div className="main-container">
         <div className="shape-step1-header">
           <p>1</p>
-          <span> Carregue seus arquivos shapefile para seu banco de dados POSTGRESQL com segurança.</span>
+          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
         </div>
         
         <div className="shape-step1-button">
@@ -42,8 +42,26 @@ const Shape = () => {
           <span>Selecione os campos para a realização do de-para.</span>
         </div>
         
-        <div className="shape-step3-button">
-          <img src={shapeStep3} alt="Shape-Button" width="100%"/>
+        <div className="shape-step3-de-para">
+        
+            <h1>DE-PARA</h1>
+
+            <div className="shape-step3-selection">
+            <form className="columns">
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+            </form>
+
+            <form className="columns">
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+            </form>
+            </div>
+            
         </div>
 
         <Link to="/" className="shape-send-button">

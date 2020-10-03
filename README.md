@@ -28,6 +28,15 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 <div align="center">
     <img src="/assets/images/png/diagrama-use-case.png">
 </div>
+=======
+## API Start-up/config
+#### 1. Open the API folder on eclipse
+#### 2. Right click on it and select export -> WAR
+#### 3. Put the WAR file in the webapps folder on tomcat 
+
+## API Services
+#### {localhost}/API/rest/bomdia -> Return String "bomdia"
+
 
 # Cronograma 
 
