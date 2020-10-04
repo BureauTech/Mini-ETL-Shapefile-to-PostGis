@@ -21,6 +21,7 @@
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<geotools.version>24-SNAPSHOT</geotools.version>
+		<java.version>11</java.version>
 		<path.shared.gdal>/path/to/apache-tomcat/shared/lib</path.shared.gdal>
 		<geotools.version>25-SNAPSHOT</geotools.version>
 	</properties>
