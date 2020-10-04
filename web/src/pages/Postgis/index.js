@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+
+//Context
+import AppContext from '../../context';
 
 //API
 import api from '../../services/api';
@@ -17,6 +20,43 @@ import postStep2 from '../../assets/img/post-shape-new.png';
 import "./styles.css";
 
 const Post = () => {
+  
+  const {shapeReturn, setShapeReturn} = useContext(AppContext);
+
+  useEffect(() => {
+    console.log('contexto aqui: ', shapeReturn);
+  }, [shapeReturn]);
+
+  const listItems = shapeReturn.map(
+    (value, index) =>
+    <label className="fields" id={index + 1} key={index}>{value}</label>
+    );
+
+  function inputFill() {
+    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    if (shapeReturn.length > 0){
+      return (
+        shapeReturn.map(
+          (value, index) =>
+          <label className="fields" id={index + 1} key={index}>{value}</label>
+          )
+        )}
+        else {
+          return (
+            <>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+            </>
+          )
+        }
+    }
+    
   return (
     <>
       <Header />
@@ -48,16 +88,9 @@ const Post = () => {
         
           <h1>DE-PARA</h1>
 
-          <div className="post-step3-selection">
+          <div className="shape-step3-selection">
             <form className="columns">
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
+              {inputFill()}
             </form>
 
             <form className="columns">
