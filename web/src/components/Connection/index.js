@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 //API
 import api from '../../services/api';
+import AppContext from '../../context';
 
 import postStep1 from '../../assets/img/notebook-background.png';
 
@@ -15,6 +16,11 @@ const Connection = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+  const {shapeReturn, setShapeReturn} = useContext(AppContext);
+
+  useEffect(() => {
+    console.log('context here: ', shapeReturn);
+  }, [shapeReturn]);
 
 //  const url = "/bomdia"; // site that doesn’t send Access-Control-*
 
@@ -37,11 +43,9 @@ const Connection = () => {
       }
     })
     .then(response => {
-      for (let i = 0; i < response.data.length; i++){
-        let object = response.data[i];
-        console.log(object)
+        setShapeReturn(response.data);
       }
-    })
+    )
     .catch(err => {
       console.log('deu ruim bb', err);
     });
