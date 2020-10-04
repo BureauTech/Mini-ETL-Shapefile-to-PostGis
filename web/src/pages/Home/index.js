@@ -1,8 +1,8 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'; 
 
-import Shape from '../../assets/img/shape-post.png';
-import Post from '../../assets/img/post-shape.png'; 
+import Shape from '../../assets/img/shape-post-home.png';
+import Post from '../../assets/img/post-shape-home.png'; 
 
 //Components
 import Header from '../../components/Header';
@@ -11,7 +11,7 @@ import Footer from '../../components/Footer';
 
 import "./styles.css";
 
-function Home() {
+const Home = () => {
   return (
     <>
       <Header />
@@ -25,7 +25,7 @@ function Home() {
         
         <div className="shape-button">
           <Link to="/shape">
-            <img src={Shape} alt="Shape-Button"/>
+            <img src={Shape} alt="Shape-Button" width="100%"/>
           </Link>
         </div>
 
@@ -36,7 +36,7 @@ function Home() {
         
         <div className="post-button">
           <Link to="/post">
-            <img src={Post} alt="Shape-Button"/>
+            <img src={Post} alt="Shape-Button" width="100%"/>
           </Link>
         </div>
       </div>

@@ -18,7 +18,7 @@ Save time, save data. </h3> <br>
 Shapegis é um software que realiza a conversão de dados do ShapeFile para PostGIS e vice-e-versa.  
 
 <div align="center">
-    <img src="/assets/images/gif/tour.gif">
+    <img src="/assets/images/gif/tour-sprint2.gif">
 </div>
 
 O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixando a plataforma mais intuitiva. É um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
@@ -59,3 +59,4 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 ### [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas) - DEV Team<br/>
  
 ### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
+
