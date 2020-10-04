@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+
+//Context
+import AppContext from '../../context';
+
+//API
+import api from '../../services/api';
 
 //Components
 import Header from '../../components/Header';
@@ -9,12 +15,48 @@ import Connection from '../../components/Connection';
 
 //Assets
 import postStep2 from '../../assets/img/post-shape-new.png';
-import postStep3 from '../../assets/img/de-para-post.png';
 
 //Style
 import "./styles.css";
 
-function Post() {
+const Post = () => {
+  
+  const {shapeReturn, setShapeReturn} = useContext(AppContext);
+
+  useEffect(() => {
+    console.log('contexto aqui: ', shapeReturn);
+  }, [shapeReturn]);
+
+  const listItems = shapeReturn.map(
+    (value, index) =>
+    <label className="fields" id={index + 1} key={index}>{value}</label>
+    );
+
+  function inputFill() {
+    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    if (shapeReturn.length > 0){
+      return (
+        shapeReturn.map(
+          (value, index) =>
+          <label className="fields" id={index + 1} key={index}>{value}</label>
+          )
+        )}
+        else {
+          return (
+            <>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+            </>
+          )
+        }
+    }
+    
   return (
     <>
       <Header />
@@ -44,14 +86,11 @@ function Post() {
         
         <div className="post-step3-de-para">
         
-            <h1>DE-PARA</h1>
+          <h1>DE-PARA</h1>
 
-            <div className="post-step3-selection">
+          <div className="shape-step3-selection">
             <form className="columns">
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
+              {inputFill()}
             </form>
 
             <form className="columns">
@@ -59,8 +98,12 @@ function Post() {
               <label className="fields">PARA</label>
               <label className="fields">PARA</label>
               <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
             </form>
-            </div>
+          </div>
             
         </div>
 

@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+
+//Context
+import AppContext from '../../context';
 
 //Components
 import Header from '../../components/Header';
@@ -14,7 +17,44 @@ import shapeStep3 from '../../assets/img/de-para-shape.png';
 //Styles
 import "./styles.css";
 
-function Shape() {
+const Shape = () => {
+
+  const {shapeReturn, setShapeReturn} = useContext(AppContext);
+
+  useEffect(() => {
+    console.log('contexto aqui: ', shapeReturn);
+  }, [shapeReturn]);
+
+  const listItems = shapeReturn.map(
+    (value, index) =>
+    <label className="fields" id={index + 1} key={index}>{value}</label>
+    );
+
+  function inputFill() {
+    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    if (shapeReturn.length > 0){
+      return (
+        shapeReturn.map(
+          (value, index) =>
+          <label className="fields" id={index + 1} key={index}>{value}</label>
+          )
+        )}
+        else {
+          return (
+            <>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+            </>
+          )
+        }
+    }
+
   return (
     <>
       <Header />
@@ -44,14 +84,11 @@ function Shape() {
         
         <div className="shape-step3-de-para">
         
-            <h1>DE-PARA</h1>
+          <h1>DE-PARA</h1>
 
-            <div className="shape-step3-selection">
+          <div className="shape-step3-selection">
             <form className="columns">
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
-              <label className="fields">DE</label>
+              {inputFill()}
             </form>
 
             <form className="columns">
@@ -59,8 +96,12 @@ function Shape() {
               <label className="fields">PARA</label>
               <label className="fields">PARA</label>
               <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
             </form>
-            </div>
+          </div>
             
         </div>
 
