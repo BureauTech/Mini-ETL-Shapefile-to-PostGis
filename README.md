@@ -28,7 +28,7 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 <div align="center">
     <img src="/assets/images/png/diagrama-use-case.png">
 </div>
-=======
+
 ## API Start-up/config
 #### 1. Open the API/shapegis project on spring tool"
 #### 2. Start the springboot
