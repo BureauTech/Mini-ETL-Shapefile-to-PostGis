@@ -12,7 +12,6 @@ import Connection from '../../components/Connection';
 
 //Assets
 import postStep2 from '../../assets/img/post-shape-new.png';
-import postStep3 from '../../assets/img/de-para-post.png';
 
 //Style
 import "./styles.css";
@@ -47,10 +46,14 @@ const Post = () => {
         
         <div className="post-step3-de-para">
         
-            <h1>DE-PARA</h1>
+          <h1>DE-PARA</h1>
 
-            <div className="post-step3-selection">
+          <div className="post-step3-selection">
             <form className="columns">
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
               <label className="fields">DE</label>
               <label className="fields">DE</label>
               <label className="fields">DE</label>
@@ -62,8 +65,12 @@ const Post = () => {
               <label className="fields">PARA</label>
               <label className="fields">PARA</label>
               <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
             </form>
-            </div>
+          </div>
             
         </div>
 
