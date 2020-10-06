@@ -1,16 +1,21 @@
 package org.fatec.shapegis.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -62,6 +67,29 @@ public class ShapegisController {
 		//Fecha conexao
 		conn.close();
 		return fields;
+	}
+	
+	@PostMapping(path="/upload", consumes="multipart/form-data", produces="application/json")
+	public ResponseEntity<?> upload(@RequestParam(value="file") MultipartFile[] files) throws IOException{
+		
+		for (MultipartFile file : files) {
+			 File f= new File(System.getProperty("user.home"),file.getOriginalFilename());
+			   try {
+			        file.transferTo(f); //Transfer or Saving in local memory 
+			    } catch (IllegalStateException e) {
+			        e.printStackTrace();
+			    } catch (IOException e) {
+			                e.printStackTrace();
+			            }
+			        }
+
+
+			    return null;
+			} 
+		
+		
+		return null;
+		
 	}
 	
 	/*@RequestMapping("/database")
