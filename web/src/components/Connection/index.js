@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import api from '../../services/api';
 import AppContext from '../../context';
 
-import postStep1 from '../../assets/img/notebook-background.png';
+import postStep1 from '../../assets/img/test-image.png';
 
 import './styles.css';
 
