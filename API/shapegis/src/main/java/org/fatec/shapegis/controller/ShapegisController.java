@@ -72,25 +72,22 @@ public class ShapegisController {
 	@PostMapping(path="/upload", consumes="multipart/form-data", produces="application/json")
 	public ResponseEntity<?> upload(@RequestParam(value="file") MultipartFile[] files) throws IOException{
 		
-		for (MultipartFile file : files) {
-			 File f= new File(System.getProperty("user.home"),file.getOriginalFilename());
-			   try {
-			        file.transferTo(f); //Transfer or Saving in local memory 
-			    } catch (IllegalStateException e) {
-			        e.printStackTrace();
-			    } catch (IOException e) {
-			                e.printStackTrace();
-			            }
-			        }
-
-
-			    return null;
-			} 
-		
-		
-		return null;
-		
+	for (MultipartFile file : files) {
+	 File d = new File(System.getProperty("user.home") + "/ShapeGIS/tmp");
+	 d.mkdirs();
+	 File f= new File(System.getProperty("user.home") + "/ShapeGIS/tmp",file.getOriginalFilename());
+	   try {
+	        file.transferTo(f); //Transfer or Saving in local memory 
+	    } catch (IllegalStateException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	                e.printStackTrace();
+	    }
 	}
+		return null;
+	}
+}
+
 	
 	/*@RequestMapping("/database")
 	public List<String> getDataBase(@RequestParam String usuario, @RequestParam String senha, @RequestParam String endereco,
@@ -128,5 +125,5 @@ public class ShapegisController {
 		return conn.getResult();
 	}
 	*/
-}
+
 
