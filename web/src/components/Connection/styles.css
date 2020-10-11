@@ -24,9 +24,12 @@
 }
 
 .forms-content label{
-    text-align: initial;
+    text-align: left;
     display: block;
-    margin: 1rem 0;
+    float: left;
+    width: 30%;
+    padding-left: 10px;
+
 }
 
 .forms-content input{
