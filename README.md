@@ -7,8 +7,10 @@ Save time, save data. </h3> <br>
 
  <p align="center">
     <a href="#Sobre-o-projeto">Sobre o projeto</a> •
-    <a href="#Conexão">Conexão</a> •
+    <a href="#Conexao">Conexão</a> •
     <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
+    <a href="#Backlog">Backlog</a> •
+    <a href="#Desenvolvimento-da-Solucao">Progresso de desenvolvimento</a> •
     <a href="#Cronograma">Cronograma</a> •
     <a href="#Equipe">Equipe</a>
  </p> 
@@ -40,18 +42,24 @@ Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
     <img src="/assets/images/png/diagrama-use-case.png">
 </div>
 
+# Backlog
+
+<div align="center">
+    <img src="/assets/images/jpeg/cards.jpeg">
+</div>
+
+# Progresso de desenvolvimento
+
+Acompanhe o progresso do desenvolvimento da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3)
+
 # Cronograma 
 
 | Data | Links |
 | ------ | ------ |
 |    20/09/2020    |[Sprint 1](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-1) |
-|    04/10/2020    |[Sprint 2](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-2) |
-|    18/10/2020    |[Sprint 3](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3) |
-|    01/11/2020    |[Sprint 4](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4) |
-|    15/11/2020    |[Sprint 5](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-5) |
-|    29/11/2020    |[Sprint 6](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-6) |
-
-#### :memo: Acompanhe o progresso da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3).
+|    18/10/2020    |[Sprint 2](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-2) |
+|    08/11/2020    |[Sprint 3](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3) |
+|    29/11/2020    |[Sprint 4](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4) |
 
 # Equipe 
 
