@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 //Context
 import AppContext from '../../context';
@@ -12,6 +13,7 @@ import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 import Connection from '../../components/Connection';
+import UploadPost from '../../components/Upload-Post';
 
 //Assets
 import postStep2 from '../../assets/img/post-shape-new.png';
@@ -56,7 +58,8 @@ const Post = () => {
           )
         }
     }
-    
+  
+
   return (
     <>
       <Header />
@@ -75,9 +78,7 @@ const Post = () => {
           <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
         
-        <div className="post-step2-button">
-          <img src={postStep2} alt="Shape-Button" width="100%"/>
-        </div>
+        <UploadPost/>
 
         <div className="post-step3-header">
           <p>3</p>
@@ -110,9 +111,6 @@ const Post = () => {
         <Link to="/" className="post-send-button">
           REALIZAR CARGA
         </Link>
-
-        
-
       </div>
 
       <Footer/>
