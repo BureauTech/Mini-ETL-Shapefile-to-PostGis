@@ -8,9 +8,9 @@ Save time, save data. </h3> <br>
  <p align="center">
     <a href="#Sobre-o-projeto">Sobre o projeto</a> •
     <a href="#Conexao">Conexão</a> •
-    <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
     <a href="#Backlog">Backlog</a> •
-    <a href="#Desenvolvimento-da-Solucao">Progresso de desenvolvimento</a> •
+    <a href="#Progresso-de-desenvolvimento">Progresso de desenvolvimento</a> •
+    <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
     <a href="#Cronograma">Cronograma</a> •
     <a href="#Equipe">Equipe</a>
  </p> 
@@ -28,7 +28,7 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
 
 # Conexão
 
-Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
+Para conexão ao banco de testes criado pela equipe, é necessária a inclusão das credenciais descritas abaixo:
 
 Local: ec2-54-236-146-234.compute-1.amazonaws.com<br>
 Porta: 5432<br>
@@ -36,21 +36,21 @@ Banco: d37cv1n45fhse1<br>
 Usuário: thpzxfrcqwklpj<br>
 Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
 
-# Diagrama de caso de uso
-
-<div align="center">
-    <img src="/assets/images/png/diagrama-use-case.png">
-</div>
-
 # Backlog
 
 <div align="center">
-    <img src="/assets/images/jpeg/cards.jpeg">
+    <img src="/assets/images/png/cards.png">
 </div>
 
 # Progresso de desenvolvimento
 
 Acompanhe o progresso do desenvolvimento da solução nos [cards de atividades](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3)
+
+# Diagrama de caso de uso
+
+<div align="center">
+    <img src="/assets/images/png/diagrama-use-case.png">
+</div>
 
 # Cronograma 
 
