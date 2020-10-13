@@ -58,8 +58,8 @@ Acompanhe o progresso do desenvolvimento da solução nos [cards de atividades](
 | ------ | ------ |
 |    20/09/2020    |[Sprint 1](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-1) |
 |    18/10/2020    |[Sprint 2](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-2) |
-|    08/11/2020    |[Sprint 3](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3) |
-|    29/11/2020    |[Sprint 4](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4) |
+|    08/11/2020    |Sprint 3 |
+|    29/11/2020    |Sprint 4 |
 
 # Equipe 
 
