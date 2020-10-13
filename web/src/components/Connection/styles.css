@@ -1,12 +1,18 @@
 .db-container {
     flex: 1;
     display: flex;
-    height: 100vh;
+    height: 62.5vh;
+    width: 100%;
+    
+
 
     align-items: center;
     flex-direction: row;
 
-    background: radial-gradient(circle at 50% -20.71%, #cbe7e1 0, #cae7e3 6.25%, #c9e7e6 12.5%, #c9e7e8 18.75%, #c9e7eb 25%, #c9e7ed 31.25%, #cae6ef 37.5%, #cbe6f1 43.75%, #cde5f2 50%, #cfe4f3 56.25%, #d1e4f4 62.5%, #d4e3f5 68.75%, #d7e2f5 75%, #dae1f5 81.25%, #dde0f4 87.5%, #e0e0f4 93.75%, #e3dff2 100%);
+    background-image: url('../../assets/img/post-shape-connection.png') ;
+    background-size: 100%;
+
+   
 }
 
 .post-step1-button{
@@ -18,7 +24,8 @@
     align-items: flex-end;
     
     font: 400 2rem Montserrat;
-    padding: 2rem;  
+    padding: 2rem; 
+    height: 70%; 
     justify-content: flex-end;
 
 }
@@ -27,24 +34,77 @@
     text-align: left;
     display: block;
     float: left;
-    width: 30%;
+    width: 20%;
     padding-left: 10px;
+    margin-top: 10px;
+    color: rgb(255, 255, 255);
+    
+    
 
 }
 
 .forms-content input{
     height: 28px;
+    margin: 10px;
+    border:1px solid rgb(255, 188, 91);
+    border-radius:4px;
+
 }
 
-.db-container button {
-    display: flex;
+.db-container button{
+
+    
+    border:1px solid rgb(255, 188, 91);
+    border-radius:4px;
+    
+
+    display:inline-block;
     height: 45px;
+    cursor:pointer;
 
 
-    margin: 30px;
+    margin-top: 8px;
+    
     padding: 5px 40px;
     font: 700 1.5rem Montserrat;
 
     color: rgb(255, 255, 255);
-    background: rgba(103, 145, 209, 0.952);
+    background: rgb(255, 188, 91);
+
 }
+
+.db-container button:link,
+.db-container button:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    position: absolute;
+}
+
+.db-container button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.db-container button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.db-container button::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+

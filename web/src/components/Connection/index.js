@@ -4,7 +4,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import api from '../../services/api';
 import AppContext from '../../context';
 
-import postStep1 from '../../assets/img/test-image.png';
+import postStep1 from '../../assets/img/notebook-background.png';
 
 import './styles.css';
 
@@ -52,18 +52,18 @@ const Connection = () => {
 
   } 
     return (
-        <div className="db-container">
-          <div className="post-step1-button">
-            <img src={postStep1} alt="Shape-Button" width="100%"/>
+        <div className="db-container" width="100%">
+          <div className="post-step1-button" width="100%">
+            <img src={postStep1} alt="Shape-Button" width="80%"/>
           </div>
-
+          
           <form className="forms-content">
             <label htmlFor="">Local</label>
             <input type="text" 
               onChange={event => setLocal(event.target.value)}
             />
 
-            <label htmlFor="">Portal</label>
+            <label htmlFor="">Porta</label>
             <input type="text" 
               onChange={event => setPortal(event.target.value)}
             />
@@ -84,7 +84,7 @@ const Connection = () => {
             />
 
             <button type="button" onClick={bdConnect}>
-              CONECTAR COM O BANCO DE DADOS
+              CONECTAR
             </button>
           </form>
         
