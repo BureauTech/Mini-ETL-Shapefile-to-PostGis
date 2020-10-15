@@ -67,8 +67,12 @@ const Shape = () => {
           <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
         </div>
         
-        <UploadShape/>
+        <form method="POST" encType="multipart/form-data">
+          <UploadShape></UploadShape>
+          <input type="submit" value="Upload"/>
 
+        </form>
+     
         <div className="shape-step2-header">
           <p>2</p>
           <span>Conecte-se com o seu Banco de Dados.</span>
@@ -101,15 +105,13 @@ const Shape = () => {
               <label className="fields">PARA</label>
             </form>
           </div>
-            
         </div>
 
         <Link to="/" className="shape-send-button">
           REALIZAR CARGA
         </Link>
-
       </div>
-      
+
       <Footer />
     </>
   );
