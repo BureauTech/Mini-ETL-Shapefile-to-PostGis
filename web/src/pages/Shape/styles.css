@@ -161,3 +161,22 @@ margin: 3rem 0 0 0;
     font: 1.4rem Montserrat;
     margin-bottom: 1rem;
 }
+
+.upload-button {
+    flex: 1;
+    display: flex;
+
+    margin: 4rem 0 0 0;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    height: 30px;
+    width: 100%;
+    
+    background: #3c7e83;
+
+    font: 700 2.0rem Montserrat;
+    color: #fff;
+}
