@@ -39,7 +39,7 @@ Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
 # Backlog
 
 <div align="center">
-    <img src="/assets/images/png/cards.png">
+    <img src="/assets/images/jpeg/cards.jpeg">
 </div>
 
 # Progresso de desenvolvimento
