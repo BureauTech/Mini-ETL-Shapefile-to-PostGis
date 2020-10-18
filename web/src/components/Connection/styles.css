@@ -1,47 +1,90 @@
 .db-container {
     flex: 1;
     display: flex;
-    height: 56.8vh;
-    width: 100%;
+    padding: 40px;
     
 
 
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 
-    background-image: url('../../assets/img/post-shape-connection.png') ;
-    background-size: 100%;
+    /*background-image: url('../../assets/img/post-shape-connection.png') ;
+    */
+    background: rgb(230, 140, 11);
+
+    border: 10px solid;
+    border-color: rgb(255, 188, 91);
 
    
 }
+
+.db-container-title h1 {
+    color: #fff;
+    font: 700 3.0rem Montserrat;
+    margin-bottom: 20px;
+    }
 
 .post-step1-button{
     flex: 1;
 
 }
-.forms-content {
+
+
+.forms-content-label-text-box{
     flex: 1;
-    align-items: flex-end;
-    
-    font: 400 2rem Montserrat;
-    padding: 1rem; 
-    height: 70%; 
-    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
 
 }
 
-.forms-content label{
-    text-align: left;
-    display: block;
-    float: left;
-    width: 20%;
-    padding-left: 10px;
-    margin-top: 10px;
+.forms-content-label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    font: 400 2rem Montserrat;
+    
+    /*padding-left: 50px; 
+    */
+    justify-content: flex-end;
+    /*border: solid 2px black;
+    */
+
+}
+
+.forms-content-label label{
+    
+    text-align: right;
+    float: right;
+    margin-right: 2px;
+    font-size: 19px;
+    margin-bottom: 10px;
     color: rgb(255, 255, 255);
     
     
 
 }
+
+.forms-content-text-box {
+
+    width: 20%;
+    margin-right: 90px;
+
+    /*border: solid 2px blue;
+    */
+
+}
+
+.forms-content-text-box .txtbox{
+    margin-bottom: 12px;
+    border: 3px solid orange;
+    border-radius: 4px;
+}
+
+
+
 
 .forms-content input{
     height: 28px;
@@ -107,4 +150,5 @@
     z-index: -1;
     transition: all .4s;
 }
+
 

@@ -53,44 +53,58 @@ const Connection = () => {
   } 
     return (
         <div className="db-container" width="100%">
+              <div className="db-container-title" width="100%">
+                <h1>CONEXÃO COM O BANCO DE DADOS</h1>
+              </div>
+
+
+          
+          <form className="forms-content-label-text-box" width="100%">
+        
           <div className="post-step1-button" width="100%">
-            <img src={postStep1} alt="Shape-Button" width="80%"/>
+                  <img src={postStep1} alt="Shape-Button" width="80%"/>
           </div>
           
-          <form className="forms-content">
-            <label htmlFor="">Local</label>
-            <input type="text" 
-              onChange={event => setLocal(event.target.value)}
-            />
+                  <form className="forms-content-label">
+                      <label htmlFor="">Local</label>
+                      <label htmlFor="">Porta</label>
+                      <label htmlFor="">Banco</label>
+                      <label htmlFor="">Usuário</label>
+                      <label htmlFor="">Senha</label>
 
-            <label htmlFor="">Porta</label>
-            <input type="text" 
-              onChange={event => setPortal(event.target.value)}
-            />
+                  </form>
 
-            <label htmlFor="">Banco</label>
-            <input type="text"
-              onChange={event => setTable(event.target.value)}
-            />
+                  <form className="forms-content-text-box">
 
-            <label htmlFor="">Usuário</label>
-            <input type="text"
-              onChange={event => setUser(event.target.value)}
-            />
+                    <input type="text" className="txtbox" 
+                      onChange={event => setLocal(event.target.value)}
+                    />
+                    
+                    <input type="text" className="txtbox" 
+                      onChange={event => setPortal(event.target.value)}
+                    />
+                    
+                    <input type="text" className="txtbox" 
+                      onChange={event => setTable(event.target.value)}
+                    />
 
-            <label htmlFor="">Senha</label>
-            <input type="password" 
-              onChange={event => setPassword(event.target.value)}
-            />
+                    <input type="text" className="txtbox" 
+                      onChange={event => setUser(event.target.value)}
+                    />
 
-            <button type="button" onClick={bdConnect}>
-              CONECTAR
-            </button>
-          </form>
-        
-        </div>
-     
-      
+                    <input type="password" className="txtbox" 
+                      onChange={event => setPassword(event.target.value)}
+                    />
+                  </form> 
+
+                </form>
+                
+              <button type="button" onClick={bdConnect}>  
+                CONECTAR
+              </button>   
+
+      </div>
+
     )
 }
 
