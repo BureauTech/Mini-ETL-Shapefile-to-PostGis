@@ -7,8 +7,10 @@ Save time, save data. </h3> <br>
 
  <p align="center">
     <a href="#Sobre-o-projeto">Sobre o projeto</a> •
-    <a href="#Conexão">Conexão</a> •
     <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
+    <a href="#Conexão">Conexão</a> •
+    <a href="#Backlog">Backlog</a> •
+    <a href="#Kanban-de-Atividades">Kanban de Atividades</a> •
     <a href="#Cronograma">Cronograma</a> •
     <a href="#Equipe">Equipe</a>
  </p> 
