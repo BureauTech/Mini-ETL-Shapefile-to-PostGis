@@ -24,6 +24,12 @@ Shapegis é um software que realiza a conversão de dados do ShapeFile para Post
 
 O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixando a plataforma mais intuitiva. É um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
 
+# Diagrama de caso de uso
+
+<div align="center">
+    <img src="/assets/images/png/diagrama-use-case.png">
+</div>
+
 # Conexão
 
 Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
@@ -34,11 +40,35 @@ Banco: d37cv1n45fhse1<br>
 Usuário: thpzxfrcqwklpj<br>
 Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
 
-# Diagrama de caso de uso
+# Backlog
 
 <div align="center">
-    <img src="/assets/images/png/diagrama-use-case.png">
+    <img src="/assets/images/jpeg/cards.jpeg">
 </div>
+
+# Kanban de Atividades
+
+Para organizar as atividades a serem feitas pelo grupo, separamos as colunas a seguir:
+
+### Backlog 
+Coluna com as funcionalidades a serem desenvolvidadas do projeto.
+
+### Tarefas (outros)
+Atividades indiretamente relacionadas às entregas. Como por exemplo organização e documentação.
+
+### To do
+Atividades a serem realizadas.
+
+### In Progress
+Atividades em andamento.
+
+### Done (Sprints)
+Features concluídas.
+
+### Done (P&D)
+Pesquisas concluídas.
+
+## Nosso Kanban pode ser acessado aqui: 
 
 # Cronograma 
 
