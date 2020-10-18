@@ -139,21 +139,6 @@ font: 700 3.5rem Montserrat;
 margin: 3rem 0 0 0;
 }
 
-.shape-step3-de-para .fields {
-    color: #333333;
-    font: 2rem Montserrat;
-    height: 5rem;
-    margin: 3px;
-    }
-
-.shape-step3-de-para .fields2 {
-    color: #333333;
-    font: 2rem Montserrat;
-    height: 5rem;
-    padding-top: 12px;
-    margin: 3px;
-    }
-
 .shape-step3-selection {
     flex:1;
     display: flex;
@@ -167,17 +152,15 @@ margin: 3rem 0 0 0;
     display: flex;
     flex-direction: column;
 
-    margin: 4rem 0 0 0;
+    margin: 4rem 0 0 0;margin: 4rem;
 }
 
-.fields, .fields2 {
+.fields {
     padding: 0.5rem 1rem;
     background-color: #fff;
-    font: 1rem Montserrat;
-    margin-bottom: 4rem;
+    font: 1.4rem Montserrat;
+    margin-bottom: 1rem;
 }
-
-
 
 .upload-button {
     flex: 1;
