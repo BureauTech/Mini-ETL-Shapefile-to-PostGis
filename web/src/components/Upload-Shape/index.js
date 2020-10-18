@@ -1,49 +1,46 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
+import shapeStep1 from '../../assets/img/shape-post-home.png';
 
-import shapeStep1 from '../../assets/img/shape-post-new.png';
+import '../Upload-Shape/styles';
 
-import {DropContainer, UploadMessage} from "./styles";
 
 import api from '../../services/api';
-function UploadShape() {
 
-    const [file, setFile] = useState();
+function  UploadShape() {
+  const [file, setFile] = useState();
 
-    const carregar = (() => {
-        api({
-          method: 'post',
-          url: '/upload', 
-          data: {
-              "file": file
-          } 
-        })
-        console.log('olha o file aqui: ' + file)
+      const carregar = (()  => {
+      const formData = new FormData();
+      if (file) formData.append("file", file);
+      
+          const response = api.post("/upload", formData, {
+              headers: {
+                  "Content-Type": `multipart/form-data;`,
+                  "Access-Control-Allow-Origin": `*`
+              }
+          })
+          .then(response =>  {
+            console.log("show files: " + response.data);
+            alert("Arquivo carregado com sucesso\nVá para a próxima etapa.");
+          }
+        )
+        .catch(err => {
+          console.log('deu ruim bb', err);
+        });
       })
     
     return (
-        <>
-      <Dropzone accept="multipart/form-data"  onDropAccepted={event => setFile(event.target.value)}>
-
-        {({getRootProps, getInputProps, isDragActive, isDragReject}) =>  (
-          <DropContainer
-
-            {... getRootProps()}
-            isDragActive={isDragActive}
-            isDragReject={isDragReject}
-            >
-              <input {... getInputProps()} />
-              <img src={shapeStep1} alt="Shape-Button" width="100%"/>
-            </DropContainer>
-        )}
-
-      </Dropzone>
       <div>
-        <button type="button" onClick={carregar} enctype="multipart/form-data">
-            CARREGAR
+        <img src={shapeStep1} alt="Shape-Button" width="100%"/>        
+          <input type="file" name="file"
+          style={{fontSize: 2 + 'rem'}}
+          encType="multipart/form-data" multiple onChange={event => setFile(event.target.files[0])} />   
+            <button type="button" onClick={carregar} encType="multipart/form-data" style={{fontSize: 2 + 'rem'}}>
+            CARREGAR ARQUIVOS .SHP
         </button>
-        </div>
-        </>
+    </div>
     );
-    }
+  }
+
 export default UploadShape;
