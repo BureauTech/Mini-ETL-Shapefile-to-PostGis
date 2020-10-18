@@ -13,6 +13,7 @@ import Connection from '../../components/Connection';
 import UploadShape from '../../components/Upload-Shape';
 import MenuItem from '../../components/para-shape';
 
+
 //Assets
 import shapeStep1 from '../../assets/img/shape-post-new.png';
 import shapeStep3 from '../../assets/img/de-para-shape.png';
@@ -24,6 +25,7 @@ import api from '../../services/api';
 
 const Shape = () => {
 
+
   const [Files, setFiles] = useState([]);
 
   const {shapeReturn, setShapeReturn} = useContext(AppContext);
@@ -31,7 +33,7 @@ const Shape = () => {
   useEffect(() => {
     console.log('contexto aqui: ', shapeReturn);
   }, [shapeReturn]);
-  
+
   const listItems = shapeReturn.map(
     (value, index) =>
     <label className="fields" id={index + 1} key={index}>{value}</label>
@@ -48,7 +50,7 @@ const Shape = () => {
         )}
         else {
           return (
-            <>          
+            <>
               <label className="fields2">PARA</label>
               <label className="fields2">PARA</label>
               <label className="fields2">PARA</label>
@@ -72,9 +74,10 @@ const Shape = () => {
           <p>1</p>
           <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
         </div>
-
-        <UploadShape/>
         
+
+          <UploadShape />
+
           <div className="shape-step2-header">
           
           <p>2</p>
@@ -94,8 +97,8 @@ const Shape = () => {
 
           <div className="shape-step3-selection">
 
+
             <form className="columns">
-              {inputFill()} 
               <label className="fields"><MenuItem/></label>
               <label className="fields"><MenuItem/></label>
               <label className="fields"><MenuItem/></label>
@@ -104,7 +107,14 @@ const Shape = () => {
               <label className="fields"><MenuItem/></label>
               <label className="fields"><MenuItem/></label>
               <label className="fields"><MenuItem/></label>
-              </form>
+            </form>
+
+            <form className="columns">
+              {inputFill(()=> {
+
+                
+              })}
+            </form>
           </div>
         </div>
 
