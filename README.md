@@ -41,6 +41,10 @@ Save time, save data. </h3> <br>
 
 # Demonstração
 
+<div align="center">
+    <img src="/assets/images/gif/demo-sprint-2.gif">
+</div>
+
 # Burndown
 
 <div align="center">
