@@ -6,33 +6,48 @@
 Save time, save data. </h3> <br>
 
  <p align="center">
-    <a href="#Sobre-o-projeto">Sobre o projeto</a> •
-    <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
-    <a href="#Conexão">Conexão</a> •
-    <a href="#Backlog">Backlog</a> •
-    <a href="#Kanban-de-Atividades">Kanban de Atividades</a> •
-    <a href="#Cronograma">Cronograma</a> •
-    <a href="#Equipe">Equipe</a>
+    <a href="#Proposta-para-Sprint-2">Proposta para Sprint 2</a> •
+    <a href="#Entrega-da-Sprint">Entregas da Sprint</a> •
+    <a href="#Demonstração">Demonstração</a> •
+    <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
+    <a href="#Conexão-ao-Banco-de-Dados">Conexão ao Banco de Dados</a> •
+    <a href="#Burndown">Burndown</a> •
  </p> 
  <br>
 
-# Sobre o projeto 
+# Proposta para Sprint 2
+<div align="center">
+    <img src="/assets/images/png/cards-sprint2.PNG">
+</div>
+
+# Entregas da Sprint
  
-Shapegis é um software que realiza a conversão de dados do ShapeFile para PostGIS e vice-e-versa.  
+* Desenvolvimento da API
+* Desenvolvimento do Backend
+* API e Back hospedados no Heroku
+* Componente para conectar banco de dados à solução
+* Componente de seleção de arquivo .shp
+* Carregar arquivo no front
+* Fazer upload do arquivo para API
+* Estilizar componente de conexao ao banco de dados
+* Retorno dos campos das tabelas Postgis na solução
+* Correções do frontend (erros de digitação, visual...)
+
+# Demonstração
 
 <div align="center">
-    <img src="/assets/images/gif/tour-sprint2.gif">
+    <img src="/assets/images/gif/demo-sprint-2.gif">
 </div>
 
-O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e JAVA, como pré-requisito, no backend, baseado nas heurísticas do Jakob Nielsen's, para melhorar a experiência do usuário, deixando a plataforma mais intuitiva. É um projeto desenvolvido pela equipe BureauTech do terceiro semestre da FATEC São José dos Campos - Prof. Jessen Vidal.
+# Tecnologias utilizadas na Sprint
 
-# Diagrama de caso de uso
+- Heroku
+- React
+- Context API
+- Spring boot
+- Java
 
-<div align="center">
-    <img src="/assets/images/png/diagrama-use-case.png">
-</div>
-
-# Conexão
+# Conexão ao Banco de Dados
 
 Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
 
@@ -42,60 +57,8 @@ Banco: d37cv1n45fhse1<br>
 Usuário: thpzxfrcqwklpj<br>
 Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
 
-# Backlog
+# Burndown
 
 <div align="center">
-    <img src="/assets/images/jpeg/cards.jpeg">
+    <img src="/assets/images/png/burndown-sprint2.PNG">
 </div>
-
-# Kanban de Atividades
-
-Para organizar as atividades a serem feitas pelo grupo, separamos as colunas a seguir:
-
-### Backlog 
-Coluna com as funcionalidades a serem desenvolvidadas do projeto.
-
-### Tarefas (outros)
-Atividades indiretamente relacionadas às entregas. Como por exemplo organização e documentação.
-
-### To do
-Atividades a serem realizadas.
-
-### In Progress
-Atividades em andamento.
-
-### Done (Sprints)
-Features concluídas.
-
-### Done (P&D)
-Pesquisas concluídas.
-
-## Nosso Kanban pode ser acessado aqui: [:memo:](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3)
-
-# Cronograma 
-
-| Data | Links |
-| ------ | ------ |
-|    20/09/2020    |[Sprint 1](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-1) |
-|    18/10/2020    |[Sprint 2](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-2) |
-|    08/11/2020    |[Sprint 3](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3) |
-|    29/11/2020    |[Sprint 4](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4) |
-
-# Equipe 
-
-### [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho) - Master <br/>
-
-### [![GitHub Badge](https://img.shields.io/github/followers/charles-ramos?label=charles-ramos&style=for-the-badge&color=black&link=https://github.com/charles-ramos)](https://github.com/charles-ramos) - PO <br/>
-
-### [![GitHub Badge](https://img.shields.io/github/followers/anaclaragraciano?label=anaclaragraciano&style=for-the-badge&color=black&link=https://github.com/anaclaragraciano)](https://github.com/anaclaragraciano) - DEV Team<br/>
-
-### [![GitHub Badge](https://img.shields.io/github/followers/danielsantosoliveira?label=danielsantosoliveira&style=for-the-badge&color=black&link=https://github.com/danielsantosoliveira)](https://github.com/danielsantosoliveira) - DEV Team<br/>
-
-### [![GitHub Badge](https://img.shields.io/github/followers/fcostafelipe?label=fcostafelipe&style=for-the-badge&color=black&link=https://github.com/fcostafelipe)](https://github.com/fcostafelipe) - DEV Team<br/>
-
-### [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros) - DEV Team<br/>
-  
-### [![GitHub Badge](https://img.shields.io/github/followers/marcelouchoas?label=marcelouchoas&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/marcelouchoas) - DEV Team<br/>
- 
-### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
-
