@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/assets/images/png/cards-sprint2.png">
+    <img src="/assets/images/png/cards-sprint2.PNG">
 </div>
 
 # Entregas da Sprint
@@ -27,5 +27,5 @@
 # Burdown
 
 <div align="center">
-    <img src="/assets/images/png/burndown-sprint2.png">
+    <img src="/assets/images/png/burndown-sprint2.PNG">
 </div>
