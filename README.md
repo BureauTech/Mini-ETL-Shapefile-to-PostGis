@@ -6,7 +6,7 @@
 Save time, save data. </h3> <br>
 
  <p align="center">
-    <a href="#Proposta-para-Sprint-2">Sprint 2</a> •
+    <a href="#Proposta-para-Sprint-2">Proposta para Sprint 2</a> •
     <a href="#Entrega-da-Sprint">Entregas da Sprint</a> •
     <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
     <a href="#Demonstração">Demonstração</a> •
