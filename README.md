@@ -10,7 +10,7 @@ Save time, save data. </h3> <br>
     <a href="#Entrega-da-Sprint">Entregas da Sprint</a> •
     <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
     <a href="#Demonstração">Demonstração</a> •
-    <a href="#Burdown">Burdown</a> •
+    <a href="#Burndown">Burndown</a> •
  </p> 
  <br>
 
@@ -41,7 +41,7 @@ Save time, save data. </h3> <br>
 
 # Demonstração
 
-# Burdown
+# Burndown
 
 <div align="center">
     <img src="/assets/images/png/burndown-sprint2.PNG">
