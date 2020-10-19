@@ -8,9 +8,9 @@ Save time, save data. </h3> <br>
  <p align="center">
     <a href="#Proposta-para-Sprint-2">Proposta para Sprint 2</a> •
     <a href="#Entrega-da-Sprint">Entregas da Sprint</a> •
-    <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
-    <a href="#Conexão-ao-Banco-de-Dados-do-Heroku">Conexão ao Banco de Dados do Heroku</a> •
     <a href="#Demonstração">Demonstração</a> •
+    <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
+    <a href="#Conexão-ao-Banco-de-Dados">Conexão ao Banco de Dados</a> •
     <a href="#Burndown">Burndown</a> •
  </p> 
  <br>
@@ -33,6 +33,12 @@ Save time, save data. </h3> <br>
 * Retorno dos campos das tabelas Postgis na solução
 * Correções do frontend (erros de digitação, visual...)
 
+# Demonstração
+
+<div align="center">
+    <img src="/assets/images/gif/demo-sprint-2.gif">
+</div>
+
 # Tecnologias utilizadas na Sprint
 
 - Heroku
@@ -41,7 +47,7 @@ Save time, save data. </h3> <br>
 - Spring boot
 - Java
 
-# Conexão ao Banco de Dados do Heroku
+# Conexão ao Banco de Dados
 
 Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
 
@@ -50,12 +56,6 @@ Porta: 5432<br>
 Banco: d37cv1n45fhse1<br>
 Usuário: thpzxfrcqwklpj<br>
 Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
-
-# Demonstração
-
-<div align="center">
-    <img src="/assets/images/gif/demo-sprint-2.gif">
-</div>
 
 # Burndown
 
