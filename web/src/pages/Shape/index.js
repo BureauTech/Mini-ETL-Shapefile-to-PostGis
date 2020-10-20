@@ -72,41 +72,49 @@ const Shape = () => {
       <div className="main-container">
         <div className="shape-step1-header">
           <p>1</p>
-          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
-        </div>
-        
-
-          <UploadShape />
-
-          <div className="shape-step2-header">
-          
-          <p>2</p>
-          <span>Conecte-se com o seu Banco de Dados.</span>
+          <span>
+          Conecte-se com o seu Banco de Dados.</span>
         </div>
         
         <Connection />
 
-        <div className="shape-step3-header">
+        <div className="shape-step2-header">
+          
+          <p>2</p>
+          <span>Selecione a tabela do banco</span>
+        </div>
+        
+        <MenuItem />
+  
+          <div className="shape-step3-header">
+          
           <p>3</p>
+          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
+        </div>
+        
+        <UploadShape />
+
+        <div className="shape-step4-header">
+          <p>4</p>
           <span>Selecione os campos para a realização do de-para.</span>
         </div>
         
-        <div className="shape-step3-de-para">
+        <div className="shape-step4-de-para">
         
           <h1>DE-PARA</h1>
 
-          <div className="shape-step3-selection">
+          <div className="shape-step4-selection">
 
 
             <form className="columns">
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
+              <label className="fields">DE</label>
             </form>
 
             <form className="columns">
