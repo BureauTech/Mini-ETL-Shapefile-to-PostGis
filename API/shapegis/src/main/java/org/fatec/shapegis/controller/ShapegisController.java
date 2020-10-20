@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
+import org.fatec.shapegis.model.FormConexaoBd;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.Query;
@@ -16,7 +17,6 @@ import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +34,21 @@ public class ShapegisController {
 	public String bomdia() {
 		return "bomdia";
 	}
-
-	@PostMapping(path = "/connect", consumes = "application/json")
-	public String getConexao(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	
+	@PostMapping(path = "/connect/postgres", consumes = "application/json", produces = "application/json")
+	public ArrayList<String> getBancos(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException{
+		
+		ArrayList<String> databases = new ArrayList<String>();
+		
+		PostgisConnection conn = new PostgisConnection(form);
+		databases = conn.databases();
+		conn.close();
+		return databases;
+	}
+	
+	
+	@PostMapping(path = "/connect/db", consumes = "application/json")
+	public String getConexao(@RequestBody FormConexaoBd form) throws ClassNotFoundException, SQLException {
 		// Abre conexao
 		PostgisConnection conn = new PostgisConnection(form);
 		// Testa o status da conexao
@@ -47,8 +59,9 @@ public class ShapegisController {
 		return status;
 	}
 
-	@PostMapping(path = "/tables", consumes = "application/json")
-	public ArrayList<String> tables(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	
+	@PostMapping(path = "/tables", consumes = "application/json", produces = "application/json")
+	public ArrayList<String> tables(@RequestBody FormConexaoBd form) throws ClassNotFoundException, SQLException {
 		ArrayList<String> tables = new ArrayList<String>();
 		// Abre conexao
 		PostgisConnection conn = new PostgisConnection(form);
@@ -60,8 +73,8 @@ public class ShapegisController {
 		return tables;
 	}
 
-	@PostMapping(path = "/fields/{name}", consumes = "application/json")
-	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name)
+	@PostMapping(path = "/fields/{name}", consumes = "application/json", produces = "application/json")
+	public ArrayList<String> fields(@RequestBody FormConexaoBd form, @PathVariable("name") String name)
 			throws ClassNotFoundException, SQLException {
 		ArrayList<String> fields = new ArrayList<String>();
 		// Abre conexao
@@ -143,11 +156,15 @@ public class ShapegisController {
  * String usuario, @RequestParam String senha, @RequestParam String endereco,
  * 
  * @RequestParam int porta) { ShapegisConnection conn = new
- * ShapegisConnection(usuario, senha, "jdbc:postgresql://" + endereco + ":" +
- * porta + "/" + usuario); conn.resultadosBanco(
- * "SELECT datname FROM pg_database WHERE datname NOT LIKE 'postgres' \r\n" +
- * "AND datname NOT LIKE 'template%';"); conn.FecharConexao(); return
- * conn.getResult(); }
+	 * ShapegisConnection(usuario, senha, "jdbc:postgresql://" + endereco + ":" +
+	 * porta + "/" + usuario); 
+	 * conn.resultadosBanco(
+	 * "SELECT datname FROM pg_database WHERE datname NOT LIKE 'postures' \r\n" +
+	 * "AND datname NOT LIKE 'template%';"); 
+	 * conn.FecharConexao(); 
+	 * return
+	 * conn.getResult(); 
+ * }
  * 
  * //URL:
  * http://localhost:8080/param/tabela?usuario=postgres&senha=postgres&endereco=
