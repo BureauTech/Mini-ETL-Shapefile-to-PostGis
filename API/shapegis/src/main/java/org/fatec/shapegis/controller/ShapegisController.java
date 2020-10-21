@@ -16,7 +16,6 @@ import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
 public class ShapegisController {
+	String separador = System.getProperty("file.separator"), local = System.getProperty("user.home");
 
 	@GetMapping("/bomdia")
 	public String bomdia() {
@@ -79,7 +79,7 @@ public class ShapegisController {
 
 		File shp = null;
 
-		File d = new File(System.getProperty("user.home") + "\\ShapeGIS\\tmp");
+		File d = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		d.mkdirs();
 
 		// Salvando arquivos
@@ -136,7 +136,6 @@ public class ShapegisController {
 		return fields;
 	}
 }
-	
 
 /*
  * @RequestMapping("/database") public List<String> getDataBase(@RequestParam
