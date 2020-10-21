@@ -10,7 +10,6 @@ import {AiFillGithub} from 'react-icons/ai';
 // Style
 import "./styles.css";
 
-
 function Footer() {
     return(
         <div className="footer-container">
@@ -44,8 +43,6 @@ function Footer() {
             <AiFillGithub value={{className: 'git-icon'}} />
           </a>
         </div>
-
-
       </div>
     )
 }

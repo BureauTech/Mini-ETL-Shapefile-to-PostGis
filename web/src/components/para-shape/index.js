@@ -4,9 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import api from '../../services/api';
-
 
 import "./styles.css";
 
@@ -16,7 +14,6 @@ const bdConnect = () => {
     url: '/bomdia',
     })
   } 
-
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     margin: theme.spacing(0),
-
     fontSize: '20px',
     minWidth: '75%',
   },
@@ -44,8 +40,6 @@ export default function ControlledOpenSelect() {
   const classes = useStyles();
   const [campos, setCampos] = React.useState('');
   const [open, setOpen] = React.useState(false);
-
-
   const handleChange = (event) => {
     setCampos(event.target.value);
   };
@@ -70,9 +64,7 @@ export default function ControlledOpenSelect() {
           value={campos}
           onChange={handleChange}
         >
-          <MenuItem value="" className={classes.select}>
-            <em>None</em>
-          </MenuItem>
+          <MenuItem value="" className={classes.select}><em>None</em></MenuItem>
           <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
           <MenuItem value={2}className={classes.select} onClick={bdConnect}>geography_columns</MenuItem>
           <MenuItem value={3}className={classes.select} onClick={bdConnect}>geometry_columns</MenuItem>

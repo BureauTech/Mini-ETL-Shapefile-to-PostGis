@@ -1,8 +1,5 @@
 import React from 'react';
-import Dropzone from 'react-dropzone';
-
 import postStep2 from '../../assets/img/post-shape-new.png';
-
 
 import "./styles.css";
 
