@@ -100,7 +100,7 @@ const Connection = () => {
           <form className="forms-content-label">
             <label htmlFor="">Local</label>
             <label htmlFor="">Porta</label>
-            <label htmlFor="">Banco</label>
+  
             <label htmlFor="">Usuário</label>
             <label htmlFor="">Senha</label>
           </form>
@@ -108,7 +108,7 @@ const Connection = () => {
           <form className="forms-content-text-box">
             <input type="text" className="txtbox" onChange={event => setLocal(event.target.value)}/>
             <input type="text" className="txtbox" onChange={event => setPortal(event.target.value)}/>
-            <input type="text" className="txtbox" onChange={event => setTable(event.target.value)}/> 
+             
             <input type="text" className="txtbox" onChange={event => setUser(event.target.value)}/>
             <input type="password" className="txtbox" onChange={event => setPassword(event.target.value)}/>
           </form> 
