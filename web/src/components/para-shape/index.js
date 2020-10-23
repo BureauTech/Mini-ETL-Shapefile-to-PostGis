@@ -39,7 +39,7 @@ export default function ControlledOpenSelect() { //nova função;
   const [campos, setCampos] = React.useState(''); //definindo estados = vazio  hook
   const [open, setOpen] = React.useState(false); //só vai ser open quando a gente mandar, caso contrario fechado
   const handleChange = (event) => { //é um evento que vai pefar o setCampos e definir um valor
-    setCampos(event.target.value); // vai atualizar o campos da linha 39,  smp q tiver um evento
+  setCampos(event.target.value); // vai atualizar o campos da linha 39,  smp q tiver um evento
   };
 
   const handleClose = () => { //func sem nenhum parametro 
@@ -53,7 +53,7 @@ export default function ControlledOpenSelect() { //nova função;
   return ( //oq vai aparecer na tela
     <div className={classes.text}>  { /\* divisão da tela em um espaço q será populado - className seria uma string- classes-> useStyles -> bloco text\*/ }
       <FormControl className={classes.text}>{ /\* aparencia do formcontrol tbm será classes.text\*/ } 
-        <InputLabel className={classes.text}>TABELA</InputLabel> //verdinho = importado tag com maiuscula= react        html puro = tudo minusculo  e azul
+        <InputLabel className={classes.text}>TABELA</InputLabel> { /\*verdinho = importado tag com maiuscula= react        html puro = tudo minusculo  e azul\*/ }
         <Select  //tbm importado no começo //tem vários parametro / em linhas separadas
           className={classes.text} //aparencia da class
           open={open} //o open do estado da linha 40
@@ -61,9 +61,9 @@ export default function ControlledOpenSelect() { //nova função;
           onOpen={handleOpen} //func aberto //funcs são amarelas
           value={campos} //chamando linha 39
           onChange={handleChange} //chama linha 41 e 42
-        > //fecha o Select com os parametros que definimos, mas n fechamos a tag em si
-          <MenuItem value="" className={classes.select}><em>None</em></MenuItem> //definindo MenuItem String vazia e a aparencia do class.select
-          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem> //String com valor numerico OnClick-> chama a func bdConnect que faz requisição a API para dar o get
+        > { /\* fecha o Select com os parametros que definimos, mas n fechamos a tag em si\*/ }
+          <MenuItem value="" className={classes.select}><em>None</em></MenuItem>{ /\* definindo MenuItem String vazia e a aparencia do class.select \*/ }
+          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem> { /\* String com valor numerico OnClick-> chama a func bdConnect que faz requisição a API para dar o get \*/ }
           <MenuItem value={2}className={classes.select} onClick={bdConnect}>geography_columns</MenuItem>
           <MenuItem value={3}className={classes.select} onClick={bdConnect}>geometry_columns</MenuItem>
           <MenuItem value={4}className={classes.select} onClick={bdConnect}>spatial_ref_sys</MenuItem>
