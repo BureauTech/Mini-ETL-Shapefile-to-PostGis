@@ -134,8 +134,8 @@ const Dropzone = () => {
         uploadRef.current.innerHTML = 'Enviado o(s) arquivo(s)...';
         for (let i = 0; i < validFiles.length; i++) {
             const formData = new FormData();
-            formData.append('image', validFiles[i]);
-            //formData.append('key', '4f1b8e7d2b6c2d97fab33c71721bf3c5');
+            formData.append('file', validFiles[i]);
+            
             axios.post("http://localhost:8080/upload", formData, {
                 onUploadProgress: (progressEvent) => {
                     const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);

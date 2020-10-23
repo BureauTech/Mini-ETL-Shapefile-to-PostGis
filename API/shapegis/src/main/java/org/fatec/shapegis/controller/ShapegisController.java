@@ -103,37 +103,38 @@ public class ShapegisController {
 			}
 		}
 
-		// Leitura dos arquivos
-		ArrayList<String> fields = new ArrayList<String>();
-		FileDataStore myData = FileDataStoreFinder.getDataStore(shp);
-		SimpleFeatureSource source = myData.getFeatureSource();
-		SimpleFeatureType schema = source.getSchema();
-
-		Query query = new Query(schema.getTypeName());
-		query.setMaxFeatures(1);
-
-		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
-		try (FeatureIterator<SimpleFeature> features = collection.features()) {
-			while (features.hasNext()) {
-				SimpleFeature feature = features.next();
-
-				for (Property attribute : feature.getProperties()) {
-					fields.add(attribute.getName().toString());
-				}
-			}
-		}
-
-		for (MultipartFile file : files) {
-			try {
-				((File) file).delete();
-				// deletando os arquivos
-			} catch (Exception e) {
-				e.printStackTrace();
-
-			}
-
-		}
-		return fields;
+//		// Leitura dos arquivos
+//		ArrayList<String> fields = new ArrayList<String>();
+//		FileDataStore myData = FileDataStoreFinder.getDataStore(shp);
+//		SimpleFeatureSource source = myData.getFeatureSource();
+//		SimpleFeatureType schema = source.getSchema();
+//
+//		Query query = new Query(schema.getTypeName());
+//		query.setMaxFeatures(1);
+//
+//		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
+//		try (FeatureIterator<SimpleFeature> features = collection.features()) {
+//			while (features.hasNext()) {
+//				SimpleFeature feature = features.next();
+//
+//				for (Property attribute : feature.getProperties()) {
+//					fields.add(attribute.getName().toString());
+//				}
+//			}
+//		}
+//
+//		for (MultipartFile file : files) {
+//			try {
+//				((File) file).delete();
+//				// deletando os arquivos
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//
+//			}
+//
+//		}
+//		return fields;
+		return null;
 	}
 }
 	
