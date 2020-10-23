@@ -32,22 +32,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '75%',
   }
 }));
-const ControlledOpenSelect = () => 
-{ 
-  const classes = useStyles(); 
-  const [campos, setCampos] = React.useState(''); 
-  const [open, setOpen] = React.useState(false); 
-  const handleChange = (event) => { 
-    setCampos(event.target.value); 
-  };
 
-  const handleClose = () => { 
-    setOpen(false); 
-  };
-
-  const handleOpen = () => {
-    setOpen(true); 
-  };
 
 const Connection = () => {
   const [local, setLocal] = useState();
@@ -62,6 +47,22 @@ const Connection = () => {
     console.log('context here: ', shapeReturn);
   }, [shapeReturn]);
 
+  
+  const classes = useStyles(); 
+  const [campos, setCampos] = React.useState(''); 
+  const [open, setOpen] = React.useState(false); 
+  const handleChange = (event) => { 
+    setCampos(event.target.value); 
+  };
+
+  const handleClose = () => { 
+    setOpen(false); 
+  };
+
+  const handleOpen = () => {
+    setOpen(true); 
+  };
+  
   const bdConnect = () => {
     setLoading(true);
     api({  
@@ -133,7 +134,7 @@ const Connection = () => {
         </div>
       </div>
     )
-  }
+  
 }
 
 export default Connection;

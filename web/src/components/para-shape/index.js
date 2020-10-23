@@ -51,9 +51,9 @@ export default function ControlledOpenSelect() { //nova função;
   };
 
   return ( //oq vai aparecer na tela
-    <div className={classes.text}>  { /\* divisão da tela em um espaço q será populado - className seria uma string- classes-> useStyles -> bloco text\*/ }
-      <FormControl className={classes.text}>{ /\* aparencia do formcontrol tbm será classes.text\*/ } 
-        <InputLabel className={classes.text}>TABELA</InputLabel> { /\*verdinho = importado tag com maiuscula= react        html puro = tudo minusculo  e azul\*/ }
+    <div className={classes.text}>  
+      <FormControl className={classes.text}>
+        <InputLabel className={classes.text}>TABELA</InputLabel> 
         <Select  //tbm importado no começo //tem vários parametro / em linhas separadas
           className={classes.text} //aparencia da class
           open={open} //o open do estado da linha 40
@@ -61,9 +61,9 @@ export default function ControlledOpenSelect() { //nova função;
           onOpen={handleOpen} //func aberto //funcs são amarelas
           value={campos} //chamando linha 39
           onChange={handleChange} //chama linha 41 e 42
-        > { /\* fecha o Select com os parametros que definimos, mas n fechamos a tag em si\*/ }
-          <MenuItem value="" className={classes.select}><em>None</em></MenuItem>{ /\* definindo MenuItem String vazia e a aparencia do class.select \*/ }
-          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem> { /\* String com valor numerico OnClick-> chama a func bdConnect que faz requisição a API para dar o get \*/ }
+        > 
+          <MenuItem value="" className={classes.select}><em>None</em></MenuItem>
+          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem> 
           <MenuItem value={2}className={classes.select} onClick={bdConnect}>geography_columns</MenuItem>
           <MenuItem value={3}className={classes.select} onClick={bdConnect}>geometry_columns</MenuItem>
           <MenuItem value={4}className={classes.select} onClick={bdConnect}>spatial_ref_sys</MenuItem>

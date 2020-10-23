@@ -60,7 +60,7 @@ const Shape = () => {
       <Header />
       <Faq />
       
-      <div className="main-container"> { /\* puxando do css \*/ }
+      <div className="main-container"> 
         <div className="shape-step1-header">
           <p>1</p>
           <span>
