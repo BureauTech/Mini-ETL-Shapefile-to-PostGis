@@ -30,7 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
 public class ShapegisController {
-	String separador = System.getProperty("file.separator"), local = System.getProperty("user.home");
+	String separador = System.getProperty("file.separator");
+	String local = System.getProperty("user.home");
 
 	@GetMapping("/bomdia")
 	public String bomdia() {
@@ -83,69 +84,128 @@ public class ShapegisController {
 		conn.close();
 		return fields;
 	}
-
+	
+	// Recebendo um arquivo de cada vez
 	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
-	public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile[] files) throws IOException {
+	public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile file) throws IOException {
 
-		File shp = null;
+		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
+		dir.mkdirs();
 
-		File d = new File(local + separador + "ShapeGIS" + separador + "tmp");
-		d.mkdirs();
-
-		// Salvando arquivos
-		for (MultipartFile file : files) {
-			File f = new File(d.toString(), file.getOriginalFilename());
-			System.out.println(f);
-			try {
-				file.transferTo(f);
-				// Transfer or Saving in local memory
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			String fileName = f.toString();
-			int index = fileName.lastIndexOf('.');
-			String extension = fileName.substring(index + 1);
-			if (extension.equals("shp")) {
-				shp = new File(d.toString(), file.getOriginalFilename());
-			}
+		File f = new File(dir.toString(), file.getOriginalFilename());
+		
+		// Verificando a extensão do arquivo
+		String fileName = f.toString();
+		int index = fileName.lastIndexOf('.');
+		String extension = fileName.substring(index + 1);
+		
+		// Salva o arquivo no diretório temporário
+		try {
+			file.transferTo(f);
+			// Transfer or Saving in local memory
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		// Se a extensão for shp
+		if (extension.equals("shp")) {
+			// Processa o arquivo e retorna os campos
+			ArrayList<String> fields = new ArrayList<String>();
+			FileDataStore myData = FileDataStoreFinder.getDataStore(f);
+			SimpleFeatureSource source = myData.getFeatureSource();
+			SimpleFeatureType schema = source.getSchema();
 
-		// Leitura dos arquivos
-		ArrayList<String> fields = new ArrayList<String>();
-		FileDataStore myData = FileDataStoreFinder.getDataStore(shp);
-		SimpleFeatureSource source = myData.getFeatureSource();
-		SimpleFeatureType schema = source.getSchema();
+			Query query = new Query(schema.getTypeName());
+			query.setMaxFeatures(1);
 
-		Query query = new Query(schema.getTypeName());
-		query.setMaxFeatures(1);
+			FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
+			try (FeatureIterator<SimpleFeature> features = collection.features()) {
+				while (features.hasNext()) {
+					SimpleFeature feature = features.next();
 
-		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
-		try (FeatureIterator<SimpleFeature> features = collection.features()) {
-			while (features.hasNext()) {
-				SimpleFeature feature = features.next();
-
-				for (Property attribute : feature.getProperties()) {
-					fields.add(attribute.getName().toString());
+					for (Property attribute : feature.getProperties()) {
+						fields.add(attribute.getName().toString());
+					}
 				}
 			}
+
+			return fields;
 		}
-
-		for (MultipartFile file : files) {
-			try {
-				((File) file).delete();
-				// deletando os arquivos
-			} catch (Exception e) {
-				e.printStackTrace();
-
-			}
-
-		}
-		return fields;
+		
+		// Retorna null caso o arquivo não seja .shp
+		return null;
 	}
+	 
 }
+
+// Old code
+//------------------------------------------------------------------------------
+/*
+// Recebendo multiplos arquivos
+@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
+public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile[] files) throws IOException {
+
+	File shp = null;
+
+	File d = new File(local + separador + "ShapeGIS" + separador + "tmp");
+	d.mkdirs();
+
+	// Salvando arquivos
+	for (MultipartFile file : files) {
+		File f = new File(d.toString(), file.getOriginalFilename());
+		System.out.println(f);
+		try {
+			file.transferTo(f);
+			// Transfer or Saving in local memory
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String fileName = f.toString();
+		int index = fileName.lastIndexOf('.');
+		String extension = fileName.substring(index + 1);
+		if (extension.equals("shp")) {
+			shp = new File(d.toString(), file.getOriginalFilename());
+		}
+	}
+
+	// Leitura dos arquivos
+	ArrayList<String> fields = new ArrayList<String>();
+	FileDataStore myData = FileDataStoreFinder.getDataStore(shp);
+	SimpleFeatureSource source = myData.getFeatureSource();
+	SimpleFeatureType schema = source.getSchema();
+
+	Query query = new Query(schema.getTypeName());
+	query.setMaxFeatures(1);
+
+	FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
+	try (FeatureIterator<SimpleFeature> features = collection.features()) {
+		while (features.hasNext()) {
+			SimpleFeature feature = features.next();
+
+			for (Property attribute : feature.getProperties()) {
+				fields.add(attribute.getName().toString());
+			}
+		}
+	}
+
+	for (MultipartFile file : files) {
+		try {
+			((File) file).delete();
+			// deletando os arquivos
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+	return fields;
+}
+*/ 
 
 /*
  * @RequestMapping("/database") public List<String> getDataBase(@RequestParam
