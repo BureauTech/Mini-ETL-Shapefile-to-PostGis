@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import api from '../../services/api';
 import axios from 'axios';
+import UploadShape from '../../assets/img/upload-shape.png';
 
 import './DropZone.css';
 
@@ -136,7 +137,7 @@ const Dropzone = () => {
             const formData = new FormData();
             formData.append('file', validFiles[i]);
             
-            axios.post("http://localhost:8080/upload", formData, {
+            api.post("/upload", formData, {
                 onUploadProgress: (progressEvent) => {
                     const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
                     progressRef.current.innerHTML = `${uploadPercentage}%`;
@@ -162,12 +163,9 @@ const Dropzone = () => {
         uploadModalRef.current.style.display = 'none';
     }
 
-
     return (
         <>
             <div className="container">
-                {unsupportedFiles.length === 0 && validFiles.length ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
-                {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado. </p> : ''}
                 <div className="drop-container"
                     onDragOver={dragOver}
                     onDragEnter={dragEnter}
@@ -176,9 +174,11 @@ const Dropzone = () => {
                     onClick={fileInputClicked}
                 >
                     <div className="drop-message">
-                        <div className="upload-icon"></div>
-                        Arraste & Solte o(s) arquivo(s) aqui ou clique para seleciona-lo(s)
-                    </div>
+                        <div className="upload-icon" width="100%">
+                        <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
+                        </div>
+                        <img src={UploadShape} alt="Shape-Button" width="80%"/>
+                    </div>                   
                     <input
                         ref={fileInputRef}
                         className="file-input"
@@ -187,30 +187,30 @@ const Dropzone = () => {
                         onChange={filesSelected}
                     />
                 </div>
+                {unsupportedFiles.length === 0 && validFiles.length ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
+                {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado. </p> : ''}
                 <div className="file-display-container">
-                    {
+                
+                {
                         validFiles.map((data, i) => 
                             <div className="file-status-bar" key={i}>
                                 <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
-                                    <div className="file-type-logo"></div>
-                                    <div className="file-type">{fileType(data.name)}</div>
                                     <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
-                                    <span className="file-size">({fileSize(data.size)})</span> {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                                 </div>
                                 <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
                             </div>
                         )
                     }
+
                 </div>
+
             </div>
+            <div className="overlay"></div>
             <div className="modal" ref={modalRef}>
-                <div className="overlay"></div>
                 <span className="close" onClick={(() => closeModal())}>X</span>
                 <div className="modal-image" ref={modalImageRef}></div>
             </div>
-
             <div className="upload-modal" ref={uploadModalRef}>
-                <div className="overlay"></div>
                 <div className="close" onClick={(() => closeUploadModal())}>X</div>
                 <div className="progress-container">
                     <span ref={uploadRef}></span>
