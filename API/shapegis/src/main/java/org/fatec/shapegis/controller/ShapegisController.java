@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
@@ -16,7 +18,6 @@ import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,22 +30,31 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
 public class ShapegisController {
+	String separador = System.getProperty("file.separator"), local = System.getProperty("user.home");
 
 	@GetMapping("/bomdia")
 	public String bomdia() {
 		return "bomdia";
 	}
 
-	@PostMapping(path = "/connect", consumes = "application/json")
-	public String getConexao(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	@PostMapping(path = "/connect", consumes = "application/json", produces = "application/json")
+	public Map<String, String> getConexao(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+		// Declara as ArrayLists para receber as tabelas e campos
+		ArrayList<String> tables = new ArrayList<String>();
+		// Declara o ArrayList de retorno
+		HashMap<String, String> map = new HashMap<String, String>();
 		// Abre conexao
 		PostgisConnection conn = new PostgisConnection(form);
-		// Testa o status da conexao
-		String status = conn.status();
+		// Resgata os nomes das tabelas
+		tables = conn.tables();
+		// Cria o Array para o retorno
+		for (String t : tables) {
+			map.put(t, conn.fields(t).toString());
+		}
 		// Fecha conexao
 		conn.close();
 		// Retorna o status da conexao
-		return status;
+		return map;
 	}
 
 	@PostMapping(path = "/tables", consumes = "application/json")
@@ -67,7 +77,7 @@ public class ShapegisController {
 		// Abre conexao
 		PostgisConnection conn = new PostgisConnection(form);
 		// Cria JsonArray para o retorno
-		// Resgata os nomes das tabelas disponíveis no banco
+		// Resgata os campos da tabela especificada
 		fields = conn.fields(name);
 		// Fecha conexao
 		conn.close();
@@ -79,7 +89,7 @@ public class ShapegisController {
 
 		File shp = null;
 
-		File d = new File(System.getProperty("user.home") + "\\ShapeGIS\\tmp");
+		File d = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		d.mkdirs();
 
 		// Salvando arquivos
@@ -136,7 +146,6 @@ public class ShapegisController {
 		return fields;
 	}
 }
-	
 
 /*
  * @RequestMapping("/database") public List<String> getDataBase(@RequestParam
