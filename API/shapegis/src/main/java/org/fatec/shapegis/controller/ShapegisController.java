@@ -79,7 +79,7 @@ public class ShapegisController {
 
 		File shp = null;
 
-		File d = new File(System.getProperty("user.home") + "\\ShapeGIS\\tmp");
+		File d = new File(System.getProperty("user.home") + "/ShapeGIS/tmp");
 		d.mkdirs();
 
 		// Salvando arquivos
