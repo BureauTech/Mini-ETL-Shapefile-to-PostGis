@@ -28,12 +28,12 @@ const Home = () => {
             <img src={Shape} alt="Shape-Button" width="100%"/>
           </Link>
         </div>
-
+        
         <div className="post-header">
           <p>POSTGIS para SHAPEFILE</p>
           <span>Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
         </div>
-        
+            
         <div className="post-button">
           <Link to="/post">
             <img src={Post} alt="Shape-Button" width="100%"/>
@@ -41,8 +41,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Footer />
-      
+      <Footer />    
     </>
   );
 }

@@ -17,6 +17,7 @@ const Guide = () => {
                     Voltar para página inicial
                 </Link>
             </header>
+        
             <div className="spoiler-image">
                 <img src={Logo} alt="Logo" />
                 <img src={Background} alt="Spoiler-Alert"/>

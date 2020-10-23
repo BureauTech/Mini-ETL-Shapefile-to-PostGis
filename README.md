@@ -1,3 +1,4 @@
+### EM ANDAMENTO
 <div align="center">
     <img src="/assets/images/png/shapegis-logo.png">
 </div>
@@ -6,17 +7,21 @@
 Save time, save data. </h3> <br>
 
  <p align="center">
-    <a href="#Sobre-o-projeto">Sobre o projeto</a> •
-    <a href="#Diagrama-de-caso-de-uso">Diagrama de caso de uso</a> •
-    <a href="#Conexão">Conexão</a> •
-    <a href="#Backlog">Backlog</a> •
-    <a href="#Kanban-de-Atividades">Kanban de Atividades</a> •
-    <a href="#Cronograma">Cronograma</a> •
-    <a href="#Equipe">Equipe</a>
+    <a href="#Proposta-para-Sprint-2">Proposta para Sprint 3</a> •
+    <a href="#Entrega-da-Sprint">Entregas da Sprint</a> •
+    <a href="#Demonstração">Demonstração</a> •
+    <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
+    <a href="#Conexão-ao-Banco-de-Dados">Conexão ao Banco de Dados</a> •
+    <a href="#Burndown">Burndown</a> •
  </p> 
  <br>
 
-# Sobre o projeto 
+# Proposta para Sprint 3
+<div align="center">
+    <img src="/assets/images/png/cards-sprint2.PNG">
+</div>
+
+# Entregas da Sprint
  
 Shapegis é um software que realiza a conversão de dados do ShapeFile para PostGIS e vice-e-versa.  
 

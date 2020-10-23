@@ -13,21 +13,11 @@ import Connection from '../../components/Connection';
 import UploadShape from '../../components/Upload-Shape';
 import MenuItem from '../../components/para-shape';
 
-
-//Assets
-import shapeStep1 from '../../assets/img/shape-post-new.png';
-import shapeStep3 from '../../assets/img/de-para-shape.png';
-
 //Styles
 import "./styles.css";
 
-import api from '../../services/api';
-
 const Shape = () => {
-
-
   const [Files, setFiles] = useState([]);
-
   const {shapeReturn, setShapeReturn} = useContext(AppContext);
 
   useEffect(() => {
@@ -37,7 +27,7 @@ const Shape = () => {
   const listItems = shapeReturn.map(
     (value, index) =>
     <label className="fields" id={index + 1} key={index}>{value}</label>
-    );
+  );
 
   function inputFill() {
     console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
@@ -46,23 +36,24 @@ const Shape = () => {
         shapeReturn.map(
           (value, index) =>
           <label className="fields" id={index + 1} key={index}>{value}</label>
-          )
-        )}
-        else {
-          return (
-            <>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-              <label className="fields2">PARA</label>
-            </>
-          )
-        }
+        )
+      )}
+    
+    else {
+      return (
+        <>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+          <label className="fields2">PARA</label>
+        </>
+      )
     }
+  }
 
   return (
     <>
@@ -72,48 +63,48 @@ const Shape = () => {
       <div className="main-container">
         <div className="shape-step1-header">
           <p>1</p>
-          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
-        </div>
-        
-
-          <UploadShape />
-
-          <div className="shape-step2-header">
-          
-          <p>2</p>
-          <span>Conecte-se com o seu Banco de Dados.</span>
+          <span>
+          Conecte-se com o seu Banco de Dados.</span>
         </div>
         
         <Connection />
 
+        <div className="shape-step2-header">
+          <p>2</p>
+          <span>Selecione a tabela do banco</span>
+        </div>
+        
+        <MenuItem />
+  
         <div className="shape-step3-header">
           <p>3</p>
+          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
+        </div>
+        
+        <UploadShape />
+
+        <div className="shape-step4-header">
+          <p>4</p>
           <span>Selecione os campos para a realização do de-para.</span>
         </div>
         
-        <div className="shape-step3-de-para">
-        
+        <div className="shape-step4-de-para">
           <h1>DE-PARA</h1>
-
-          <div className="shape-step3-selection">
-
-
-            <form className="columns">
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-              <label className="fields"><MenuItem/></label>
-            </form>
+            
+            <div className="shape-step4-selection">
+              <form className="columns">
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+                <label className="fields">DE</label>
+              </form>
 
             <form className="columns">
-              {inputFill(()=> {
-
-                
-              })}
+              {inputFill()}
             </form>
           </div>
         </div>
@@ -129,4 +120,3 @@ const Shape = () => {
 }
 
 export default Shape;
-
