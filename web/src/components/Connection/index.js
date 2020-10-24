@@ -124,7 +124,6 @@ const Connection = () => {
         
         <div className={classes.text}>  
           <FormControl className={classes.text}> 
-          {/* <InputLabel className={classes.text}>Selecione o Banco de Dados</InputLabel> */} 
           <Select  
           className={classes.select}
           open={open} 
@@ -134,7 +133,6 @@ const Connection = () => {
           onChange={handleChange}
           > 
           <MenuItem value={0} selected disabled className={classes.select}>Selecione o Banco de Dados</MenuItem>
-          {/* <MenuItem value="{0}" selected disabled className={classes.select}>Selecione o Banco de Dados</MenuItem>*/}
           <MenuItem value={1} className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
         </Select>
         </FormControl>
