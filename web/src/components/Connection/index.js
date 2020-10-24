@@ -30,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: '20px', 
     minWidth: '75%',
+    backgroundColor: '#fff',
+    color: 'rgb(156 152 166)',
+  },
+  label: {
+    fontSize: '20px',
+    minWidth: '75%',
   }
 }));
 
@@ -49,7 +55,7 @@ const Connection = () => {
 
   
   const classes = useStyles(); 
-  const [campos, setCampos] = React.useState(''); 
+  const [campos, setCampos] = React.useState(0); 
   const [open, setOpen] = React.useState(false); 
   const handleChange = (event) => { 
     setCampos(event.target.value); 
@@ -118,18 +124,18 @@ const Connection = () => {
         
         <div className={classes.text}>  
           <FormControl className={classes.text}> 
-          
           {/* <InputLabel className={classes.text}>Selecione o Banco de Dados</InputLabel> */} 
           <Select  
-          className={classes.text}
+          className={classes.select}
           open={open} 
           onClose={handleClose} 
           onOpen={handleOpen} 
           value={campos}
           onChange={handleChange}
           > 
-          <MenuItem value="" className={classes.select}><em>Selecione o Banco de Dados</em></MenuItem>
-          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
+          <MenuItem value={0} selected disabled className={classes.select}>Selecione o Banco de Dados</MenuItem>
+          {/* <MenuItem value="{0}" selected disabled className={classes.select}>Selecione o Banco de Dados</MenuItem>*/}
+          <MenuItem value={1} className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
         </Select>
         </FormControl>
         </div>
