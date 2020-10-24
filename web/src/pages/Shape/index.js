@@ -41,7 +41,7 @@ const Shape = () => {
     
     else {
       return (
-        <> //tag vazia pra n reclamar de ter dois return 
+        <> 
           <label className="fields2">PARA</label>
           <label className="fields2">PARA</label>
           <label className="fields2">PARA</label>

@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '75%',
   },
   text: {
-    margin: theme.spacing(0),
+    margin: '10px 0px 0px 0px',
     fontSize: '20px',
     minWidth: '75%',
   },
   select: {
-    fontSize: '15px',
+    fontSize: '20px', 
     minWidth: '75%',
   }
 }));
@@ -118,7 +118,8 @@ const Connection = () => {
         
         <div className={classes.text}>  
           <FormControl className={classes.text}> 
-          <InputLabel className={classes.text}>BANCO</InputLabel> 
+          
+          {/* <InputLabel className={classes.text}>Selecione o Banco de Dados</InputLabel> */} 
           <Select  
           className={classes.text}
           open={open} 
@@ -127,7 +128,7 @@ const Connection = () => {
           value={campos}
           onChange={handleChange}
           > 
-          <MenuItem value="" className={classes.select}><em>None</em></MenuItem>
+          <MenuItem value="" className={classes.select}><em>Selecione o Banco de Dados</em></MenuItem>
           <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
         </Select>
         </FormControl>
