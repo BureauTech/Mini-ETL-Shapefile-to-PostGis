@@ -178,6 +178,9 @@ const Dropzone = () => {
                         <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
                         </div>
                         <img src={UploadShape} alt="Shape-Button" width="80%"/>
+                        <div className="upload-icon" width="100%">
+                        <h2><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
+                        </div>
                     </div>                   
                     <input
                         ref={fileInputRef}
