@@ -10,9 +10,9 @@ import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 import Connection from '../../components/Connection';
-import UploadShape from '../../components/Upload-Shape';
-import MenuItem from '../../components/para-shape';
-import DropZone from '../../components/dropzone/DropZone';
+import MenuItem from '../../components/Selecao';
+import DropZone from '../../components/Upload-Shape/DropZone';
+import List from '../../components/Shape-DE';
 
 //Styles
 import "./styles.css";
@@ -94,14 +94,14 @@ const Shape = () => {
             
             <div className="shape-step4-selection">
               <form className="columns">
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
-                <label className="fields">DE</label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
+                <label className="fields"><List/></label>
               </form>
 
             <form className="columns">
