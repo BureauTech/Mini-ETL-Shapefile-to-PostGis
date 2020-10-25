@@ -18,6 +18,7 @@
 .container p {
     color: red;
     text-align: center;
+    font-size: 2rem;
 }
 
 .drop-container {
@@ -237,11 +238,12 @@
 
 .progress-bar {
     position: relative;
-    background-color: #4aa1f3;
+    background-color: #ea4d2b;
     height: auto;
     border-radius: 10rem;
     text-align: center;
     color: white;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 2rem;
 }

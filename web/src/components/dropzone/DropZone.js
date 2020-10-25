@@ -188,7 +188,7 @@ const Dropzone = () => {
                     />
                 </div>
                 {unsupportedFiles.length === 0 && validFiles.length ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
-                {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado. </p> : ''}
+                {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
                 <div className="file-display-container">
                 
                 {
