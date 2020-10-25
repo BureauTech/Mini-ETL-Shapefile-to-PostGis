@@ -6,21 +6,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import api from '../../services/api';
 
-import "./styles.css";
-
-const bdConnect = () => {
+const bdConnect = () => { 
   api({
     method: 'get',
     url: '/bomdia',
     })
-  } 
+  } //chama a API 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({ //equivalente ao css
   button: {
     display: 'block',
     blockSize: '30px',
     marginTop: theme.spacing(2),
-  },
+  }, //botão termina aqui
   formControl: {
     margin: theme.spacing(1),
     minWidth: '75%',
@@ -33,39 +31,39 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: '15px',
     minWidth: '75%',
-  }
+  }// definido o estilo de algo 
 }));
 
-export default function ControlledOpenSelect() {
-  const classes = useStyles();
-  const [campos, setCampos] = React.useState('');
-  const [open, setOpen] = React.useState(false);
-  const handleChange = (event) => {
-    setCampos(event.target.value);
+export default function ControlledOpenSelect() { //nova função; 
+  const classes = useStyles(); //chama useStyles
+  const [campos, setCampos] = React.useState(''); //definindo estados = vazio  hook
+  const [open, setOpen] = React.useState(false); //só vai ser open quando a gente mandar, caso contrario fechado
+  const handleChange = (event) => { //é um evento que vai pefar o setCampos e definir um valor
+  setCampos(event.target.value); // vai atualizar o campos da linha 39,  smp q tiver um evento
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = () => { //func sem nenhum parametro 
+    setOpen(false); // fecha o setOpen
   };
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen(true); //abre Open como padrao
   };
 
-  return (
-    <div className={classes.text}>
+  return ( //oq vai aparecer na tela
+    <div className={classes.text}>  
       <FormControl className={classes.text}>
-        <InputLabel className={classes.text}>TABELA</InputLabel>
-        <Select
-          className={classes.text}
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={campos}
-          onChange={handleChange}
-        >
+        <InputLabel className={classes.text}>TABELA</InputLabel> 
+        <Select  //tbm importado no começo //tem vários parametro / em linhas separadas
+          className={classes.text} //aparencia da class
+          open={open} //o open do estado da linha 40
+          onClose={handleClose} //func pra fechado 
+          onOpen={handleOpen} //func aberto //funcs são amarelas
+          value={campos} //chamando linha 39
+          onChange={handleChange} //chama linha 41 e 42
+        > 
           <MenuItem value="" className={classes.select}><em>None</em></MenuItem>
-          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
+          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem> 
           <MenuItem value={2}className={classes.select} onClick={bdConnect}>geography_columns</MenuItem>
           <MenuItem value={3}className={classes.select} onClick={bdConnect}>geometry_columns</MenuItem>
           <MenuItem value={4}className={classes.select} onClick={bdConnect}>spatial_ref_sys</MenuItem>
