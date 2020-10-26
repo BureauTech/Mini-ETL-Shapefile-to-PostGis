@@ -149,7 +149,6 @@ public class ShapegisController {
 		return map;
 		
 	}
-	
 }
 
 // Old code
