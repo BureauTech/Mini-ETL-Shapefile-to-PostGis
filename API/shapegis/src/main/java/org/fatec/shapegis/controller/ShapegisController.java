@@ -112,33 +112,44 @@ public class ShapegisController {
 
 		// Se a extensão for shp
 		if (extension.equals("shp")) {
-			// Processa o arquivo e retorna os campos
-			ArrayList<String> fields = new ArrayList<String>();
-			FileDataStore myData = FileDataStoreFinder.getDataStore(f);
-			SimpleFeatureSource source = myData.getFeatureSource();
-			SimpleFeatureType schema = source.getSchema();
-
-			Query query = new Query(schema.getTypeName());
-			query.setMaxFeatures(1);
-
-			FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
-			try (FeatureIterator<SimpleFeature> features = collection.features()) {
-				while (features.hasNext()) {
-					SimpleFeature feature = features.next();
-
-					for (Property attribute : feature.getProperties()) {
-						fields.add(attribute.getName().toString());
-					}
-				}
-			}
-
-			return fields;
+		
 		}
 
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
+	
+	@GetMapping("atributes/{file}")
+	public Map<String, String> atributosArquivo(String file) throws IOException{
+		
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
+		// Processa o arquivo e retorna os campos
+		ArrayList<String> fields = new ArrayList<String>();
+		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
+		SimpleFeatureSource source = myData.getFeatureSource();
+		SimpleFeatureType schema = source.getSchema();
 
+		Query query = new Query(schema.getTypeName());
+		query.setMaxFeatures(1);
+
+		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
+		try (FeatureIterator<SimpleFeature> features = collection.features()) {
+			while (features.hasNext()) {
+				SimpleFeature feature = features.next();
+
+				for (Property attribute : feature.getProperties()) {
+					fields.add(attribute.getName().toString());
+				}
+			}
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("atributes", fields.toString());
+		
+		return map;
+		
+	}
+	
 }
 
 // Old code
