@@ -20,7 +20,6 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,53 +37,55 @@ public class ShapegisController {
 		return "bomdia";
 	}
 
-	@PostMapping(path = "/connect", consumes = "application/json", produces = "application/json")
-	public Map<String, String> getConexao(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	@PostMapping(path = "/connect/postgres", consumes = "application/json", produces = "application/json")
+	public Map<String, String> postgres(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+		// Declara as ArrayLists para receber as databases
+		ArrayList<String> databases = new ArrayList<String>();
+		// Declara o ArrayList de retorno
+		HashMap<String, String> map = new HashMap<String, String>();
+		// Inicializa o objeto de clase PostgisConnection
+		PostgisConnection conn = new PostgisConnection(form);
+		// Abre conexão com o Postgres
+		conn.connectToPostgres();
+		
+		// Resgata a lista de databases existente no Postgres conectado
+		databases = conn.databases();
+		
+		// Cria o objeto Json para retorno
+		map.put("databases", databases.toString()); // {"databases": "[...]"}
+		
+		// Fecha a conexão
+		conn.close();
+		
+		// Retorna objeto Json
+		return map;
+	}
+
+	@PostMapping(path = "/connect/database", consumes = "application/json", produces = "application/json")
+	public Map<String, String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as tabelas e campos
 		ArrayList<String> tables = new ArrayList<String>();
 		// Declara o ArrayList de retorno
 		HashMap<String, String> map = new HashMap<String, String>();
-		// Abre conexao
+		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
+		// Abre conexão com a database especificada
+		conn.connectToDatabase();
+
 		// Resgata os nomes das tabelas
 		tables = conn.tables();
-		// Cria o Array para o retorno
+		// Cria o Json para o retorno
 		for (String t : tables) {
 			map.put(t, conn.fields(t).toString());
 		}
 		// Fecha conexao
 		conn.close();
-		// Retorna o status da conexao
+		
+		// Retorna o Json
 		return map;
 	}
 
-	@PostMapping(path = "/tables", consumes = "application/json")
-	public ArrayList<String> tables(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
-		ArrayList<String> tables = new ArrayList<String>();
-		// Abre conexao
-		PostgisConnection conn = new PostgisConnection(form);
-		// Cria JsonArray para o retorno
-		// Resgata os nomes das tabelas disponíveis no banco
-		tables = conn.tables();
-		// Fecha conexao
-		conn.close();
-		return tables;
-	}
-
-	@PostMapping(path = "/fields/{name}", consumes = "application/json")
-	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name)
-			throws ClassNotFoundException, SQLException {
-		ArrayList<String> fields = new ArrayList<String>();
-		// Abre conexao
-		PostgisConnection conn = new PostgisConnection(form);
-		// Cria JsonArray para o retorno
-		// Resgata os campos da tabela especificada
-		fields = conn.fields(name);
-		// Fecha conexao
-		conn.close();
-		return fields;
-	}
-	
+	// Upload dos arquivos
 	// Recebendo um arquivo de cada vez
 	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
 	public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile file) throws IOException {
@@ -93,12 +94,12 @@ public class ShapegisController {
 		dir.mkdirs();
 
 		File f = new File(dir.toString(), file.getOriginalFilename());
-		
+
 		// Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
-		
+
 		// Salva o arquivo no diretório temporário
 		try {
 			file.transferTo(f);
@@ -108,7 +109,7 @@ public class ShapegisController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Se a extensão for shp
 		if (extension.equals("shp")) {
 			// Processa o arquivo e retorna os campos
@@ -133,79 +134,77 @@ public class ShapegisController {
 
 			return fields;
 		}
-		
+
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
-	 
+
 }
 
-// Old codeik
+// Old code
 //------------------------------------------------------------------------------
 /*
-// Recebendo multiplos arquivos
-@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
-public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile[] files) throws IOException {
-
-	File shp = null;
-
-	File d = new File(local + separador + "ShapeGIS" + separador + "tmp");
-	d.mkdirs();
-
-	// Salvando arquivos
-	for (MultipartFile file : files) {
-		File f = new File(d.toString(), file.getOriginalFilename());
-		System.out.println(f);
-		try {
-			file.transferTo(f);
-			// Transfer or Saving in local memory
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		String fileName = f.toString();
-		int index = fileName.lastIndexOf('.');
-		String extension = fileName.substring(index + 1);
-		if (extension.equals("shp")) {
-			shp = new File(d.toString(), file.getOriginalFilename());
-		}
-	}
-
-	// Leitura dos arquivos
-	ArrayList<String> fields = new ArrayList<String>();
-	FileDataStore myData = FileDataStoreFinder.getDataStore(shp);
-	SimpleFeatureSource source = myData.getFeatureSource();
-	SimpleFeatureType schema = source.getSchema();
-
-	Query query = new Query(schema.getTypeName());
-	query.setMaxFeatures(1);
-
-	FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
-	try (FeatureIterator<SimpleFeature> features = collection.features()) {
-		while (features.hasNext()) {
-			SimpleFeature feature = features.next();
-
-			for (Property attribute : feature.getProperties()) {
-				fields.add(attribute.getName().toString());
-			}
-		}
-	}
-
-	for (MultipartFile file : files) {
-		try {
-			((File) file).delete();
-			// deletando os arquivos
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-
-	}
-	return fields;
-}
-*/ 
+ * 
+ * @PostMapping(path = "/tables", consumes = "application/json") public
+ * ArrayList<String> tables(@RequestBody FormConexao form) throws
+ * ClassNotFoundException, SQLException { ArrayList<String> tables = new
+ * ArrayList<String>(); // Abre conexao PostgisConnection conn = new
+ * PostgisConnection(form); // Cria JsonArray para o retorno // Resgata os nomes
+ * das tabelas disponíveis no banco tables = conn.tables(); // Fecha conexao
+ * conn.close(); return tables; }
+ * 
+ * @PostMapping(path = "/fields/{name}", consumes = "application/json") public
+ * ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name")
+ * String name) throws ClassNotFoundException, SQLException { ArrayList<String>
+ * fields = new ArrayList<String>(); // Abre conexao PostgisConnection conn =
+ * new PostgisConnection(form); // Cria JsonArray para o retorno // Resgata os
+ * campos da tabela especificada fields = conn.fields(name); // Fecha conexao
+ * conn.close(); return fields; }
+ * 
+ * 
+ * // Recebendo multiplos arquivos
+ * 
+ * @PostMapping(path = "/upload", consumes = "multipart/form-data", produces =
+ * "application/json") public ArrayList<String> upload(@RequestParam(value =
+ * "file") MultipartFile[] files) throws IOException {
+ * 
+ * File shp = null;
+ * 
+ * File d = new File(local + separador + "ShapeGIS" + separador + "tmp");
+ * d.mkdirs();
+ * 
+ * // Salvando arquivos for (MultipartFile file : files) { File f = new
+ * File(d.toString(), file.getOriginalFilename()); System.out.println(f); try {
+ * file.transferTo(f); // Transfer or Saving in local memory } catch
+ * (IllegalStateException e) { e.printStackTrace(); } catch (IOException e) {
+ * e.printStackTrace(); }
+ * 
+ * String fileName = f.toString(); int index = fileName.lastIndexOf('.'); String
+ * extension = fileName.substring(index + 1); if (extension.equals("shp")) { shp
+ * = new File(d.toString(), file.getOriginalFilename()); } }
+ * 
+ * // Leitura dos arquivos ArrayList<String> fields = new ArrayList<String>();
+ * FileDataStore myData = FileDataStoreFinder.getDataStore(shp);
+ * SimpleFeatureSource source = myData.getFeatureSource(); SimpleFeatureType
+ * schema = source.getSchema();
+ * 
+ * Query query = new Query(schema.getTypeName()); query.setMaxFeatures(1);
+ * 
+ * FeatureCollection<SimpleFeatureType, SimpleFeature> collection =
+ * source.getFeatures(query); try (FeatureIterator<SimpleFeature> features =
+ * collection.features()) { while (features.hasNext()) { SimpleFeature feature =
+ * features.next();
+ * 
+ * for (Property attribute : feature.getProperties()) {
+ * fields.add(attribute.getName().toString()); } } }
+ * 
+ * for (MultipartFile file : files) { try { ((File) file).delete(); // deletando
+ * os arquivos } catch (Exception e) { e.printStackTrace();
+ * 
+ * }
+ * 
+ * } return fields; }
+ */
 
 /*
  * @RequestMapping("/database") public List<String> getDataBase(@RequestParam
