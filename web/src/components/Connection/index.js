@@ -73,11 +73,11 @@ const Connection = () => {
     setLoading(true);
     api({  
       method: 'post',
-      url: '/tables',
+      url: '/connect/postgres',
       data: { 
         "host": local,
         "porta": portal,
-        "bd": table, 
+        "bd": null, 
         "usuario": user,
         "senha": password
       }
