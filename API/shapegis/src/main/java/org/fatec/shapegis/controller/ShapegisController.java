@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
+import org.fatec.shapegis.model.FormShapeParaPostgis;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.Query;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
@@ -92,14 +95,14 @@ public class ShapegisController {
 
 		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		dir.mkdirs();
-
+		
 		File f = new File(dir.toString(), file.getOriginalFilename());
-
+		
 		// Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
-
+		
 		// Salva o arquivo no diretório temporário
 		try {
 			file.transferTo(f);
@@ -146,9 +149,17 @@ public class ShapegisController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("atributes", fields.toString());
 		
-		return map;
-		
+		return map;		
 	}
+	
+	@PostMapping(path="/shape-to-postgis", consumes="application/json")
+	public Map<String, String> shapeToPostgis(@RequestBody FormShapeParaPostgis form) {
+		
+		 
+		return form.map;
+	}
+	
+	
 }
 
 // Old code
