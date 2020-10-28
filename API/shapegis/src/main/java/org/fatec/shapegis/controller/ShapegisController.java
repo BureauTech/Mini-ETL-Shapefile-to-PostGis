@@ -149,6 +149,44 @@ public class ShapegisController {
 		return map;
 		
 	}
+	
+	// Método incompleto, faltam parâmetros que serão inseridos do front...
+	@GetMapping("rows/{file}")
+	public int setRows(String file, FormConexao form) throws Exception {
+		int result = 0;
+		String tabela = "ft_curso_dagua";
+		String[] atsArq = {"idcda", "cocursodag", "nudistbacc", "nucompcda", "nuareabacc", "cocdadesag", "nunivotcda", "nuordemcda", "dedominial", "the_geom"};
+		String[] atsDb = {"cda_cd", "cda_cd_otto", "cda_nu_dist_bh", "cda_nu_comp", "cda_ar_bacia", "cda_cd_desagua", "cda_nu_nivel_otto", "cda_nu_ordem", "cda_ds_dominialidade", "geom"};
+		HashMap<String, Object> tmpAtts;
+		
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
+		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
+		SimpleFeatureSource source = myData.getFeatureSource();
+		SimpleFeatureType schema = source.getSchema();
+
+		Query query = new Query(schema.getTypeName());
+		query.setMaxFeatures(1);
+
+		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
+		try (FeatureIterator<SimpleFeature> features = collection.features()) {
+			while (features.hasNext()) {
+				SimpleFeature feature = features.next();
+				tmpAtts = new HashMap<>();
+				for (Property attribute : feature.getProperties()) {
+					tmpAtts.put(attribute.getName().toString(), attribute.getValue());
+				}
+				
+				String sqlQuery = "INSERT INTO "+tabela+"(\r\n"
+						+ "	"+atsDb[0]+", "+atsDb[1]+", "+atsDb[2]+", "+atsDb[3]+", "+atsDb[4]+", "+atsDb[5]+", "+atsDb[6]+", "+atsDb[7]+", "+atsDb[8]+", "+atsDb[9]+")\r\n"
+						+ "	VALUES ('"+tmpAtts.get(""+atsArq[0]+"")+"', '"+tmpAtts.get(""+atsArq[1]+"")+"', '"+tmpAtts.get(""+atsArq[2]+"")+"', '"+tmpAtts.get(""+atsArq[3]+"")+"', '"+tmpAtts.get(""+atsArq[4]+"")+"', '"+tmpAtts.get(""+atsArq[5]+"")+"', '"+tmpAtts.get(""+atsArq[6]+"")+"', '"+tmpAtts.get(""+atsArq[7]+"")+"', '"+tmpAtts.get(""+atsArq[8]+"")+"', '"+tmpAtts.get(""+atsArq[9]+"")+"');";
+				
+				PostgisConnection conn = new PostgisConnection(form);
+				result = conn.gravarDados(sqlQuery);
+				conn.close();
+			}
+		}
+		return result;
+	}
 }
 
 // Old code

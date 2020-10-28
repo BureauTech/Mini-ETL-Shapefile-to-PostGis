@@ -116,6 +116,19 @@ public class PostgisConnection {
 	public void close() throws SQLException {
 		connection.close();
 	}
+	
+	// Linha adicionada provisoriamente, depois acertar no padrão.
+	public int gravarDados(String query) {
+		int result = 0;
+		try {
+			java.sql.Statement stmt = connection.createStatement();
+			result = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace(System.err);
+		}
+		return result;
+	}
 
 	// Método de Conexão//
 	/*
