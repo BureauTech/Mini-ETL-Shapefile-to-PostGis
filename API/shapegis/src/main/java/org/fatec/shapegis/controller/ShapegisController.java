@@ -60,6 +60,28 @@ public class ShapegisController {
 		// Retorna objeto Json
 		return databases;
 	}
+	
+	@PostMapping(path = "/connect/postgres/string", consumes = "application/json", produces = "application/json")
+	public String postgresString(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+		// Declara as ArrayLists para receber as databases
+		ArrayList<String> databases = new ArrayList<String>();
+		
+		// Inicializa o objeto de clase PostgisConnection
+		PostgisConnection conn = new PostgisConnection(form);
+		// Abre conexão com o Postgres
+		conn.connectToPostgres();
+		
+		// Resgata a lista de databases existente no Postgres conectado
+		databases = conn.databases();
+		
+			
+		// Fecha a conexão
+		conn.close();
+		
+		// Retorna objeto Json
+		return databases.toString();
+	}
+
 
 	@PostMapping(path = "/connect/database", consumes = "application/json", produces = "application/json")
 	public Map<String, String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
