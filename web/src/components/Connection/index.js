@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-
+ 
 
 import './styles.css';
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '20px', 
     minWidth: '75%',
     backgroundColor: '#fff',
-    color: 'rgb(156 152 166)',
+    color: '#000',
   },
   label: {
     fontSize: '20px',
@@ -43,34 +43,27 @@ const useStyles = makeStyles((theme) => ({
 const Connection = () => {
   const [local, setLocal] = useState();
   const [portal, setPortal] = useState();
-  const [table, setTable] = useState(); 
+  const [table, setTable] = useState(''); 
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); 
-
-  useEffect(() => {
-    console.log('context here: ', shapeReturn);
-  }, [shapeReturn]);
-
+  const [bdList2, setBdList] = useState(''); 
   
   const classes = useStyles(); 
-  const [campos, setCampos] = React.useState(0); 
-  const [open, setOpen] = React.useState(false); 
-  const handleChange = (event) => { 
-    setCampos(event.target.value); 
-  };
 
-  const handleClose = () => { 
-    setOpen(false); 
-  };
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setTable(e.target.value);
+    console.log(table);
+    
+    bdList();
+  }
 
-  const handleOpen = () => {
-    setOpen(true); 
-  };
+  const handleSubmit = () => {
+    console.log(table)
+  }
   
   const bdConnect = () => {
-    setLoading(true);
     api({  
       method: 'post',
       url: '/connect/postgres',
@@ -83,14 +76,19 @@ const Connection = () => {
       }
     })
     .then(response => { 
-        setShapeReturn(response.data); 
+        console.log(response.data);
+        setBdList(response.data);
       }
     )
     .catch(err => {
-      console.log('deu ruim bb', err); 
+      console.log('deu ruim', err); 
     });
 
-  } 
+  }
+  
+  const bdList = () => {
+    console.log(table);
+  }
 
     return (
       <div className="db-container" width="100%">
@@ -122,20 +120,22 @@ const Connection = () => {
                 
         <button type="button" onClick={bdConnect}>CONECTAR</button>   
         
-        <div className={classes.text}>  
-          <FormControl className={classes.text}> 
-          <Select  
-          className={classes.select}
-          open={open} 
-          onClose={handleClose} 
-          onOpen={handleOpen} 
-          value={campos}
-          onChange={handleChange}
-          > 
-          <MenuItem value={0} selected disabled className={classes.select}>Selecione o Banco de Dados</MenuItem>
-          <MenuItem value={1} className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
-        </Select>
-        </FormControl>
+          <div className={classes.text}>  
+          <form className={classes.text}> 
+
+          <select value={table} onChange={handleChange} className={classes.select}>
+            <option value={0} selected disabled>Selecione o Banco de Dados</option>
+
+            { bdList2 && bdList2.length > 0 && 
+              bdList2.map((item)=>{
+                return (
+                  <option value={item}>{item}</option>
+                )
+              })
+            }
+          </select>
+          
+        </form>
         </div>
       </div>
     )
