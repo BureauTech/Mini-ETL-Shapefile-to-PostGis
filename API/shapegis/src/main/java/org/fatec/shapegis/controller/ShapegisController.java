@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
+import org.fatec.shapegis.model.FormShapeParaPostgis;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.Query;
@@ -47,16 +48,16 @@ public class ShapegisController {
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com o Postgres
 		conn.connectToPostgres();
-		
+
 		// Resgata a lista de databases existente no Postgres conectado
 		databases = conn.databases();
-		
+
 		// Cria o objeto Json para retorno
 		map.put("databases", databases.toString()); // {"databases": "[...]"}
-		
+
 		// Fecha a conexão
 		conn.close();
-		
+
 		// Retorna objeto Json
 		return map;
 	}
@@ -80,7 +81,7 @@ public class ShapegisController {
 		}
 		// Fecha conexao
 		conn.close();
-		
+
 		// Retorna o Json
 		return map;
 	}
@@ -112,16 +113,16 @@ public class ShapegisController {
 
 		// Se a extensão for shp
 		if (extension.equals("shp")) {
-		
+
 		}
 
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
-	
+
 	@GetMapping("atributes/{file}")
-	public Map<String, String> atributosArquivo(String file) throws IOException{
-		
+	public Map<String, String> atributosArquivo(String file) throws IOException {
+
 		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
 		// Processa o arquivo e retorna os campos
 		ArrayList<String> fields = new ArrayList<String>();
@@ -142,24 +143,23 @@ public class ShapegisController {
 				}
 			}
 		}
-		
+
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("atributes", fields.toString());
-		
+
 		return map;
-		
+
 	}
-	
-	// Método incompleto, faltam parâmetros que serão inseridos do front...
-	@GetMapping("rows/{file}")
-	public int setRows(String file, FormConexao form) throws Exception {
+
+	@PostMapping(path = "/shape-to-postgis", consumes = "application/json")
+	public Map<String, String> shapeToPostgis(@RequestBody FormShapeParaPostgis form) throws Exception {
 		int result = 0;
-		String tabela = "ft_curso_dagua";
-		String[] atsArq = {"idcda", "cocursodag", "nudistbacc", "nucompcda", "nuareabacc", "cocdadesag", "nunivotcda", "nuordemcda", "dedominial", "the_geom"};
-		String[] atsDb = {"cda_cd", "cda_cd_otto", "cda_nu_dist_bh", "cda_nu_comp", "cda_ar_bacia", "cda_cd_desagua", "cda_nu_nivel_otto", "cda_nu_ordem", "cda_ds_dominialidade", "geom"};
+
+		String atributo = "";
+		String valor = "";
 		HashMap<String, Object> tmpAtts;
-		
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
+
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
 		SimpleFeatureSource source = myData.getFeatureSource();
 		SimpleFeatureType schema = source.getSchema();
@@ -175,17 +175,26 @@ public class ShapegisController {
 				for (Property attribute : feature.getProperties()) {
 					tmpAtts.put(attribute.getName().toString(), attribute.getValue());
 				}
+
+				for (Map.Entry<String, String> entrada : form.map.entrySet()) {
+					atributo += entrada.getValue() + " ,";
+					valor += "'" + tmpAtts.get("" + entrada.getKey() + "") + "',";
+				}
 				
-				String sqlQuery = "INSERT INTO "+tabela+"(\r\n"
-						+ "	"+atsDb[0]+", "+atsDb[1]+", "+atsDb[2]+", "+atsDb[3]+", "+atsDb[4]+", "+atsDb[5]+", "+atsDb[6]+", "+atsDb[7]+", "+atsDb[8]+", "+atsDb[9]+")\r\n"
-						+ "	VALUES ('"+tmpAtts.get(""+atsArq[0]+"")+"', '"+tmpAtts.get(""+atsArq[1]+"")+"', '"+tmpAtts.get(""+atsArq[2]+"")+"', '"+tmpAtts.get(""+atsArq[3]+"")+"', '"+tmpAtts.get(""+atsArq[4]+"")+"', '"+tmpAtts.get(""+atsArq[5]+"")+"', '"+tmpAtts.get(""+atsArq[6]+"")+"', '"+tmpAtts.get(""+atsArq[7]+"")+"', '"+tmpAtts.get(""+atsArq[8]+"")+"', '"+tmpAtts.get(""+atsArq[9]+"")+"');";
+				if (atributo.length() > 0 && valor.length() > 0) {
+				    atributo = atributo.substring (0, atributo.length() - 1);
+				    valor = valor.substring (0, valor.length() - 1);
+				}
 				
-				PostgisConnection conn = new PostgisConnection(form);
+				String sqlQuery = "INSERT INTO " + form.tabela + "(" + atributo + ") VALUES (" + valor + ");";
+
+				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
+						form.senha);
 				result = conn.gravarDados(sqlQuery);
 				conn.close();
 			}
 		}
-		return result;
+		return form.map;
 	}
 }
 
