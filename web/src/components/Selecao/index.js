@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react'; //3 hooks de estados 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,13 +7,8 @@ import Select from '@material-ui/core/Select';
 import api from '../../services/api';
 
 import "./styles.css";
-
-const bdConnect = () => {
-  api({
-    method: 'get',
-    url: '/bomdia',
-    })
-  } 
+import AppContext from '../../context';
+import shape from '@material-ui/core/styles/shape';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -27,14 +22,16 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     margin: theme.spacing(0),
-    fontSize: '20px',
+    fontSize: '30px',
     minWidth: '75%',
   },
   select: {
-    fontSize: '15px',
-    minWidth: '75%',
+    fontSize: '20px',
+    minWidth: '50%',
+    margin: theme.spacing(0) 
   }
 }));
+
 
 export default function ControlledOpenSelect() {
   const classes = useStyles();
@@ -43,6 +40,39 @@ export default function ControlledOpenSelect() {
   const handleChange = (event) => {
     setCampos(event.target.value);
   };
+  const [Files, setFiles] = useState([]); //lista vazia
+  const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
+
+  useEffect(() => {}, [shapeReturn]);
+
+  const listItems = shapeReturn.map(
+    (value, index) =>
+    <option className="fields" id={index + 1} key={index}>{value}</option>
+  );
+
+  function inputFill() { //func 
+    if (shapeReturn.length > 0){
+      return (
+        shapeReturn.map(
+          (value, index) =>
+          <option className="fields" id={index + 1} key={index}>{value}</option>
+        )
+      )}
+    
+    else {
+      return (
+        <>
+
+          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+        </>
+      )
+    }
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -53,27 +83,19 @@ export default function ControlledOpenSelect() {
   };
 
   return (
-    <div className={classes.text}>
+    <div className={classes.text}>     
       <FormControl className={classes.text}>
-        <InputLabel className={classes.text}>TABELA</InputLabel>
-        <Select
-          className={classes.text}
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={campos}
-          onChange={handleChange}
-        >
-          <MenuItem value="" className={classes.select}><em>None</em></MenuItem>
-          <MenuItem value={1}className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
-          <MenuItem value={2}className={classes.select} onClick={bdConnect}>geography_columns</MenuItem>
-          <MenuItem value={3}className={classes.select} onClick={bdConnect}>geometry_columns</MenuItem>
-          <MenuItem value={4}className={classes.select} onClick={bdConnect}>spatial_ref_sys</MenuItem>
-          <MenuItem value={5}className={classes.select} onClick={bdConnect}>raster_columns</MenuItem>
-          <MenuItem value={6}className={classes.select} onClick={bdConnect}>raster_overviews</MenuItem>
-          <MenuItem value={7}className={classes.select} onClick={bdConnect}>ft_bacia_hidrografica_n1</MenuItem>
-          <MenuItem value={8}className={classes.select} onClick={bdConnect}>ft_curso_dagua</MenuItem>
-        </Select>
+          <select value={campos} onChange={handleChange} className={classes.select}>
+            <option value={0} selected disabled>Selecione a Tabela</option>
+
+            { shapeReturn && shapeReturn.length > 0 && 
+              shapeReturn.map((item)=>{
+                return (
+                  <option value={item}>{item}</option>
+                )
+              })
+            }
+          </select>          
       </FormControl>
     </div>
   );

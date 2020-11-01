@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
+import org.fatec.shapegis.model.FormShapeParaPostgis;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.Query;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
 public class ShapegisController {
@@ -38,11 +41,10 @@ public class ShapegisController {
 	}
 
 	@PostMapping(path = "/connect/postgres", consumes = "application/json", produces = "application/json")
-	public Map<String, String> postgres(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> postgres(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as databases
 		ArrayList<String> databases = new ArrayList<String>();
-		// Declara o ArrayList de retorno
-		HashMap<String, String> map = new HashMap<String, String>();
+		
 		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com o Postgres
@@ -51,22 +53,41 @@ public class ShapegisController {
 		// Resgata a lista de databases existente no Postgres conectado
 		databases = conn.databases();
 		
-		// Cria o objeto Json para retorno
-		map.put("databases", databases.toString()); // {"databases": "[...]"}
-		
+			
 		// Fecha a conexão
 		conn.close();
 		
 		// Retorna objeto Json
-		return map;
+		return databases;
+	}
+	
+	@PostMapping(path = "/connect/postgres/string", consumes = "application/json", produces = "application/json")
+	public String postgresString(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+		// Declara as ArrayLists para receber as databases
+		ArrayList<String> databases = new ArrayList<String>();
+		
+		// Inicializa o objeto de clase PostgisConnection
+		PostgisConnection conn = new PostgisConnection(form);
+		// Abre conexão com o Postgres
+		conn.connectToPostgres();
+		
+		// Resgata a lista de databases existente no Postgres conectado
+		databases = conn.databases();
+		
+			
+		// Fecha a conexão
+		conn.close();
+		
+		// Retorna objeto Json
+		return databases.toString();
 	}
 
+
 	@PostMapping(path = "/connect/database", consumes = "application/json", produces = "application/json")
-	public Map<String, String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as tabelas e campos
 		ArrayList<String> tables = new ArrayList<String>();
 		// Declara o ArrayList de retorno
-		HashMap<String, String> map = new HashMap<String, String>();
 		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com a database especificada
@@ -75,15 +96,12 @@ public class ShapegisController {
 		// Resgata os nomes das tabelas
 		tables = conn.tables();
 		// Cria o Json para o retorno
-		for (String t : tables) {
-			map.put(t, conn.fields(t).toString());
-		}
 		// Fecha conexao
 		conn.close();
 		
 		// Retorna o Json
-		return map;
-	}
+		return tables;
+}
 
 	// Upload dos arquivos
 	// Recebendo um arquivo de cada vez
@@ -92,14 +110,14 @@ public class ShapegisController {
 
 		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		dir.mkdirs();
-
+		
 		File f = new File(dir.toString(), file.getOriginalFilename());
-
+		
 		// Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
-
+		
 		// Salva o arquivo no diretório temporário
 		try {
 			file.transferTo(f);
@@ -146,9 +164,17 @@ public class ShapegisController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("atributes", fields.toString());
 		
-		return map;
-		
+		return map;		
 	}
+	
+	@PostMapping(path="/shape-to-postgis", consumes="application/json")
+	public Map<String, String> shapeToPostgis(@RequestBody FormShapeParaPostgis form) {
+		
+		 
+		return form.map;
+	}
+	
+	
 }
 
 // Old code
