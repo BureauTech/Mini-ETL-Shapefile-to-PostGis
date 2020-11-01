@@ -8,8 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
- 
-
 import './styles.css';
 
 const useStyles = makeStyles((theme) => ({ 
@@ -47,16 +45,30 @@ const Connection = () => {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  const [bdList2, setBdList] = useState(''); 
-  
+  const [bdList2, setBdList] = useState('');
+  const [lista, setLista] = useState();
+  const [open, setOpen] = React.useState(false); 
+  const {shapeReturn, setShapeReturn} = useContext(AppContext); 
+  const [campos, setCampos] = React.useState(0); 
+
+  useEffect(() => {
+    console.log('context here: ', shapeReturn);
+  }, [shapeReturn]);
+
   const classes = useStyles(); 
+  const handleClose = () => { 
+    setOpen(false); 
+  };
+
+  const handleOpen = () => {
+    setOpen(true); 
+  };
 
   const handleChange = (e) => {
     console.log(e.target.value);
     setTable(e.target.value);
     console.log(table);
-    
-    bdList();
+    bdList(e.target.value); //Para isso é só passar a tabela selecionada como um parâmetro para a próxima função.
   }
 
   const handleSubmit = () => {
@@ -86,10 +98,30 @@ const Connection = () => {
 
   }
   
-  const bdList = () => {
-    console.log(table);
-  }
-
+  const bdList = (tableSelected) => {
+    setLoading(true);
+    api({  
+      method: 'post',
+      url: '/connect/database',
+      data: { 
+        "host": local,
+        "porta": portal,
+        "bd": tableSelected, 
+        "usuario": user,
+        "senha": password
+      }
+    })
+    .then(response => { 
+        setLista(response.data); 
+        console.log('olha a lista ' + JSON.stringify(lista))
+        setShapeReturn(response.data); 
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
+  } 
+  
     return (
       <div className="db-container" width="100%">
         <div className="db-container-title" width="100%">
@@ -120,6 +152,7 @@ const Connection = () => {
                 
         <button type="button" onClick={bdConnect}>CONECTAR</button>   
         
+
           <div className={classes.text}>  
           <form className={classes.text}> 
 
@@ -134,7 +167,6 @@ const Connection = () => {
               })
             }
           </select>
-          
         </form>
         </div>
       </div>

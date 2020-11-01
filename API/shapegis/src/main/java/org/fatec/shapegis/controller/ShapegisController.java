@@ -84,11 +84,10 @@ public class ShapegisController {
 
 
 	@PostMapping(path = "/connect/database", consumes = "application/json", produces = "application/json")
-	public Map<String, String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as tabelas e campos
 		ArrayList<String> tables = new ArrayList<String>();
 		// Declara o ArrayList de retorno
-		HashMap<String, String> map = new HashMap<String, String>();
 		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com a database especificada
@@ -97,15 +96,12 @@ public class ShapegisController {
 		// Resgata os nomes das tabelas
 		tables = conn.tables();
 		// Cria o Json para o retorno
-		for (String t : tables) {
-			map.put(t, conn.fields(t).toString());
-		}
 		// Fecha conexao
 		conn.close();
 		
 		// Retorna o Json
-		return map;
-	}
+		return tables;
+}
 
 	// Upload dos arquivos
 	// Recebendo um arquivo de cada vez
