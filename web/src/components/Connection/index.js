@@ -110,7 +110,7 @@ const Connection = () => {
           </form>
 
           <form className="forms-content-text-box">
-            <input type="text" className="txtbox" onChange={event => setLocal(event.target.value)}/>
+            <input type="text" autoFocus className="txtbox" onChange={event => setLocal(event.target.value)}/>
             <input type="text" className="txtbox" onChange={event => setPortal(event.target.value)}/>
              
             <input type="text" className="txtbox" onChange={event => setUser(event.target.value)}/>
