@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
 public class ShapegisController {
@@ -115,10 +113,10 @@ public class ShapegisController {
 		return null;
 	}
 
-	@GetMapping("atributes/{file}")
-	public Map<String, String> atributosArquivo(String file) throws IOException {
+	@GetMapping("attributes/{file}")
+	public ArrayList<String> atributosArquivo(String file) throws IOException {
 
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file + ".shp");
 		// Processa o arquivo e retorna os campos
 		ArrayList<String> fields = new ArrayList<String>();
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
@@ -139,10 +137,7 @@ public class ShapegisController {
 			}
 		}
 
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("atributes", fields.toString());
-
-		return map;
+		return fields;
 
 	}
 
