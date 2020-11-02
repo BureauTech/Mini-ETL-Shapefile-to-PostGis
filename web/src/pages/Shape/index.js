@@ -12,7 +12,7 @@ import Footer from '../../components/Footer';
 import Connection from '../../components/Connection';
 import MenuItem from '../../components/Selecao';
 import DropZone from '../../components/Upload-Shape/DropZone';
-import List from '../../components/Shape-DE';
+import List from '../../components/DE-Shape-to-post';
 
 
 //Styles

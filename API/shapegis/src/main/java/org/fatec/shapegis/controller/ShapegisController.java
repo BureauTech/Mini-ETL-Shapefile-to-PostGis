@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @CrossOrigin
 @RestController // Declara que a classe controla requisições em Rest
 public class ShapegisController {
@@ -39,27 +41,24 @@ public class ShapegisController {
 	}
 
 	@PostMapping(path = "/connect/postgres", consumes = "application/json", produces = "application/json")
-	public Map<String, String> postgres(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> postgres(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as databases
 		ArrayList<String> databases = new ArrayList<String>();
-		// Declara o ArrayList de retorno
-		HashMap<String, String> map = new HashMap<String, String>();
+		
 		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com o Postgres
 		conn.connectToPostgres();
-
+		
 		// Resgata a lista de databases existente no Postgres conectado
 		databases = conn.databases();
-
-		// Cria o objeto Json para retorno
-		map.put("databases", databases.toString()); // {"databases": "[...]"}
-
+		
+			
 		// Fecha a conexão
 		conn.close();
-
+		
 		// Retorna objeto Json
-		return map;
+		return databases;
 	}
 
 	@PostMapping(path = "/connect/database", consumes = "application/json", produces = "application/json")
@@ -93,14 +92,14 @@ public class ShapegisController {
 
 		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		dir.mkdirs();
-
+		
 		File f = new File(dir.toString(), file.getOriginalFilename());
-
+		
 		// Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
-
+		
 		// Salva o arquivo no diretório temporário
 		try {
 			file.transferTo(f);
@@ -152,7 +151,7 @@ public class ShapegisController {
 	}
 
 	@PostMapping(path = "/shape-to-postgis", consumes = "application/json")
-	public Map<String, String> shapeToPostgis(@RequestBody FormShapeParaPostgis form) throws Exception {
+	public Integer shapeToPostgis(@RequestBody FormShapeParaPostgis form) throws Exception {
 		int result = 0;
 
 		String atributo = "";
@@ -194,8 +193,13 @@ public class ShapegisController {
 				conn.close();
 			}
 		}
-		return form.map;
+
+		
+		return result;		
 	}
+	
+	
+	
 }
 
 // Old code
