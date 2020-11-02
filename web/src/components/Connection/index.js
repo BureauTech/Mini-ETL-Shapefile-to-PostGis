@@ -8,8 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-
-
 import './styles.css';
 
 const useStyles = makeStyles((theme) => ({ 
@@ -31,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '20px', 
     minWidth: '75%',
     backgroundColor: '#fff',
-    color: 'rgb(156 152 166)',
+    color: '#000',
   },
   label: {
     fontSize: '20px',
@@ -43,24 +41,21 @@ const useStyles = makeStyles((theme) => ({
 const Connection = () => {
   const [local, setLocal] = useState();
   const [portal, setPortal] = useState();
-  const [table, setTable] = useState(); 
+  const [table, setTable] = useState(''); 
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+  const [bdList2, setBdList] = useState('');
+  const [lista, setLista] = useState();
+  const [open, setOpen] = React.useState(false); 
   const {shapeReturn, setShapeReturn} = useContext(AppContext); 
+  const [campos, setCampos] = React.useState(0); 
 
   useEffect(() => {
     console.log('context here: ', shapeReturn);
   }, [shapeReturn]);
 
-  
   const classes = useStyles(); 
-  const [campos, setCampos] = React.useState(0); 
-  const [open, setOpen] = React.useState(false); 
-  const handleChange = (event) => { 
-    setCampos(event.target.value); 
-  };
-
   const handleClose = () => { 
     setOpen(false); 
   };
@@ -68,30 +63,65 @@ const Connection = () => {
   const handleOpen = () => {
     setOpen(true); 
   };
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setTable(e.target.value);
+    console.log(table);
+    bdList(e.target.value); //Para isso é só passar a tabela selecionada como um parâmetro para a próxima função.
+  }
+
+  const handleSubmit = () => {
+    console.log(table)
+  }
   
   const bdConnect = () => {
-    setLoading(true);
     api({  
       method: 'post',
-      url: '/tables',
+      url: '/connect/postgres',
       data: { 
         "host": local,
         "porta": portal,
-        "bd": table, 
+        "bd": null, 
         "usuario": user,
         "senha": password
       }
     })
     .then(response => { 
+        console.log(response.data);
+        setBdList(response.data);
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim', err); 
+    });
+
+  }
+  
+  const bdList = (tableSelected) => {
+    setLoading(true);
+    api({  
+      method: 'post',
+      url: '/connect/database',
+      data: { 
+        "host": local,
+        "porta": portal,
+        "bd": tableSelected, 
+        "usuario": user,
+        "senha": password
+      }
+    })
+    .then(response => { 
+        setLista(response.data); 
+        console.log('olha a lista ' + JSON.stringify(lista))
         setShapeReturn(response.data); 
       }
     )
     .catch(err => {
       console.log('deu ruim bb', err); 
     });
-
   } 
-
+  
     return (
       <div className="db-container" width="100%">
         <div className="db-container-title" width="100%">
@@ -122,20 +152,22 @@ const Connection = () => {
                 
         <button type="button" onClick={bdConnect}>CONECTAR</button>   
         
-        <div className={classes.text}>  
-          <FormControl className={classes.text}> 
-          <Select  
-          className={classes.select}
-          open={open} 
-          onClose={handleClose} 
-          onOpen={handleOpen} 
-          value={campos}
-          onChange={handleChange}
-          > 
-          <MenuItem value={0} selected disabled className={classes.select}>Selecione o Banco de Dados</MenuItem>
-          <MenuItem value={1} className={classes.select} onClick={bdConnect}>ft_ponto_drenagem</MenuItem>
-        </Select>
-        </FormControl>
+
+          <div className={classes.text}>  
+          <form className={classes.text}> 
+
+          <select value={table} onChange={handleChange} className={classes.select}>
+            <option value={0} selected disabled>Selecione o Banco de Dados</option>
+
+            { bdList2 && bdList2.length > 0 && 
+              bdList2.map((item)=>{
+                return (
+                  <option value={item}>{item}</option>
+                )
+              })
+            }
+          </select>
+        </form>
         </div>
       </div>
     )

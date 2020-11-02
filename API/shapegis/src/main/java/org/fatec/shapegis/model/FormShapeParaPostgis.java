@@ -9,5 +9,6 @@ public class FormShapeParaPostgis {
 	public String usuario;
 	public String senha;
 	public String tabela;
+	public String file;
 	public HashMap<String, String> map;
 }

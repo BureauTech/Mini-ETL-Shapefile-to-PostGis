@@ -33,6 +33,14 @@ public class PostgisConnection {
 		this.senha = form.senha;
 	}
 
+	public PostgisConnection(String host, String porta, String bd, String usuario, String senha) throws SQLException {
+		this.host = host;
+		this.porta = porta;
+		this.bd = bd;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
+	
 	// Abre conexão direta ao PostgreSQL
 	public void connectToPostgres() throws SQLException, ClassNotFoundException {
 		// Formato -> jdbc:postgresql://host:port/database
@@ -115,6 +123,19 @@ public class PostgisConnection {
 	// Fecha a conexão
 	public void close() throws SQLException {
 		connection.close();
+	}
+	
+	// Linha adicionada provisoriamente, depois acertar no padrão.
+	public int gravarDados(String query) {
+		int result = 0;
+		try {
+			java.sql.Statement stmt = connection.createStatement();
+			result = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace(System.err);
+		}
+		return result;
 	}
 
 	// Método de Conexão//

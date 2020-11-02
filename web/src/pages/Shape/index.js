@@ -10,9 +10,9 @@ import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 import Connection from '../../components/Connection';
-import MenuItem from '../../components/Selecao';
+import Selecao from '../../components/Selecao';
 import DropZone from '../../components/Upload-Shape/DropZone';
-import List from '../../components/Shape-DE';
+import List from '../../components/DE-Shape-to-post';
 
 
 //Styles
@@ -44,14 +44,6 @@ const Shape = () => {
     else {
       return (
         <> 
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
-          <label className="fields2">PARA</label>
         </>
       )
     }
@@ -76,7 +68,9 @@ const Shape = () => {
           <span>Selecione a tabela do banco</span>
         </div>
         
-        <MenuItem />
+        <Selecao>
+          {inputFill()}
+        </Selecao>
   
         <div className="shape-step3-header">
           <p>3</p>
@@ -104,20 +98,29 @@ const Shape = () => {
                 <label className="fields"><List/></label>
                 <label className="fields"><List/></label>
               </form>
-
-            <form className="columns">
-              {inputFill()}
-            </form>
-          </div>
-        </div>
-
+              
+              <form className="columns">
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+                <label className="fields2">PARA</label>
+              </form>
+            </div>
+      <div>
         <Link to="/" className="shape-send-button">
           REALIZAR CARGA
         </Link>
+        </div>
+
       </div>
 
       <Footer />
-    </>
+      </div>
+      </>
   );
 }
 
