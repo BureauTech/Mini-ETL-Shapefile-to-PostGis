@@ -60,28 +60,6 @@ public class ShapegisController {
 		// Retorna objeto Json
 		return databases;
 	}
-	
-	@PostMapping(path = "/connect/postgres/string", consumes = "application/json", produces = "application/json")
-	public String postgresString(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
-		// Declara as ArrayLists para receber as databases
-		ArrayList<String> databases = new ArrayList<String>();
-		
-		// Inicializa o objeto de clase PostgisConnection
-		PostgisConnection conn = new PostgisConnection(form);
-		// Abre conexão com o Postgres
-		conn.connectToPostgres();
-		
-		// Resgata a lista de databases existente no Postgres conectado
-		databases = conn.databases();
-		
-			
-		// Fecha a conexão
-		conn.close();
-		
-		// Retorna objeto Json
-		return databases.toString();
-	}
-
 
 	@PostMapping(path = "/connect/database", consumes = "application/json", produces = "application/json")
 	public Map<String, String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
@@ -102,7 +80,7 @@ public class ShapegisController {
 		}
 		// Fecha conexao
 		conn.close();
-		
+
 		// Retorna o Json
 		return map;
 	}
@@ -134,16 +112,16 @@ public class ShapegisController {
 
 		// Se a extensão for shp
 		if (extension.equals("shp")) {
-		
+
 		}
 
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
-	
+
 	@GetMapping("atributes/{file}")
-	public Map<String, String> atributosArquivo(String file) throws IOException{
-		
+	public Map<String, String> atributosArquivo(String file) throws IOException {
+
 		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
 		// Processa o arquivo e retorna os campos
 		ArrayList<String> fields = new ArrayList<String>();
@@ -164,19 +142,62 @@ public class ShapegisController {
 				}
 			}
 		}
-		
+
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("atributes", fields.toString());
+
+		return map;
+
+	}
+
+	@PostMapping(path = "/shape-to-postgis", consumes = "application/json")
+	public Integer shapeToPostgis(@RequestBody FormShapeParaPostgis form) throws Exception {
+		int result = 0;
+
+		String atributo = "";
+		String valor = "";
+		HashMap<String, Object> tmpAtts;
+
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
+		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
+		SimpleFeatureSource source = myData.getFeatureSource();
+		SimpleFeatureType schema = source.getSchema();
+
+		Query query = new Query(schema.getTypeName());
+		query.setMaxFeatures(1);
+
+		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
+		try (FeatureIterator<SimpleFeature> features = collection.features()) {
+			while (features.hasNext()) {
+				SimpleFeature feature = features.next();
+				tmpAtts = new HashMap<>();
+				for (Property attribute : feature.getProperties()) {
+					tmpAtts.put(attribute.getName().toString(), attribute.getValue());
+				}
+
+				for (Map.Entry<String, String> entrada : form.map.entrySet()) {
+					atributo += entrada.getValue() + " ,";
+					valor += "'" + tmpAtts.get("" + entrada.getKey() + "") + "',";
+				}
+				
+				if (atributo.length() > 0 && valor.length() > 0) {
+				    atributo = atributo.substring (0, atributo.length() - 1);
+				    valor = valor.substring (0, valor.length() - 1);
+				}
+				
+				String sqlQuery = "INSERT INTO " + form.tabela + "(" + atributo + ") VALUES (" + valor + ");";
+
+				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
+						form.senha);
+				result = conn.gravarDados(sqlQuery);
+				conn.close();
+			}
+		}
+
 		
-		return map;		
+		return result;		
 	}
 	
-	@PostMapping(path="/shape-to-postgis", consumes="application/json")
-	public Map<String, String> shapeToPostgis(@RequestBody FormShapeParaPostgis form) {
-		
-		 
-		return form.map;
-	}
 	
 	
 }
