@@ -41,21 +41,10 @@ Save time, save data. </h3> <br>
 
 # Tecnologias utilizadas na Sprint
 
-- Heroku
 - React JS
 - Context API
 - Spring boot
 - Java
-
-# Conexão ao Banco de Dados
-
-Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
-
-Local: ec2-54-236-146-234.compute-1.amazonaws.com<br>
-Porta: 5432<br>
-Banco: d37cv1n45fhse1<br>
-Usuário: thpzxfrcqwklpj<br>
-Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
 
 # Burndown
 
