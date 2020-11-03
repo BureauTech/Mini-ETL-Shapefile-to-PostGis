@@ -72,7 +72,7 @@ Pesquisas concluídas.
 
 ## Nosso Kanban pode ser acessado aqui: [:memo:](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/projects/3)
 
-# Cronograma 
+# Cronograma de Entregas
 
 | Data | Links |
 | ------ | ------ |
