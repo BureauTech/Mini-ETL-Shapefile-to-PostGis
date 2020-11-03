@@ -173,7 +173,7 @@ const Dropzone = () => {
                     onDrop={fileDrop}
                     onClick={fileInputClicked}
                 >
-                    <div className="drop-message">
+                    <div className="drop-message" >
                         <div className="upload-icon" width="100%">
                         <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
                         </div>
@@ -225,5 +225,4 @@ const Dropzone = () => {
         </>
     );
 }
-
 export default Dropzone;

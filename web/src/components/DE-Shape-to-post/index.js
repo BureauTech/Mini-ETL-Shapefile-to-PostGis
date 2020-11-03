@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import AppContext from '../../context';
+import api from '../../services/api';
+import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -17,17 +19,17 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 300,
   },
   text: {
-    margin: theme.spacing(-0.6),
-    fontSize: '20px',
+    fontSize: '30px',
     minWidth: '100%',
-    
   },
   label: {
-    fontSize: '20px',
+    fontSize: '30px',
     minWidth: '100%',
   },
   select:{
-    fontSize: '15px',
+    fontSize: '20px',
+    minWidth: '50%',
+    margin: theme.spacing(0) 
   }
 }));
 
@@ -35,10 +37,19 @@ export default function ControlledOpenSelect() {
   const classes = useStyles();
   const [campos, setCampos] = React.useState('');
   const [open, setOpen] = React.useState(false);
-
+  const [local, setLocal] = useState();
+  const [portal, setPortal] = useState();
+  const [table, setTable] = useState(''); 
+  const [user, setUser] = useState();
+  const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
+  const [bdList2, setBdList] = useState('');
+  const [lista, setLista] = useState();
+  const {shapeReturn, setShapeReturn} = useContext(AppContext); 
 
   const handleChange = (event) => {
     setCampos(event.target.value);
+    bdList(event.target.value);
   };
 
   const handleClose = () => {
@@ -49,7 +60,48 @@ export default function ControlledOpenSelect() {
     setOpen(true);
   };
 
+  useEffect(() => {}, [shapeReturn]);
+  const bdList = (tableSelected) => {
+    setLoading(true);
+    api({  
+      method: 'post',
+      url: '/shape-to-post',
+      data: { 
+
+      }
+    })
+    .then(response => { 
+        setLista(response.data); 
+        console.log('olha a lista ' + JSON.stringify(lista))
+        setShapeReturn(response.data); 
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
+  } 
+
   return (
+    <div className={classes.text}>     
+      <FormControl className={classes.text}>
+          <select value={campos} onChange={handleChange} className="fields2">
+            <option value={0} selected disabled>Selecione o atributo do arquivo</option>
+
+            { shapeReturn && shapeReturn.length > 0 && 
+              shapeReturn.map((item)=>{
+                return (
+                  <option value={item}>{item}</option>
+                )
+              })
+            }
+          </select>          
+      </FormControl>
+    </div>
+  );
+}
+
+
+ /* return (
     <div className={classes.text}>
       <FormControl className={classes.text}>
         <InputLabel className={classes.label}>DE</InputLabel>
@@ -81,4 +133,4 @@ export default function ControlledOpenSelect() {
       </FormControl>
     </div>
   );
-}
+}*/

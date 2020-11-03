@@ -13,7 +13,7 @@ import Connection from '../../components/Connection';
 import Selecao from '../../components/Selecao';
 import DropZone from '../../components/Upload-Shape/DropZone';
 import List from '../../components/DE-Shape-to-post';
-
+import ShapeCarga from '../../components/Carga-shape'
 
 //Styles
 import "./styles.css"; 
@@ -49,6 +49,56 @@ const Shape = () => {
     }
   }
 
+  function inputFill2() {
+    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    if (shapeReturn.length > 0){
+      return (
+        shapeReturn.map(
+          (value, index) =>
+          <label className="fields" id={index + 1} key={index}>{value}</label>
+          )
+        )}
+        else {
+          return (
+            <>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+              <label className="fields">PARA</label>
+            </>
+          )
+        }
+    }
+
+
+    function inputFill3() {
+      console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+      if (shapeReturn.length > 0){
+        return (
+          shapeReturn.map(
+            (value, index) =>
+            <label className="fields" id={index + 1} key={index}>{value}</label>
+            )
+          )}
+          else {
+            return (
+              <>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+                <label className="fields">PARA</label>
+              </>
+            )
+          }
+      }
   return (
     <>
       <Header />
@@ -89,37 +139,26 @@ const Shape = () => {
             
             <div className="shape-step4-selection">
               <form className="columns">
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
-                <label className="fields"><List/></label>
+                <label><List/></label>
+                <label><List/></label>
+                <label><List/></label>
+                <label><List/></label>
+                <label><List/></label>
+                <label><List/></label>
+                <label><List/></label>
+                <label><List/></label>
               </form>
               
               <form className="columns">
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
-                <label className="fields2">PARA</label>
+                {inputFill2()}
               </form>
             </div>
-      <div>
-        <Link to="/" className="shape-send-button">
-          REALIZAR CARGA
-        </Link>
+          </div>
+
+
+          <ShapeCarga></ShapeCarga>
+
         </div>
-
-      </div>
-
-      <Footer />
-      </div>
       </>
   );
 }
