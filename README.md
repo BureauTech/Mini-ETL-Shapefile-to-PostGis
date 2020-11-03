@@ -32,16 +32,6 @@ O Shapegis é um ETL (Extract, Transform, Load) web, desenvolvido em ReactJS, e 
     <img src="/assets/images/png/diagrama-use-case.png">
 </div>
 
-# Conexão
-
-Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
-
-Local: ec2-54-236-146-234.compute-1.amazonaws.com<br>
-Porta: 5432<br>
-Banco: d37cv1n45fhse1<br>
-Usuário: thpzxfrcqwklpj<br>
-Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
-
 # Backlog
 
 <div align="center">
