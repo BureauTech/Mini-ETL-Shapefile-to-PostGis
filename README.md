@@ -18,7 +18,7 @@ Save time, save data. </h3> <br>
 
 # Proposta para Sprint 3
 <div align="center">
-    <img src="/assets/images/png/cards-sprint2.PNG">
+    <img src="/assets/images/png/cards-sprint3.png">
 </div>
 
 # Entregas da Sprint
