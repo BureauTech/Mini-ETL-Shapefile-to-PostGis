@@ -89,9 +89,11 @@ Pesquisas concluídas.
 
 ### [![GitHub Badge](https://img.shields.io/github/followers/anaclaragraciano?label=anaclaragraciano&style=for-the-badge&color=black&link=https://github.com/anaclaragraciano)](https://github.com/anaclaragraciano) - DEV Team<br/>
 
+### [![GitHub Badge](https://img.shields.io/github/followers/caiquesjc?label=caiquesjc&style=for-the-badge&color=black&link=https://github.com/caiquesjc)](https://github.com/caiquesjc) - DEV Team<br/> (Sprint 3)
+
 ### [![GitHub Badge](https://img.shields.io/github/followers/danielsantosoliveira?label=danielsantosoliveira&style=for-the-badge&color=black&link=https://github.com/danielsantosoliveira)](https://github.com/danielsantosoliveira) - DEV Team<br/>
 
-### [![GitHub Badge](https://img.shields.io/github/followers/fcostafelipe?label=fcostafelipe&style=for-the-badge&color=black&link=https://github.com/fcostafelipe)](https://github.com/fcostafelipe) - DEV Team<br/>
+### [![GitHub Badge](https://img.shields.io/github/followers/fcostafelipe?label=fcostafelipe&style=for-the-badge&color=black&link=https://github.com/fcostafelipe)](https://github.com/fcostafelipe) - DEV Team<br/> (Sprint 1)
 
 ### [![GitHub Badge](https://img.shields.io/github/followers/JVMedeiros?label=JVMedeiros&style=for-the-badge&color=black&link=https://github.com/JVMedeiros)](https://github.com/JVMedeiros) - DEV Team<br/>
   
@@ -99,3 +101,4 @@ Pesquisas concluídas.
  
 ### [![GitHub Badge](https://img.shields.io/github/followers/QuodJP?label=QuodJP&style=for-the-badge&color=black&link=https://github.com/QuodJP)](https://github.com/QuodJP) - DEV Team</br>
 
+### [![GitHub Badge](https://img.shields.io/github/followers/thiagoCan?label=thiagoCan&style=for-the-badge&color=black&link=https://github.com/thiagoCan)](https://github.com/thiagoCan) - DEV Team<br/> (Sprint 3)
