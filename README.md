@@ -42,7 +42,7 @@ Save time, save data. </h3> <br>
 # Tecnologias utilizadas na Sprint
 
 - Heroku
-- React
+- React JS
 - Context API
 - Spring boot
 - Java
