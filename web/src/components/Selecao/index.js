@@ -34,16 +34,49 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function ControlledOpenSelect() {
+  const [local, setLocal] = useState();
+  const [portal, setPortal] = useState();
+  const [table, setTable] = useState(''); 
+  const [user, setUser] = useState();
+  const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
+  const [bdList2, setBdList] = useState('');
+  const [lista, setLista] = useState();
+  const [open, setOpen] = React.useState(false); 
   const classes = useStyles();
   const [campos, setCampos] = React.useState('');
-  const [open, setOpen] = React.useState(false);
   const handleChange = (event) => {
     setCampos(event.target.value);
+    bdList(event.target.value);
   };
   const [Files, setFiles] = useState([]); //lista vazia
   const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
 
   useEffect(() => {}, [shapeReturn]);
+
+  const bdList = (tableSelected) => {
+    setLoading(true);
+    api({  
+      method: 'post',
+      url: '/connect/database',
+      data: { 
+        "host": local,
+        "porta": portal,
+        "bd": tableSelected, 
+        "usuario": user,
+        "senha": password
+      }
+    })
+    .then(response => { 
+        setLista(response.data); 
+        console.log('olha a lista ' + JSON.stringify(lista))
+        setShapeReturn(response.data); 
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
+  } 
 
   const listItems = shapeReturn.map(
     (value, index) =>
@@ -63,12 +96,12 @@ export default function ControlledOpenSelect() {
       return (
         <>
 
-          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
         </>
       )
     }
