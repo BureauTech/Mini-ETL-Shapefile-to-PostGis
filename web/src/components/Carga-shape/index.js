@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'; //link da biblioteca, n tá pegando nenhum caminho
 import api from '../../services/api';
-import AppContext from '../../context';
+import {Context1} from '../../context/ContextProvider';
 import postStep1 from '../../assets/img/notebook-background.png';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -49,7 +49,7 @@ const ShapeCarga = () => {
   const [bdList2, setBdList] = useState('');
   const [lista, setLista] = useState();
   const [open, setOpen] = React.useState(false); 
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); 
+  const {shapeReturn, setShapeReturn} = useContext(Context1); 
   const [campos, setCampos] = React.useState(0); 
 
   useEffect(() => {

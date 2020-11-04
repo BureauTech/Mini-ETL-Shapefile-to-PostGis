@@ -3,7 +3,9 @@ import React, { useContext, useState, useEffect } from 'react'; //3 hooks de est
 import {Link} from 'react-router-dom'; //link da biblioteca, n tá pegando nenhum caminho
 
 //Context
-import AppContext from '../../context';
+import {Context1} from '../../context/ContextProvider';
+
+
 
 //Components
 import Header from '../../components/Header';
@@ -20,13 +22,14 @@ import "./styles.css";
 
 const Shape = () => {
   const [Files, setFiles] = useState([]); //lista vazia
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
+  const context = useContext(Context1); //chamando o AppContext 
+  const {shapeReturn, setShapeReturn} = useContext(Context1);
 
   useEffect(() => {
     console.log('contexto aqui: ', shapeReturn);
   }, [shapeReturn]);
 
-  const listItems = shapeReturn.map(
+  const listItems = context.shapeReturn.map(
     (value, index) =>
     <label className="fields" id={index + 1} key={index}>{value}</label>
   );
@@ -162,6 +165,7 @@ const Shape = () => {
           <ShapeCarga></ShapeCarga>
 
         </div>
+        <Footer />
       </>
   );
 }
