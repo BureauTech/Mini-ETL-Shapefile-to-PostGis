@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
@@ -19,6 +21,7 @@ import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +40,11 @@ public class ShapegisController {
 	@GetMapping("/bomdia")
 	public String bomdia() {
 		return "bomdia";
+	}
+	
+	@GetMapping("/tmp")
+	public String userTemp() {
+		return System.getProperty("java.io.tmpdir");
 	}
 
 	@PostMapping(path = "/connect/postgres", consumes = "application/json", produces = "application/json")
@@ -80,18 +88,20 @@ public class ShapegisController {
 
 	// Upload dos arquivos
 	// Recebendo um arquivo de cada vez
+
 	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
 	public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile file) throws IOException {
-
+		
 		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		dir.mkdirs();
 
-		File f = new File(dir.toString(), file.getOriginalFilename());
+		File f = new File(dir, file.getOriginalFilename());
 
-		// Verificando a extensão do arquivo
+		/* Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
+		*/
 
 		// Salva o arquivo no diretório temporário
 		try {
@@ -102,12 +112,7 @@ public class ShapegisController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// Se a extensão for shp
-		if (extension.equals("shp")) {
-
-		}
-
+		
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
