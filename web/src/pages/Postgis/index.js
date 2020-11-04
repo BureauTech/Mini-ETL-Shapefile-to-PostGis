@@ -27,7 +27,7 @@ const Post = () => {
     );
     
   function inputFill() {
-    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    console.log('inputFill()', shapeReturn.length);
     if (shapeReturn.length > 0){
       return (
         shapeReturn.map(

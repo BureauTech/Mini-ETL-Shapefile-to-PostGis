@@ -32,7 +32,7 @@ const Shape = () => {
   );
 
   function inputFill() { //func 
-    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    console.log('inputFill()', shapeReturn.length);
     if (shapeReturn.length > 0){
       return (
         shapeReturn.map(
@@ -50,7 +50,7 @@ const Shape = () => {
   }
 
   function inputFill2() {
-    console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+    console.log('inputFill2()', shapeReturn.length);
     if (shapeReturn.length > 0){
       return (
         shapeReturn.map(
@@ -76,7 +76,7 @@ const Shape = () => {
 
 
     function inputFill3() {
-      console.log('NÃO SE CONFIA EM ANÃO BEBEDOR DE APPIA', shapeReturn.length);
+      console.log('inputFill3()', shapeReturn.length);
       if (shapeReturn.length > 0){
         return (
           shapeReturn.map(
