@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import api from '../../services/api';
 
 import "./styles.css";
-import AppContext from '../../context';
+import {Context1} from '../../context/ContextProvider';
 import shape from '@material-ui/core/styles/shape';
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +50,7 @@ export default function ControlledOpenSelect() {
     bdList(event.target.value);
   };
   const [Files, setFiles] = useState([]); //lista vazia
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
+  const {shapeReturn, setShapeReturn} = useContext(Context1); //chamando o AppContext 
 
   useEffect(() => {}, [shapeReturn]);
 
@@ -58,7 +58,7 @@ export default function ControlledOpenSelect() {
     setLoading(true);
     api({  
       method: 'post',
-      url: '/connect/database',
+      url: '/fields',
       data: { 
         "host": local,
         "porta": portal,
@@ -68,7 +68,6 @@ export default function ControlledOpenSelect() {
       }
     })
     .then(response => { 
-        setLista(response.data); 
         console.log('olha a lista ' + JSON.stringify(lista))
         setShapeReturn(response.data); 
       }

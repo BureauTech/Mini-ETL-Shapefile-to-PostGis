@@ -4,7 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import AppContext from '../../context';
+import {Context1} from '../../context/ContextProvider';
 import api from '../../services/api';
 import "./styles.css";
 
@@ -45,7 +45,7 @@ export default function ControlledOpenSelect() {
   const [loading, setLoading] = useState(false);
   const [bdList2, setBdList] = useState('');
   const [lista, setLista] = useState();
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); 
+  const {shapeReturn, setShapeReturn} = useContext(Context1); 
 
   const handleChange = (event) => {
     setCampos(event.target.value);

@@ -21,6 +21,7 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,19 +43,18 @@ public class ShapegisController {
 	public ArrayList<String> postgres(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as databases
 		ArrayList<String> databases = new ArrayList<String>();
-		
+
 		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com o Postgres
 		conn.connectToPostgres();
-		
+
 		// Resgata a lista de databases existente no Postgres conectado
 		databases = conn.databases();
-		
-			
+
 		// Fecha a conexão
 		conn.close();
-		
+
 		// Retorna objeto Json
 		return databases;
 	}
@@ -63,7 +63,6 @@ public class ShapegisController {
 	public ArrayList<String> database(@RequestBody FormConexao form) throws ClassNotFoundException, SQLException {
 		// Declara as ArrayLists para receber as tabelas e campos
 		ArrayList<String> tables = new ArrayList<String>();
-		// Declara o ArrayList de retorno
 		// Inicializa o objeto de clase PostgisConnection
 		PostgisConnection conn = new PostgisConnection(form);
 		// Abre conexão com a database especificada
@@ -77,7 +76,7 @@ public class ShapegisController {
 
 		// Retorna o Json
 		return tables;
-}
+	}
 
 	// Upload dos arquivos
 	// Recebendo um arquivo de cada vez
@@ -86,18 +85,18 @@ public class ShapegisController {
 
 		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
 		dir.mkdirs();
-		
+
 		File f = new File(dir.toString(), file.getOriginalFilename());
-		
+
 		// Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
-		
+
 		// Salva o arquivo no diretório temporário
 		try {
-			file.transferTo(f);
 			// Transfer or Saving in local memory
+			file.transferTo(f);		
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -113,12 +112,29 @@ public class ShapegisController {
 		return null;
 	}
 
-	@GetMapping("attributes/{file}")
-	public ArrayList<String> atributosArquivo(String file) throws IOException {
+	@PostMapping(path = "/fields/{name}", consumes = "application/json")
+	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name) throws ClassNotFoundException, SQLException {
+		// Declarando ArrayList para retorno
+		ArrayList<String> fields = new ArrayList<String>(); 
+		// Abre conexao 
+		PostgisConnection conn = new PostgisConnection(form);
+		// Pega os campos da tabela especificada na URL
+		fields = conn.fields(name); 
+		// Fecha conexao
+		conn.close();
+		// Retorna os campos do arquivo
+		return fields;
+	}
 
+	@GetMapping("attributes/{file}")
+	public ArrayList<String> atributosArquivo(@PathVariable("file") String file) throws IOException {
+		// Declara o caminho do arquivo
 		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file + ".shp");
-		// Processa o arquivo e retorna os campos
+		//Declara o ArrayList 
 		ArrayList<String> fields = new ArrayList<String>();
+		
+		// Processa o arquivo
+		// -----------------------------------------------------------
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
 		SimpleFeatureSource source = myData.getFeatureSource();
 		SimpleFeatureType schema = source.getSchema();
@@ -136,7 +152,9 @@ public class ShapegisController {
 				}
 			}
 		}
-
+		// -----------------------------------------------------------
+		
+		// Retorna os campos
 		return fields;
 
 	}
@@ -170,12 +188,12 @@ public class ShapegisController {
 					atributo += entrada.getValue() + " ,";
 					valor += "'" + tmpAtts.get("" + entrada.getKey() + "") + "',";
 				}
-				
+
 				if (atributo.length() > 0 && valor.length() > 0) {
-				    atributo = atributo.substring (0, atributo.length() - 1);
-				    valor = valor.substring (0, valor.length() - 1);
+					atributo = atributo.substring(0, atributo.length() - 1);
+					valor = valor.substring(0, valor.length() - 1);
 				}
-				
+
 				String sqlQuery = "INSERT INTO " + form.tabela + "(" + atributo + ") VALUES (" + valor + ");";
 
 				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
@@ -185,12 +203,9 @@ public class ShapegisController {
 			}
 		}
 
-		
-		return result;		
+		return result;
 	}
-	
-	
-	
+
 }
 
 // Old code

@@ -3,7 +3,9 @@ import React, { useContext, useState, useEffect } from 'react'; //3 hooks de est
 import {Link} from 'react-router-dom'; //link da biblioteca, n tá pegando nenhum caminho
 
 //Context
-import AppContext from '../../context';
+import {Context1} from '../../context/ContextProvider';
+
+
 
 //Components
 import Header from '../../components/Header';
@@ -20,13 +22,14 @@ import "./styles.css";
 
 const Shape = () => {
   const [Files, setFiles] = useState([]); //lista vazia
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
+  const context = useContext(Context1); //chamando o AppContext 
+  const {shapeReturn, setShapeReturn} = useContext(Context1);
 
   useEffect(() => {
     console.log('contexto aqui: ', shapeReturn);
   }, [shapeReturn]);
 
-  const listItems = shapeReturn.map(
+  const listItems = context.shapeReturn.map(
     (value, index) =>
     <label className="fields" id={index + 1} key={index}>{value}</label>
   );
@@ -105,8 +108,16 @@ const Shape = () => {
       <Faq />
       
       <div className="main-container"> 
-        <div className="shape-step1-header">
+
+        <div className="shape-step3-header">
           <p>1</p>
+          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
+        </div>
+        
+        <DropZone />
+
+        <div className="shape-step1-header">
+          <p>2</p>
           <span>
           Conecte-se com o seu Banco de Dados.</span>
         </div>
@@ -114,7 +125,7 @@ const Shape = () => {
         <Connection />
 
         <div className="shape-step2-header">
-          <p>2</p>
+          <p>3</p>
           <span>Selecione a tabela do banco</span>
         </div>
         
@@ -122,12 +133,7 @@ const Shape = () => {
           {inputFill()}
         </Selecao>
   
-        <div className="shape-step3-header">
-          <p>3</p>
-          <span> Carregue seus arquivos SHAPEFILE para seu banco de dados POSTGRESQL com segurança.</span>
-        </div>
         
-        <DropZone />
 
         <div className="shape-step4-header">
           <p>4</p>
@@ -159,6 +165,7 @@ const Shape = () => {
           <ShapeCarga></ShapeCarga>
 
         </div>
+        <Footer />
       </>
   );
 }

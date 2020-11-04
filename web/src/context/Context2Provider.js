@@ -1,17 +1,17 @@
 import React, { useState, createContext } from 'react';
 
-export const Context1 = createContext();
+export const Context2 = createContext();
 
-const ContextProvider = ({ children }) => {
+const ContextProvider2 = ({ children }) => {
   const [shapeReturn, setShapeReturn] = useState([]);
   const context = {
     shapeReturn,
     setShapeReturn,
   };
   return (
-    <Context1.Provider value={ context }> 
+    <Context2.Provider value={ context }> 
       {children}
-    </Context1.Provider>
+    </Context2.Provider>
   );
 }
-export default ContextProvider;
+export default ContextProvider2;
