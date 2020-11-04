@@ -1,14 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'; //3 hooks de estados 
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import api from '../../services/api';
 
 import "./styles.css";
-import AppContext from '../../context';
-import shape from '@material-ui/core/styles/shape';
+//import AppContext from '../../context';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -36,11 +33,8 @@ const useStyles = makeStyles((theme) => ({
 export default function ControlledOpenSelect() {
   const [local, setLocal] = useState();
   const [portal, setPortal] = useState();
-  const [table, setTable] = useState(''); 
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
-  const [loading, setLoading] = useState(false);
-  const [bdList2, setBdList] = useState('');
   const [lista, setLista] = useState();
   const [open, setOpen] = React.useState(false); 
   const classes = useStyles();
@@ -50,12 +44,16 @@ export default function ControlledOpenSelect() {
     bdList(event.target.value);
   };
   const [Files, setFiles] = useState([]); //lista vazia
-  const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
+  //const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
 
   useEffect(() => {}, [shapeReturn]);
 
+  const handleSelect = () => {
+    alert("funcionou");
+  }
+
+
   const bdList = (tableSelected) => {
-    setLoading(true);
     api({  
       method: 'post',
       url: '/connect/database',
@@ -77,7 +75,6 @@ export default function ControlledOpenSelect() {
       console.log('deu ruim bb', err); 
     });
   } 
-
   const listItems = shapeReturn.map(
     (value, index) =>
     <option className="fields" id={index + 1} key={index}>{value}</option>
@@ -106,14 +103,6 @@ export default function ControlledOpenSelect() {
       )
     }
   }
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   return (
     <div className={classes.text}>     

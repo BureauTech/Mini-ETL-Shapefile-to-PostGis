@@ -3,10 +3,6 @@ import api from '../../services/api';
 import AppContext from '../../context';
 import postStep1 from '../../assets/img/notebook-background.png';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import './styles.css';
 
@@ -47,7 +43,6 @@ const Connection = () => {
   const [loading, setLoading] = useState(false);
   const [bdList2, setBdList] = useState('');
   const [lista, setLista] = useState();
-  const [open, setOpen] = React.useState(false); 
   const {shapeReturn, setShapeReturn} = useContext(AppContext); 
   const [campos, setCampos] = React.useState(0); 
 
@@ -56,13 +51,6 @@ const Connection = () => {
   }, [shapeReturn]);
 
   const classes = useStyles(); 
-  const handleClose = () => { 
-    setOpen(false); 
-  };
-
-  const handleOpen = () => {
-    setOpen(true); 
-  };
 
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -99,7 +87,6 @@ const Connection = () => {
   }
   
   const bdList = (tableSelected) => {
-    setLoading(true);
     api({  
       method: 'post',
       url: '/connect/database',

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'; //3 hooks de estados 
 
-import {Link} from 'react-router-dom'; //link da biblioteca, n tá pegando nenhum caminho
 
 //Context
 import AppContext from '../../context';
@@ -12,7 +11,7 @@ import Footer from '../../components/Footer';
 import Connection from '../../components/Connection';
 import Selecao from '../../components/Selecao';
 import DropZone from '../../components/Upload-Shape/DropZone';
-import List from '../../components/DE-Shape-to-post';
+import Batata from '../../components/DE-Shape-to-post';
 import ShapeCarga from '../../components/Carga-shape'
 
 //Styles
@@ -49,56 +48,6 @@ const Shape = () => {
     }
   }
 
-  function inputFill2() {
-    console.log('inputFill2()', shapeReturn.length);
-    if (shapeReturn.length > 0){
-      return (
-        shapeReturn.map(
-          (value, index) =>
-          <label className="fields" id={index + 1} key={index}>{value}</label>
-          )
-        )}
-        else {
-          return (
-            <>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-            </>
-          )
-        }
-    }
-
-
-    function inputFill3() {
-      console.log('inputFill3()', shapeReturn.length);
-      if (shapeReturn.length > 0){
-        return (
-          shapeReturn.map(
-            (value, index) =>
-            <label className="fields" id={index + 1} key={index}>{value}</label>
-            )
-          )}
-          else {
-            return (
-              <>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-                <label className="fields">PARA</label>
-              </>
-            )
-          }
-      }
   return (
     <>
       <Header />
@@ -129,7 +78,6 @@ const Shape = () => {
         <Selecao>
           {inputFill()}
         </Selecao>
-  
         
 
         <div className="shape-step4-header">
@@ -142,18 +90,26 @@ const Shape = () => {
             
             <div className="shape-step4-selection">
               <form className="columns">
-                <label><List/></label>
-                <label><List/></label>
-                <label><List/></label>
-                <label><List/></label>
-                <label><List/></label>
-                <label><List/></label>
-                <label><List/></label>
-                <label><List/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
               </form>
               
               <form className="columns">
-                {inputFill2()}
+                
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
+                <label><Batata/></label>
               </form>
             </div>
           </div>
@@ -162,6 +118,8 @@ const Shape = () => {
           <ShapeCarga></ShapeCarga>
 
         </div>
+
+        <Footer/>
       </>
   );
 }
