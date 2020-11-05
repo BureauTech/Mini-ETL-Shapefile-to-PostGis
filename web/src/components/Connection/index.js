@@ -1,3 +1,5 @@
+/*
+
 import React, { useContext, useState, useEffect } from 'react';
 import api from '../../services/api';
 import AppContext from '../../context';
@@ -240,3 +242,4 @@ const Connection = () => {
 }
 
 export default Connection;
+*/
