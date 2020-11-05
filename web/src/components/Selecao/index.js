@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import api from '../../services/api';
 
 import "./styles.css";
-//import AppContext from '../../context';
+import AppContext from '../../context';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ControlledOpenSelect() {
+function ControlledOpenSelect() {
   const [local, setLocal] = useState();
   const [portal, setPortal] = useState();
   const [user, setUser] = useState();
@@ -39,24 +39,49 @@ export default function ControlledOpenSelect() {
   const [open, setOpen] = React.useState(false); 
   const classes = useStyles();
   const [campos, setCampos] = React.useState('');
+  const [field, setField] = useState([]);
+  const [banco, setBanco] = useState();
+  const [response2, setResponse] = useState();
+
+  const [body2, setBody] = useState([]);
   const handleChange = (event) => {
     setCampos(event.target.value);
-    bdList(event.target.value);
   };
+
+  const handleNew = (event) => {
+    setField(event.target.value);
+    PARAList(event.target.value);
+  }
   const [Files, setFiles] = useState([]); //lista vazia
-  //const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
+  const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
 
   useEffect(() => {}, [shapeReturn]);
 
-  const handleSelect = () => {
-    alert("funcionou");
+  
+
+  const handleSelect = (event) => {
+    
+  }
+
+  const PARAList = async (field) => {
+    api({  
+      method: 'post',
+      url: '/fields/' + field,
+      data: {}
+    })
+    .then(response => { 
+      setField(response.data)
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
   }
 
 
   const bdList = (tableSelected) => {
-    api({  
-      method: 'post',
-      url: '/connect/database',
+    const url = '/fields/' + field
+    const body = {
       data: { 
         "host": local,
         "porta": portal,
@@ -64,16 +89,25 @@ export default function ControlledOpenSelect() {
         "usuario": user,
         "senha": password
       }
-    })
+    }
+    
+   api.post(url + body)
     .then(response => { 
         setLista(response.data); 
-        console.log('olha a lista ' + JSON.stringify(lista))
-        setShapeReturn(response.data); 
+        setBanco(tableSelected);
+        setResponse(response.data);
       }
     )
     .catch(err => {
       console.log('deu ruim bb', err); 
     });
+
+    
+
+
+
+
+
   } 
   const listItems = shapeReturn.map(
     (value, index) =>
@@ -106,7 +140,7 @@ export default function ControlledOpenSelect() {
 
   return (
     <div className={classes.text}>     
-      <FormControl className={classes.text}>
+      <FormControl className={classes.text} onChange={handleNew}>
           <select value={campos} onChange={handleChange} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
 
@@ -122,3 +156,5 @@ export default function ControlledOpenSelect() {
     </div>
   );
 }
+
+export default ControlledOpenSelect;
