@@ -155,7 +155,6 @@ public class ShapegisController {
 		SimpleFeatureType schema = source.getSchema();
 
 		Query query = new Query(schema.getTypeName());
-		query.setMaxFeatures(1);
 
 		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
 		try (FeatureIterator<SimpleFeature> features = collection.features()) {
@@ -180,6 +179,7 @@ public class ShapegisController {
 
 				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
 						form.senha);
+				conn.connectToDatabase();
 				result = conn.gravarDados(sqlQuery);
 				conn.close();
 			}
