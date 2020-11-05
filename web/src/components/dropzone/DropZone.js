@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import api from '../../services/api';
-import axios from 'axios';
+// import axios from 'axios';
 import UploadShape from '../../assets/img/upload-shape.png';
 
 import './DropZone.css';
@@ -16,6 +16,10 @@ const Dropzone = () => {
     const [validFiles, setValidFiles] = useState([]);
     const [unsupportedFiles, setUnsupportedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const dbf = 0;
+    const dbx = 0;
+    const shp = 0;
+    const type = 0;
 
     useEffect(() => {
         let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -69,6 +73,7 @@ const Dropzone = () => {
         for(let i = 0; i < files.length; i++) {
             if (validateFile(files[i])) {
                 setSelectedFiles(prevArray => [...prevArray, files[i]]);
+                typeNecessary(files[i]);
             } else {
                 files[i]['invalid'] = true;
                 setSelectedFiles(prevArray => [...prevArray, files[i]]);
@@ -78,17 +83,30 @@ const Dropzone = () => {
         }
     }
 
+    const typeNecessary = (data) => {
+        const fileName = data.name;
+        if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
+            alert("shp++");
+            shp++;
+        } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
+            alert("dbf++");
+            dbf++;
+        } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
+            alert("shx++");
+            shx++;
+        }
+    }
+
     const validateFile = (data) => {
         const validTypes = ['cpg', 'dbf', 'prj', 'qix', 'shp', 'shx'];
         const fileName = data.name;
         if (validTypes.indexOf(fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)) === -1) {
             return false;
         }
-
         return true;
     }
 
-    const fileSize = (size) => {
+/** const fileSize = (size) => {
         if (size === 0) {
           return '0 Bytes';
         }
@@ -100,9 +118,21 @@ const Dropzone = () => {
 
     const fileType = (fileName) => {
         return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
-    }
+    } */
 
     const removeFile = (name) => {
+        alert("shp--");
+        const fileName = name;
+        if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
+            alert("shp--");
+            shp--;
+        } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
+            alert("dbf--");
+            dbf--;
+        } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
+            alert("shx--");
+            shx--;
+        }
         const index = validFiles.findIndex(e => e.name === name);
         const index2 = selectedFiles.findIndex(e => e.name === name);
         const index3 = unsupportedFiles.findIndex(e => e.name === name);
@@ -187,7 +217,7 @@ const Dropzone = () => {
                         onChange={filesSelected}
                     />
                 </div>
-                {unsupportedFiles.length === 0 && validFiles.length ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
+                {unsupportedFiles.length === 0 && validFiles.length && dbf === 0 && shp === 0  && shx === 0 ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
                 {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
                 <div className="file-display-container">
                 
