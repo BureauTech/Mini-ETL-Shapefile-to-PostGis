@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import api from '../../services/api';
+import Connection from '../Connection';
+
 
 import "./styles.css";
 import AppContext from '../../context';
@@ -46,6 +48,7 @@ function ControlledOpenSelect() {
   const [body2, setBody] = useState([]);
   const handleChange = (event) => {
     setCampos(event.target.value);
+    setBanco(event.target.value)
   };
 
   const handleNew = (event) => {
@@ -55,60 +58,26 @@ function ControlledOpenSelect() {
   const [Files, setFiles] = useState([]); //lista vazia
   const {shapeReturn, setShapeReturn} = useContext(AppContext); //chamando o AppContext 
 
+  const [params, setParams] = useState([])
+
   useEffect(() => {}, [shapeReturn]);
 
-  
-
-  const handleSelect = (event) => {
-    
-  }
-
   const PARAList = async (field) => {
-    api({  
+    await api({  
       method: 'post',
       url: '/fields/' + field,
-      data: {}
+      data: {
+        
+      }
     })
     .then(response => { 
-      setField(response.data)
       }
     )
     .catch(err => {
       console.log('deu ruim bb', err); 
     });
   }
-
-
-  const bdList = (tableSelected) => {
-    const url = '/fields/' + field
-    const body = {
-      data: { 
-        "host": local,
-        "porta": portal,
-        "bd": tableSelected, 
-        "usuario": user,
-        "senha": password
-      }
-    }
-    
-   api.post(url + body)
-    .then(response => { 
-        setLista(response.data); 
-        setBanco(tableSelected);
-        setResponse(response.data);
-      }
-    )
-    .catch(err => {
-      console.log('deu ruim bb', err); 
-    });
-
-    
-
-
-
-
-
-  } 
+ 
   const listItems = shapeReturn.map(
     (value, index) =>
     <option className="fields" id={index + 1} key={index}>{value}</option>
@@ -127,12 +96,12 @@ function ControlledOpenSelect() {
       return (
         <>
 
-          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} onClick={bdList}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
         </>
       )
     }

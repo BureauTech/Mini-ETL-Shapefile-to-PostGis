@@ -3,6 +3,10 @@ import api from '../../services/api';
 import AppContext from '../../context';
 import postStep1 from '../../assets/img/notebook-background.png';
 import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+
+
 
 import './styles.css';
 
@@ -40,17 +44,76 @@ const Connection = () => {
   const [table, setTable] = useState(''); 
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
-  const [loading, setLoading] = useState(false);
   const [bdList2, setBdList] = useState('');
   const [lista, setLista] = useState();
   const {shapeReturn, setShapeReturn} = useContext(AppContext); 
   const [campos, setCampos] = React.useState(0); 
+  const [open, setOpen] = React.useState(false); 
+  const classes = useStyles();
+  const [field, setField] = useState([]);
+  const [banco, setBanco] = useState();
 
+  const handleChange2 = (event) => {
+    setCampos(event.target.value);
+    setBanco(event.target.value)
+  };
+
+  const handleNew = (event) => {
+    setField(event.target.value);
+    PARAList(event.target.value);
+  }
+
+  const PARAList = async (field) => {
+    await api({  
+      method: 'post',
+      url: '/fields/' + field,
+      data: {
+        "host": local,
+        "porta": portal,
+        "bd": table, 
+        "usuario": user,
+        "senha": password
+      }
+    })
+    .then(response => { 
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
+  }
+ 
+  const listItems = shapeReturn.map(
+    (value, index) =>
+    <option className="fields" id={index + 1} key={index}>{value}</option>
+  );
+
+  function inputFill() { //func 
+    if (shapeReturn.length > 0){
+      return (
+        shapeReturn.map(
+          (value, index) =>
+          <option className="fields" id={index + 1} key={index}>{value}</option>
+        )
+      )}
+    
+    else {
+      return (
+        <>
+
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+          <MenuItem value={''} className={classes.text} onClick={Connection}><em>None</em></MenuItem>
+        </>
+      )
+    }
+  }
   useEffect(() => {
     console.log('context here: ', shapeReturn);
   }, [shapeReturn]);
-
-  const classes = useStyles(); 
 
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -110,6 +173,7 @@ const Connection = () => {
   } 
   
     return (
+      <>
       <div className="db-container" width="100%">
         <div className="db-container-title" width="100%">
           <h1>CONEXÃO COM O BANCO DE DADOS</h1>
@@ -138,8 +202,7 @@ const Connection = () => {
         </form>
                 
         <button type="button" onClick={bdConnect}>CONECTAR</button>   
-        
-
+      
           <div className={classes.text}>  
           <form className={classes.text}> 
 
@@ -156,9 +219,24 @@ const Connection = () => {
           </select>
         </form>
         </div>
+        <div className={classes.text}>    
+
+        <FormControl className={classes.text} onChange={handleNew}>
+          <select value={campos} onChange={handleChange2} className={classes.select}>
+            <option value={0} selected disabled>Selecione a Tabela</option>
+            { shapeReturn && shapeReturn.length > 0 && 
+              shapeReturn.map((item)=>{
+                return (
+                  <option value={item}>{item}</option>
+                )
+              })
+            }
+          </select>          
+        </FormControl>
+        </div>
       </div>
+      </>
     )
-  
 }
 
 export default Connection;

@@ -9,7 +9,6 @@ import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 import Connection from '../../components/Connection';
-import Selecao from '../../components/Selecao';
 import DropZone from '../../components/Upload-Shape/DropZone';
 import Batata from '../../components/DE-Shape-to-post';
 import ShapeCarga from '../../components/Carga-shape'
@@ -70,18 +69,8 @@ const Shape = () => {
         
         <Connection />
 
-        <div className="shape-step2-header">
-          <p>3</p>
-          <span>Selecione a tabela do banco</span>
-        </div>
-        
-        <Selecao>
-          {inputFill()}
-        </Selecao>
-        
-
         <div className="shape-step4-header">
-          <p>4</p>
+          <p>3</p>
           <span>Selecione os campos para a realização do de-para.</span>
         </div>
         
