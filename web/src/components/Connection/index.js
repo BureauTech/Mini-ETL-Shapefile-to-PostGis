@@ -76,6 +76,25 @@ const Connection = () => {
   }
   
   const bdConnect = () => {
+
+    var l = document.getElementById("local").value;
+    var p = document.getElementById("porta").value;
+    var u = document.getElementById("user").value;
+    var s = document.getElementById("password").value;
+
+    if (l == "") {
+      alert("Favor preencher o campo <Local>.");
+      document.getElementById("local").focus();
+    } else if (p == "") {
+      alert("Favor preencher o campo <Porta>.");
+      document.getElementById("porta").focus();
+    } else if (u == "") {
+      alert("Favor preencher o campo <Usuário>.");
+      document.getElementById("user").focus();
+    } else if (s == "") {
+      alert("Favor preencher o campo <Senha>.");
+      document.getElementById("password").focus();
+    } else {
     api({  
       method: 'post',
       url: '/connect/postgres',
@@ -95,7 +114,7 @@ const Connection = () => {
     .catch(err => {
       console.log('deu ruim', err); 
     });
-
+  }
   }
   
   const bdList = (tableSelected) => {
@@ -139,17 +158,16 @@ const Connection = () => {
   
             <label htmlFor="">Usuário</label>
             <label htmlFor="">Senha</label>
-          </form>
-
-          <form className="forms-content-text-box">
-            <input type="text" className="txtbox" onChange={event => setLocal(event.target.value)}/>
-            <input type="text" className="txtbox" onChange={event => setPortal(event.target.value)}/>
+          </form>    
+        <form className="forms-content-text-box">
+            <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)}/>
+            <input type="number" className="txtbox" id="porta" onChange={event => setPortal(event.target.value)}/>
              
-            <input type="text" className="txtbox" onChange={event => setUser(event.target.value)}/>
-            <input type="password" className="txtbox" onChange={event => setPassword(event.target.value)}/>
+            <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
+            <input type="password" className="txtbox" id="password" onChange={event => setPassword(event.target.value)}/>
           </form> 
         </form>
-                
+
         <button type="button" onClick={bdConnect}>CONECTAR</button>   
         
 
