@@ -115,10 +115,11 @@ public class ShapegisController {
 	@PostMapping(path = "/fields/{name}", consumes = "application/json")
 	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name) throws ClassNotFoundException, SQLException {
 		// Declarando ArrayList para retorno
-		ArrayList<String> fields = new ArrayList<String>(); 
-		// Abre conexao 
+		ArrayList<String> fields = new ArrayList<String>();  
+		// Inicia o objeto de conexão 
 		PostgisConnection conn = new PostgisConnection(form);
-		// Pega os campos da tabela especificada na URL
+		// Abre conexão com o banco de dados
+		conn.connectToDatabase();
 		fields = conn.fields(name); 
 		// Fecha conexao
 		conn.close();
