@@ -227,7 +227,7 @@ const Shape = () => {
 
   const handleNew = (event) => {
     setField(event.target.value);
-    PARAList(event.target.value);
+    TabelaList(event.target.value);
   }
  
   const listItems = shapeReturn.map(
@@ -313,7 +313,7 @@ const Shape = () => {
     });
   } 
   
-  const PARAList = async (field) => {
+  const TabelaList = async (field) => {
     await api({  
       method: 'post',
       url: '/fields/' + field,
@@ -356,7 +356,7 @@ const Shape = () => {
     console.log('inputFill2()', shapeReturn.length);
     if (shapeReturn.length > 0){
       return (
-        shapeReturn.map(
+        shapeReturn.map( 
           (value, index) =>
           <label className="fields" id={index + 1} key={index}>{value}</label>
         )
@@ -364,7 +364,15 @@ const Shape = () => {
     
     else {
       return (
-        <> 
+        <>
+          <label className="fields" id={0}>Coluna da tabela selecionada</label>
+          <label className="fields" id={1}>Coluna da tabela selecionada</label>
+          <label className="fields" id={2}>Coluna da tabela selecionada</label>
+          <label className="fields" id={3}>Coluna da tabela selecionada</label>
+          <label className="fields" id={4}>Coluna da tabela selecionada</label>
+          <label className="fields" id={5}>Coluna da tabela selecionada</label>
+          <label className="fields" id={6}>Coluna da tabela selecionada</label>
+          <label className="fields" id={7}>Coluna da tabela selecionada</label>
         </>
       )
     }
