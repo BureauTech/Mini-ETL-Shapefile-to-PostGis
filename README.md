@@ -42,7 +42,7 @@ Save time, save data. </h3> <br>
 # Modelo de Dados
 
 <div align="center">
-    <img src="/assets/images/png/Diagrama_ER.png">
+    <img src="/assets/images/png/Diagrama_ERv2.png">
 </div>
 
 # Tecnologias utilizadas na Sprint
