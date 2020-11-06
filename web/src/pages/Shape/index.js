@@ -531,7 +531,7 @@ const Shape = () => {
               
               <form className="columns">
                 
-              {inputFill2()}
+                {inputFill2()}
               </form>
             </div>
           </div>
