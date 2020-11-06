@@ -73,6 +73,8 @@ const Shape = () => {
   const [validFiles, setValidFiles] = useState([]);
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [attributes, setAttributes] = useState([""]);
+  const [fileSHP, setFileSHP] = useState([""]);
 
   useEffect(() => {
       let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -141,6 +143,9 @@ const Shape = () => {
       if (validTypes.indexOf(fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)) === -1) {
           return false;
       }
+      if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp' ){
+        setFileSHP(fileName)
+      }
 
       return true;
   }
@@ -171,6 +176,9 @@ const Shape = () => {
           unsupportedFiles.splice(index3, 1);
           setUnsupportedFiles([...unsupportedFiles]);
       }
+      if (name.substring(name.lastIndexOf('.') + 1, name.length) === 'shp' ){
+        setFileSHP(null)
+      }      
   }
 
   const openImageModal = (file) => {
@@ -209,13 +217,14 @@ const Shape = () => {
                   }
               },
           })
+          .then(setAttributes(validFiles[i]))
           .catch(() => {
               uploadRef.current.innerHTML = `<span class="error">Erro no envio do(s) arquivo(s)</span>`;
               progressRef.current.style.backgroundColor = 'red';
           })
       }
   }
-
+  
   const closeUploadModal = () => {
       uploadModalRef.current.style.display = 'none';
   }
@@ -223,6 +232,17 @@ const Shape = () => {
   const handleChange2 = (event) => {
     setCampos(event.target.value);
     setBanco(event.target.value)
+  };
+
+  const handleConsole = () => {
+    fetch('http://localhost:8080/attributes/' + fileSHP)
+    .then(response => { 
+      console.log(response);
+    }
+  )
+  .catch(err => {
+    console.log('deu ruim', err); 
+  });
   };
 
   const handleNew = (event) => {
@@ -466,7 +486,7 @@ const Shape = () => {
           </form>
 
           <form className="forms-content-text-box">
-            <input type="text" className="txtbox" onChange={event => setLocal(event.target.value)}/>
+            <input type="text" className="txtbox" onChange={event => setLocal(event.target.value)} />
             <input type="text" className="txtbox" onChange={event => setPortal(event.target.value)}/>
              
             <input type="text" className="txtbox" onChange={event => setUser(event.target.value)}/>
@@ -495,7 +515,7 @@ const Shape = () => {
         <div className={classes.text}>    
 
         <FormControl className={classes.text} onChange={handleNew}>
-          <select value={campos} onChange={handleChange2} className={classes.select}>
+          <select value={campos} onChange={handleChange2} onClick={handleConsole} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
             { shapeReturn && shapeReturn.length > 0 && 
               shapeReturn.map((item)=>{
@@ -531,14 +551,6 @@ const Shape = () => {
               
               <form className="columns">
                 
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
               </form>
             </div>
           </div>

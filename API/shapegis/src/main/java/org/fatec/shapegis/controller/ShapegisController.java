@@ -130,7 +130,7 @@ public class ShapegisController {
 	@GetMapping("attributes/{file}")
 	public ArrayList<String> atributosArquivo(@PathVariable("file") String file) throws IOException {
 		// Declara o caminho do arquivo
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file + ".shp");
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
 		//Declara o ArrayList 
 		ArrayList<String> fields = new ArrayList<String>();
 		
