@@ -531,14 +531,7 @@ const Shape = () => {
               
               <form className="columns">
                 
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
+              {inputFill2()}
               </form>
             </div>
           </div>
