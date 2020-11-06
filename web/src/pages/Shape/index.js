@@ -62,6 +62,8 @@ const Shape = () => {
   const classes = useStyles();
   const [field, setField] = useState([]);
   const [banco, setBanco] = useState();
+  const [fieldsde, setFieldsDe] = useState("");
+  const [fieldspara, setFieldsPara] = useState();
 
   const fileInputRef = useRef();
   const modalImageRef = useRef();
@@ -234,10 +236,11 @@ const Shape = () => {
     setBanco(event.target.value)
   };
 
-  const handleConsole = () => {
+  const handleConsoleDE = () => {
     fetch('http://localhost:8080/attributes/' + fileSHP)
     .then(response => { 
       console.log(response);
+      setFieldsDe(response.data);
     }
   )
   .catch(err => {
@@ -372,8 +375,33 @@ const Shape = () => {
     });
   }
  
-  function inputFill2() { //func 
-    console.log('inputFill2()', shapeReturn.length);
+  function inputFillDE() { //funcao para pegar os atributos do arquivos
+    //console.log('inputFillDE()', fieldsde.length);
+
+    if (fieldsde != ''){
+      return (
+        /*fieldsde.map( 
+          (value, index) =>
+          <label className="fields" id={index + 1} key={index}>{value}</label>
+        )*/
+        //console.log(fieldsde)
+        alert(fieldsde)
+        /*(fieldsde).forEach(element => {
+          <label className="fields" id={index + 1} key={index}>{value}</label>
+        }),*/
+      )}
+    
+    else {
+      return (
+        <>
+         
+        </>
+      )
+    }
+  }
+
+  function inputFillPARA() { //funcao para pegar colunas das tabelas
+    console.log('inputFillPARA()', shapeReturn.length);
     if (shapeReturn.length > 0){
       return (
         shapeReturn.map( 
@@ -523,7 +551,7 @@ const Shape = () => {
         <div className={classes.text}>    
 
         <FormControl className={classes.text} onChange={handleNew}>
-          <select value={campos} onChange={handleChange2} onClick={handleConsole} className={classes.select}>
+          <select value={campos} onChange={handleChange2} onClick={handleConsoleDE} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
             { shapeReturn && shapeReturn.length > 0 && 
               shapeReturn.map((item)=>{
@@ -547,19 +575,12 @@ const Shape = () => {
             
             <div className="shape-step4-selection">
               <form className="columns">
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
-                <label><Batata/></label>
+              {inputFillDE()}
               </form>
               
               <form className="columns">
                 
-                {inputFill2()}
+                {inputFillPARA()}
               </form>
             </div>
           </div>
