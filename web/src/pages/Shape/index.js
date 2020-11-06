@@ -62,8 +62,11 @@ const Shape = () => {
   const classes = useStyles();
   const [field, setField] = useState([]);
   const [banco, setBanco] = useState();
-  const [fieldsde, setFieldsDe] = useState("");
-  const [fieldspara, setFieldsPara] = useState();
+  const [fieldsde, setFieldsDe] = useState([]);
+  const [fieldspara, setFieldsPara] = useState([]);
+  const [dbf, setDbf] = useState(0);
+  const [shp, setShp] = useState(0);
+  const [shx, setShx] = useState(0);
 
   const fileInputRef = useRef();
   const modalImageRef = useRef();
@@ -130,6 +133,7 @@ const Shape = () => {
       for(let i = 0; i < files.length; i++) {
           if (validateFile(files[i])) {
               setSelectedFiles(prevArray => [...prevArray, files[i]]);
+              typeNecessary(files[i]);
           } else {
               files[i]['invalid'] = true;
               setSelectedFiles(prevArray => [...prevArray, files[i]]);
@@ -138,6 +142,17 @@ const Shape = () => {
           }
       }
   }
+
+  const typeNecessary = (data) => {
+    const fileName = data.name;
+    if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
+        setShp(1);
+    } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
+        setDbf(1);
+    } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
+        setShx(1);
+    }
+}
 
   const validateFile = (data) => {
       const validTypes = ['cpg', 'dbf', 'prj', 'qix', 'shp', 'shx'];
@@ -152,6 +167,7 @@ const Shape = () => {
       return true;
   }
 
+ /** 
   const fileSize = (size) => {
       if (size === 0) {
         return '0 Bytes';
@@ -164,9 +180,18 @@ const Shape = () => {
 
   const fileType = (fileName) => {
       return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
-  }
+  } 
+*/
 
   const removeFile = (name) => {
+      const fileName = name;
+      if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
+          setShp(-1);
+      } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
+          setDbf(-1);
+      } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
+          setShx(-1);
+      }
       const index = validFiles.findIndex(e => e.name === name);
       const index2 = selectedFiles.findIndex(e => e.name === name);
       const index3 = unsupportedFiles.findIndex(e => e.name === name);
@@ -236,11 +261,12 @@ const Shape = () => {
     setBanco(event.target.value)
   };
 
-  const handleConsoleDE = () => {
+  const handleConsoleDE = (e) => {
+    preventDefault(e);
     fetch('http://localhost:8080/attributes/' + fileSHP)
     .then(response => { 
       console.log(response);
-      setFieldsDe(response.data);
+      //setFieldsDe(response.data);
     }
   )
   .catch(err => {
@@ -253,33 +279,33 @@ const Shape = () => {
     TabelaList(event.target.value);
   }
  
-  const listItems = shapeReturn.map(
-    (value, index) =>
-    <option className="fields" id={index + 1} key={index}>{value}</option>
-  );
+  // const listItems = shapeReturn.map(
+  //   (value, index) =>
+  //   <option className="fields" id={index + 1} key={index}>{value}</option>
+  // );
 
-  function inputFill() { //func 
-    if (shapeReturn.length > 0){
-      return (
-        shapeReturn.map(
-          (value, index) =>
-          <option className="fields" id={index + 1} key={index}>{value}</option>
-        )
-      )}
+  // function inputFill() { //func 
+  //   if (shapeReturn.length > 0){
+  //     return (
+  //       shapeReturn.map(
+  //         (value, index) =>
+  //         <option className="fields" id={index + 1} key={index}>{value}</option>
+  //       )
+  //     )}
     
-    else {
-      return (
-        <>
-          <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-          <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-        </>
-      )
-    }
-  }
+  //   else {
+  //     return (
+  //       <>
+  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
+  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
+  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
+  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
+  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
+  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
+  //       </>
+  //     )
+  //   }
+  // }
 
 
   const handleChange = (e) => {
@@ -291,26 +317,46 @@ const Shape = () => {
 
 
   const bdConnect = () => {
-    api({  
-      method: 'post',
-      url: '/connect/postgres',
-      data: { 
-        "host": local,
-        "porta": portal,
-        "bd": null, 
-        "usuario": user,
-        "senha": password
-      }
-    })
-    .then(response => { 
-        console.log(response.data);
-        setBdList(response.data);
-      }
-    )
-    .catch(err => {
-      console.log('deu ruim', err); 
-    });
+    var l = document.getElementById("local").value;
+    var p = document.getElementById("porta").value;
+    var u = document.getElementById("user").value;
+    var s = document.getElementById("password").value;
 
+    if (l == "") {
+      alert("Favor preencher o campo <Local>.");
+      document.getElementById("local").focus();
+    } else if (p == "") {
+      alert("Favor preencher o campo <Porta>.");
+      document.getElementById("porta").focus();
+    } else if (u == "") {
+      alert("Favor preencher o campo <Usuário>.");
+      document.getElementById("user").focus();
+    } else if (s == "") {
+      alert("Favor preencher o campo <Senha>.");
+      document.getElementById("password").focus();
+    } else {
+      api({
+        method: 'post',
+        url: '/connect/postgres',
+        data: {
+          "host": local,
+          "porta": portal,
+          "bd": null,
+          "usuario": user,
+          "senha": password
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          setBdList(response.data);
+          setFieldsDe(response.data);
+          setFieldsPara(response.data);
+        }
+        )
+        .catch(err => {
+          console.log('deu ruim', err);
+        });
+    }
   }
   
   const bdList = (tableSelected) => {
@@ -348,7 +394,7 @@ const Shape = () => {
         "senha": password
       }
     })
-    .then(response => { 
+    .then(response => {
       }
     )
     .catch(err => {
@@ -375,52 +421,56 @@ const Shape = () => {
     });
   }
  
-  function inputFillDE() { //funcao para pegar os atributos do arquivos
-    //console.log('inputFillDE()', fieldsde.length);
+  const itensListDe = fieldsde.map((valor) =>
+    <label className="fields">
+      {valor}
+    </label>
+  );
 
-    if (fieldsde != ''){
+  // Verificar prq chama varias vezes.
+  function inputFillDE() { //funcao para pegar os atributos do arquivos
+    console.log(fieldsde.length);
+    if (fieldsde.length > 0) {
       return (
-        /*fieldsde.map( 
-          (value, index) =>
-          <label className="fields" id={index + 1} key={index}>{value}</label>
-        )*/
-        //console.log(fieldsde)
-        alert(fieldsde)
-        /*(fieldsde).forEach(element => {
-          <label className="fields" id={index + 1} key={index}>{value}</label>
-        }),*/
-      )}
-    
+        itensListDe
+      )
+    }
     else {
       return (
         <>
-         
+          <h1>Não há itens.</h1>
         </>
       )
     }
   }
 
+  const itensListPara = fieldspara.map((valor) =>
+    <option value={valor}>
+      {valor}
+    </option>
+  );
+
+  const listPara = fieldsde.map((valor) =>
+    <select id={valor} className="fields">
+      <option selected disabled>Para</option>
+      {itensListPara}
+    </select>
+  );
+
+  // Verificar prq chama varias vezes.
   function inputFillPARA() { //funcao para pegar colunas das tabelas
-    console.log('inputFillPARA()', shapeReturn.length);
-    if (shapeReturn.length > 0){
-      return (
-        shapeReturn.map( 
-          (value, index) =>
-          <label className="fields" id={index + 1} key={index}>{value}</label>
+    console.log('inputFillPARA()', fieldspara.length);
+    if (fieldspara.length > 0) {
+      for (let y = 0; y < fieldsde.length; y++) {
+        return (
+          listPara
         )
-      )}
-    
+      }
+    }
     else {
       return (
         <>
-          <label className="fields" id={0}>Coluna da tabela selecionada</label>
-          <label className="fields" id={1}>Coluna da tabela selecionada</label>
-          <label className="fields" id={2}>Coluna da tabela selecionada</label>
-          <label className="fields" id={3}>Coluna da tabela selecionada</label>
-          <label className="fields" id={4}>Coluna da tabela selecionada</label>
-          <label className="fields" id={5}>Coluna da tabela selecionada</label>
-          <label className="fields" id={6}>Coluna da tabela selecionada</label>
-          <label className="fields" id={7}>Coluna da tabela selecionada</label>
+          <h1>Não há itens.</h1>
         </>
       )
     }
@@ -463,7 +513,7 @@ const Shape = () => {
                       onChange={filesSelected}
                   />
               </div>
-              {unsupportedFiles.length === 0 && validFiles.length ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
+              {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
               {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
               <div className="file-display-container">
               
@@ -522,11 +572,11 @@ const Shape = () => {
           </form>
 
           <form className="forms-content-text-box">
-            <input type="text" className="txtbox" onChange={event => setLocal(event.target.value)} />
-            <input type="text" className="txtbox" onChange={event => setPortal(event.target.value)}/>
+            <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)} />
+            <input type="number" className="txtbox" id="porta" onChange={event => setPortal(event.target.value)}/>
              
-            <input type="text" className="txtbox" onChange={event => setUser(event.target.value)}/>
-            <input type="password" className="txtbox" onChange={event => setPassword(event.target.value)}/>
+            <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
+            <input type="password" className="txtbox" id="password" onChange={event => setPassword(event.target.value)}/>
           </form> 
         </form>
                 
@@ -551,7 +601,7 @@ const Shape = () => {
         <div className={classes.text}>    
 
         <FormControl className={classes.text} onChange={handleNew}>
-          <select value={campos} onChange={handleChange2} onClick={handleConsoleDE} className={classes.select}>
+          <select value={campos} onChange={handleChange2, handleConsoleDE} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
             { shapeReturn && shapeReturn.length > 0 && 
               shapeReturn.map((item)=>{
@@ -572,18 +622,18 @@ const Shape = () => {
         
         <div className="shape-step4-de-para">
           <h1>DE-PARA</h1>
-            
-            <div className="shape-step4-selection">
-              <form className="columns">
+
+          <div className="shape-step4-selection">
+            <form className="columns">
               {inputFillDE()}
-              </form>
-              
-              <form className="columns">
-                
-                {inputFillPARA()}
-              </form>
-            </div>
+            </form>
+
+            <form className="columns">
+
+              {inputFillPARA()}
+            </form>
           </div>
+        </div>
 
           <div>
         <Link to="/" className="shape-send-button" onClick={carga}>
