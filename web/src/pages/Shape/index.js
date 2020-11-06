@@ -551,6 +551,7 @@ const Shape = () => {
               
               <form className="columns">
                 
+              {inputFill2()}
               </form>
             </div>
           </div>
