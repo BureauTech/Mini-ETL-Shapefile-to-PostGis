@@ -39,6 +39,12 @@ Save time, save data. </h3> <br>
     <img src="/assets/images/gif/demo-sprint-2.gif">
 </div>
 
+# Modelo de Dados
+
+<div align="center">
+    <img src="/assets/images/png/Diagrama_ER.png">
+</div>
+
 # Tecnologias utilizadas na Sprint
 
 - React JS
