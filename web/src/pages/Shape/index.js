@@ -403,31 +403,34 @@ const Shape = () => {
   }
   
   const carga = () => {
-    // api({  
-    //   method: 'post',
-    //   url: '/shape-to-postgis',
-    //   data: { 
-
-    //   }
-    // })
-    // .then(response => { 
-    //     setLista(response.data); 
-    //     console.log('olha a lista ' + JSON.stringify(lista))
-    //     setShapeReturn(response.data); 
-    //   }
-    // )
-    // .catch(err => {
-    //   console.log('deu ruim bb', err); 
-    // });
     fieldsde.forEach(element => {
       fieldsdepara.set(element, document.getElementById(element).value);
     });
-    
+
     for (var [key, value] of fieldsdepara) {
-      console.log(key + " goes " + value);
+      console.log("DE: " + key + " <-> PARA: " + value);
     }
-    // alert(fieldsde[0]);
-    // alert(document.getElementById(fieldsde[0]).option);
+    api({
+      method: 'post',
+      url: '/shape-to-postgis',
+      data: {
+        "host": local,
+        "porta": portal,
+        "bd": table,
+        "usuario": user,
+        "senha": password,
+        "tabela": "ft_curso_dagua",
+        "file": "geoft_bho_2017_curso_dagua.shp",
+        "map": fieldsdepara
+      }
+    })
+      .then(response => {
+        console.log(response); 
+      }
+      )
+      .catch(err => {
+        console.log('deu ruim bb', err);
+      });
   }
  
   const itensListDe = fieldsde.map((valor) =>
