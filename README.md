@@ -22,16 +22,13 @@ Save time, save data. </h3> <br>
 
 # Entregas da Sprint
  
-* Desenvolvimento da API
-* Desenvolvimento do Backend
-* API e Back hospedados no Heroku
-* Componente para conectar banco de dados à solução
-* Componente de seleção de arquivo .shp
-* Carregar arquivo no front
-* Fazer upload do arquivo para API
-* Estilizar componente de conexao ao banco de dados
-* Retorno dos campos das tabelas Postgis na solução
-* Correções do frontend (erros de digitação, visual...)
+* Upload de múltiplos formatos de arquivos Shapefile
+* UI/UX: Alerta e não permite que o usuário conecte ao banco de dados caso um dos campos estiver vazio, upload mínimo de 3 arquivos das extensões .shp/.shx/.dbf
+* Seleção de Banco de Dados
+* Seleção de Tabela PostGIS
+* Implementação da solução DE-PARA, para carga de Shapefiles ao Banco
+* Carga do Shapefile para PostGIS (em desenvolvimento)
+* Documento de ambientação para execução da solução
 
 # Demonstração
 
