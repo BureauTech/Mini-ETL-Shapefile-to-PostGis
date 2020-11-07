@@ -280,6 +280,15 @@ const Shape = () => {
     }
   }
   
+  //Focar no campo local do banco
+  const textLocal = useRef(null);
+  
+  function handleClick() {
+    uploadFiles();
+    textLocal.current.focus();
+    
+  }
+
   //Função de seleção da tabela do banco de dados
   const bdList = (tableSelected) => {
     api({  
@@ -456,7 +465,7 @@ const Shape = () => {
                       onChange={filesSelected}
                   />
               </div>
-              {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => uploadFiles()}>Carregar Arquivo(s)</button> : ''} 
+              {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => handleClick()}>Carregar Arquivo(s)</button> : ''} 
               {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
               <div className="file-display-container">
               
@@ -515,7 +524,7 @@ const Shape = () => {
           </form>
 
           <form className="forms-content-text-box">
-            <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)} />
+            <input type="text" ref = {textLocal} className="txtbox" id="local" onChange={event => setLocal(event.target.value)} />
             <input type="number" className="txtbox" id="porta" onChange={event => setPorta(event.target.value)}/>
              
             <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
