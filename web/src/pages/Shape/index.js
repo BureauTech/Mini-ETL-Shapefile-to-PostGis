@@ -62,8 +62,6 @@ const Shape = () => {
   const [dbf, setDbf] = useState(0);
   const [shp, setShp] = useState(0);
   const [shx, setShx] = useState(0);
-  var fieldsdepara = new Map();
-
   const fileInputRef = useRef();
   const modalImageRef = useRef();
   const modalRef = useRef();
@@ -296,7 +294,7 @@ const Shape = () => {
       }
     })
     .then(response => { 
-        setLista(response.data); 
+        setShapeReturn(response.data); 
       }
     )
     .catch(err => {
@@ -351,35 +349,20 @@ const Shape = () => {
 
   //Função para realizar a carga do DE-PARA
   const carga = () => {
-    fieldsde.forEach(element => {
-      fieldsdepara.set(element, document.getElementById(element).value);
-    });
-
-    for (var [key, value] of fieldsdepara) {
-      console.log("DE: " + key + " <-> PARA: " + value);
-    }
-    api({
+    api({  
       method: 'post',
       url: '/shape-to-postgis',
-      data: {
-        "host": local,
-        "porta": portal,
-        "bd": table,
-        "usuario": user,
-        "senha": password,
-        "tabela": "ft_curso_dagua",
-        "file": "geoft_bho_2017_curso_dagua.shp",
-        "map": fieldsdepara
-      }
-    })
-      .then(response => {
-        console.log(response); 
+      data: { 
 
       }
-      )
-      .catch(err => {
-        console.log('deu ruim bb', err);
-      });
+    })
+    .then(response => { 
+        setShapeReturn(response.data); 
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
   }
  
 
@@ -389,8 +372,8 @@ const Shape = () => {
     </label>
   );
 
+  //função para pegar os atributos do arquivos
   function inputFillDE() { 
-
     if (fieldsde.length > 0) {
       return (
         itensListDe
@@ -596,7 +579,7 @@ const Shape = () => {
         </div>
 
           <div>
-        <Link /** to="/"*/ className="shape-send-button" onClick={carga}>
+        <Link to="/" className="shape-send-button" onClick={carga}>
           REALIZAR CARGA
         </Link>
       </div>          
