@@ -167,13 +167,6 @@ public class ShapegisController {
 		String atributo = "";
 		String valor = "";
 		HashMap<String, Object> tmpAtts;
-		System.out.println(form.host);
-		System.out.println(form.porta);
-		System.out.println(form.bd);
-		System.out.println(form.usuario);
-		System.out.println(form.senha);
-		System.out.println(form.tabela);
-		System.out.println(form.map);
 
 		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
@@ -181,7 +174,6 @@ public class ShapegisController {
 		SimpleFeatureType schema = source.getSchema();
 
 		Query query = new Query(schema.getTypeName());
-		query.setMaxFeatures(1);
 
 		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
 		try (FeatureIterator<SimpleFeature> features = collection.features()) {
@@ -203,12 +195,12 @@ public class ShapegisController {
 				}
 
 				String sqlQuery = "INSERT INTO " + form.tabela + "(" + atributo + ") VALUES (" + valor + ");";
-				System.out.println(sqlQuery);
-//				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
-//						form.senha);
-//				conn.connectToDatabase();
-//				result = conn.gravarDados(sqlQuery);
-//				conn.close();
+
+				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
+						form.senha);
+				conn.connectToDatabase();
+				result = conn.gravarDados(sqlQuery);
+				conn.close();
 			}
 		}
 
