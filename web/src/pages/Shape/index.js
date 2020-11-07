@@ -7,11 +7,9 @@ import AppContext from '../../context';
 import Header from '../../components/Header';
 import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
-import Batata from '../../components/DE-Shape-to-post';
 import api from '../../services/api';
 import postStep1 from '../../assets/img/notebook-background.png';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import {Link} from 'react-router-dom'; //link da biblioteca, n tá pegando nenhum caminho
 import UploadShape from '../../assets/img/upload-shape.png';
@@ -49,25 +47,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Shape = () => {
-
+  //Parâmetros do banco de dados
   const [local, setLocal] = useState();
-  const [portal, setPortal] = useState();
+  const [porta, setPorta] = useState();
   const [table, setTable] = useState(''); 
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   const [bdList2, setBdList] = useState('');
-  const [lista, setLista] = useState();
   const {shapeReturn, setShapeReturn} = useContext(AppContext); 
   const [campos, setCampos] = React.useState(0); 
   const classes = useStyles();
-  const [field, setField] = useState([]);
-  const [banco, setBanco] = useState();
   const [fieldsde, setFieldsDe] = useState([]);
   const [fieldspara, setFieldsPara] = useState([]);
   const [dbf, setDbf] = useState(0);
   const [shp, setShp] = useState(0);
   const [shx, setShx] = useState(0);
-
   const fileInputRef = useRef();
   const modalImageRef = useRef();
   const modalRef = useRef();
@@ -78,7 +72,6 @@ const Shape = () => {
   const [validFiles, setValidFiles] = useState([]);
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const [attributes, setAttributes] = useState([""]);
   const [fileSHP, setFileSHP] = useState([""]);
 
   useEffect(() => {
@@ -167,22 +160,7 @@ const Shape = () => {
       return true;
   }
 
- /** 
-  const fileSize = (size) => {
-      if (size === 0) {
-        return '0 Bytes';
-      }
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-      const i = Math.floor(Math.log(size) / Math.log(k));
-      return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  }
-
-  const fileType = (fileName) => {
-      return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
-  } 
-*/
-
+  //Remover arquivo
   const removeFile = (name) => {
       const fileName = name;
       if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
@@ -222,6 +200,7 @@ const Shape = () => {
       modalImageRef.current.style.backgroundImage = 'none';
   }
 
+  //Upload de arquivo
   const uploadFiles = async () => {
       uploadModalRef.current.style.display = 'block';
       uploadRef.current.innerHTML = 'Enviado o(s) arquivo(s)...';
@@ -244,7 +223,6 @@ const Shape = () => {
                   }
               },
           })
-          .then(setAttributes(validFiles[i]))
           .catch(() => {
               uploadRef.current.innerHTML = `<span class="error">Erro no envio do(s) arquivo(s)</span>`;
               progressRef.current.style.backgroundColor = 'red';
@@ -256,82 +234,28 @@ const Shape = () => {
       uploadModalRef.current.style.display = 'none';
   }
 
-  const handleChange2 = (event) => {
-    setCampos(event.target.value);
-    setBanco(event.target.value)
-  };
-
-  const handleConsoleDE = (e) => {
-    preventDefault(e);
-    fetch('http://localhost:8080/attributes/' + fileSHP)
-    .then(response => { 
-      console.log(response);
-      //setFieldsDe(response.data);
-    }
-  )
-  .catch(err => {
-    console.log('deu ruim', err); 
-  });
-  };
-
-  const handleNew = (event) => {
-    setField(event.target.value);
-    TabelaList(event.target.value);
-  }
- 
-  // const listItems = shapeReturn.map(
-  //   (value, index) =>
-  //   <option className="fields" id={index + 1} key={index}>{value}</option>
-  // );
-
-  // function inputFill() { //func 
-  //   if (shapeReturn.length > 0){
-  //     return (
-  //       shapeReturn.map(
-  //         (value, index) =>
-  //         <option className="fields" id={index + 1} key={index}>{value}</option>
-  //       )
-  //     )}
-    
-  //   else {
-  //     return (
-  //       <>
-  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-  //         <MenuItem value={''} className={classes.text} ><em>None</em></MenuItem>
-  //       </>
-  //     )
-  //   }
-  // }
-
-
   const handleChange = (e) => {
-    console.log(e.target.value);
     setTable(e.target.value);
-    console.log(table);
     bdList(e.target.value); //Para isso é só passar a tabela selecionada como um parâmetro para a próxima função.
   }
 
-
+  //Função de conexão ao banco de dados
   const bdConnect = () => {
     var l = document.getElementById("local").value;
     var p = document.getElementById("porta").value;
     var u = document.getElementById("user").value;
     var s = document.getElementById("password").value;
 
-    if (l == "") {
+    if (l === "") {
       alert("Favor preencher o campo <Local>.");
       document.getElementById("local").focus();
-    } else if (p == "") {
+    } else if (p === "") {
       alert("Favor preencher o campo <Porta>.");
       document.getElementById("porta").focus();
-    } else if (u == "") {
+    } else if (u === "") {
       alert("Favor preencher o campo <Usuário>.");
       document.getElementById("user").focus();
-    } else if (s == "") {
+    } else if (s === "") {
       alert("Favor preencher o campo <Senha>.");
       document.getElementById("password").focus();
     } else {
@@ -340,17 +264,14 @@ const Shape = () => {
         url: '/connect/postgres',
         data: {
           "host": local,
-          "porta": portal,
+          "porta": porta,
           "bd": null,
           "usuario": user,
           "senha": password
         }
       })
         .then(response => {
-          console.log(response.data);
           setBdList(response.data);
-          setFieldsDe(response.data);
-          setFieldsPara(response.data);
         }
         )
         .catch(err => {
@@ -359,21 +280,20 @@ const Shape = () => {
     }
   }
   
+  //Função de seleção da tabela do banco de dados
   const bdList = (tableSelected) => {
     api({  
       method: 'post',
       url: '/connect/database',
       data: { 
         "host": local,
-        "porta": portal,
+        "porta": porta,
         "bd": tableSelected, 
         "usuario": user,
         "senha": password
       }
     })
     .then(response => { 
-        setLista(response.data); 
-        console.log('olha a lista ' + JSON.stringify(lista))
         setShapeReturn(response.data); 
       }
     )
@@ -382,19 +302,21 @@ const Shape = () => {
     });
   } 
   
-  const TabelaList = async (field) => {
+  //Retorno das colunas das tabelas no PARA
+  const returnPARA = async (field) => {
     await api({  
       method: 'post',
       url: '/fields/' + field,
       data: {
         "host": local,
-        "porta": portal,
+        "porta": porta,
         "bd": table, 
         "usuario": user,
         "senha": password
       }
     })
     .then(response => {
+      setFieldsPara(response.data);
       }
     )
     .catch(err => {
@@ -402,6 +324,30 @@ const Shape = () => {
     });
   }
   
+  const Banco = (event) => {
+    setCampos(event.target.value);
+  };
+
+  const dadosPARA = (event) => {
+    returnPARA(event.target.value);
+  }
+
+  //Retorno dos atributos dos arquivos no DE
+  const returnAtributos = () => {
+    api({
+      method: 'get',
+      url: '/attributes/'+ fileSHP,
+    })
+    .then(response => { 
+      setFieldsDe(response.data);
+    }
+  )
+  .catch(err => {
+    console.log('deu ruim', err); 
+  });
+}
+
+  //Função para realizar a carga do DE-PARA
   const carga = () => {
     api({  
       method: 'post',
@@ -411,8 +357,6 @@ const Shape = () => {
       }
     })
     .then(response => { 
-        setLista(response.data); 
-        console.log('olha a lista ' + JSON.stringify(lista))
         setShapeReturn(response.data); 
       }
     )
@@ -421,15 +365,15 @@ const Shape = () => {
     });
   }
  
+
   const itensListDe = fieldsde.map((valor) =>
     <label className="fields">
       {valor}
     </label>
   );
 
-  // Verificar prq chama varias vezes.
-  function inputFillDE() { //funcao para pegar os atributos do arquivos
-    console.log(fieldsde.length);
+  //função para pegar os atributos do arquivos
+  function inputFillDE() { 
     if (fieldsde.length > 0) {
       return (
         itensListDe
@@ -457,9 +401,8 @@ const Shape = () => {
     </select>
   );
 
-  // Verificar prq chama varias vezes.
-  function inputFillPARA() { //funcao para pegar colunas das tabelas
-    console.log('inputFillPARA()', fieldspara.length);
+  //funcao para pegar colunas das tabelas
+  function inputFillPARA() { 
     if (fieldspara.length > 0) {
       for (let y = 0; y < fieldsde.length; y++) {
         return (
@@ -573,7 +516,7 @@ const Shape = () => {
 
           <form className="forms-content-text-box">
             <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)} />
-            <input type="number" className="txtbox" id="porta" onChange={event => setPortal(event.target.value)}/>
+            <input type="number" className="txtbox" id="porta" onChange={event => setPorta(event.target.value)}/>
              
             <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
             <input type="password" className="txtbox" id="password" onChange={event => setPassword(event.target.value)}/>
@@ -600,8 +543,8 @@ const Shape = () => {
         </div>
         <div className={classes.text}>    
 
-        <FormControl className={classes.text} onChange={handleNew}>
-          <select value={campos} onChange={handleChange2, handleConsoleDE} className={classes.select}>
+        <FormControl className={classes.text} onChange={dadosPARA}>
+          <select value={campos} onChange={Banco} onClick={returnAtributos} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
             { shapeReturn && shapeReturn.length > 0 && 
               shapeReturn.map((item)=>{
@@ -647,5 +590,5 @@ const Shape = () => {
       </>
   );
 }
-export default Shape;
 
+export default Shape;
