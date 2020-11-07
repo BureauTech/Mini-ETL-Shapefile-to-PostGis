@@ -67,6 +67,7 @@ const Shape = () => {
   const [dbf, setDbf] = useState(0);
   const [shp, setShp] = useState(0);
   const [shx, setShx] = useState(0);
+  var fieldsdepara = new Map();
 
   const fileInputRef = useRef();
   const modalImageRef = useRef();
@@ -373,7 +374,6 @@ const Shape = () => {
     })
     .then(response => { 
         setLista(response.data); 
-        console.log('olha a lista ' + JSON.stringify(lista))
         setShapeReturn(response.data); 
       }
     )
@@ -403,22 +403,31 @@ const Shape = () => {
   }
   
   const carga = () => {
-    api({  
-      method: 'post',
-      url: '/shape-to-postgis',
-      data: { 
+    // api({  
+    //   method: 'post',
+    //   url: '/shape-to-postgis',
+    //   data: { 
 
-      }
-    })
-    .then(response => { 
-        setLista(response.data); 
-        console.log('olha a lista ' + JSON.stringify(lista))
-        setShapeReturn(response.data); 
-      }
-    )
-    .catch(err => {
-      console.log('deu ruim bb', err); 
+    //   }
+    // })
+    // .then(response => { 
+    //     setLista(response.data); 
+    //     console.log('olha a lista ' + JSON.stringify(lista))
+    //     setShapeReturn(response.data); 
+    //   }
+    // )
+    // .catch(err => {
+    //   console.log('deu ruim bb', err); 
+    // });
+    fieldsde.forEach(element => {
+      fieldsdepara.set(element, document.getElementById(element).value);
     });
+    
+    for (var [key, value] of fieldsdepara) {
+      console.log(key + " goes " + value);
+    }
+    // alert(fieldsde[0]);
+    // alert(document.getElementById(fieldsde[0]).option);
   }
  
   const itensListDe = fieldsde.map((valor) =>
@@ -429,7 +438,6 @@ const Shape = () => {
 
   // Verificar prq chama varias vezes.
   function inputFillDE() { //funcao para pegar os atributos do arquivos
-    console.log(fieldsde.length);
     if (fieldsde.length > 0) {
       return (
         itensListDe
@@ -459,7 +467,6 @@ const Shape = () => {
 
   // Verificar prq chama varias vezes.
   function inputFillPARA() { //funcao para pegar colunas das tabelas
-    console.log('inputFillPARA()', fieldspara.length);
     if (fieldspara.length > 0) {
       for (let y = 0; y < fieldsde.length; y++) {
         return (
@@ -636,7 +643,7 @@ const Shape = () => {
         </div>
 
           <div>
-        <Link to="/" className="shape-send-button" onClick={carga}>
+        <Link /** to="/"*/ className="shape-send-button" onClick={carga}>
           REALIZAR CARGA
         </Link>
       </div>          
