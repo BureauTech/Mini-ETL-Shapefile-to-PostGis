@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
+import org.fatec.shapegis.functions.DeletarArquivos;
 import org.fatec.shapegis.model.FormConexao;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
 import org.geotools.data.FileDataStore;
@@ -173,6 +174,9 @@ public class ShapegisController {
 			}
 		}
 		HashMap<String, Object> tmpAtts;
+
+		//File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador);
+		//DeletarArquivos.Pasta(dir);
 
 		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
