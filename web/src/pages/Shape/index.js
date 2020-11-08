@@ -73,6 +73,8 @@ const Shape = () => {
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [fileSHP, setFileSHP] = useState([""]);
+  
+  var fieldsdepara = new Map();
 
   useEffect(() => {
       let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -86,6 +88,7 @@ const Shape = () => {
       setValidFiles([...filteredArr]);
       
   }, [selectedFiles]);
+
 
   const preventDefault = (e) => {
       e.preventDefault();
@@ -348,23 +351,40 @@ const Shape = () => {
 }
 
   //Função para realizar a carga do DE-PARA
-  const carga = () => {
-    api({  
+
+  const carga = (map) => {
+    fieldsde.forEach(element => {
+      fieldsdepara.set(element, document.getElementById(element).value);
+    });
+
+    for (var [key, value] of fieldsdepara) {
+      console.log("DE: " + key + " <-> PARA: " + value);      
+    }
+    api({
       method: 'post',
       url: '/shape-to-postgis',
-      data: { 
-
+      data: {
+        "host": local,
+        "porta": porta,
+        "bd": table,
+        "usuario": user,
+        "senha": password,
+        "tabela": campos,
+        "file": fileSHP,
+        "map": {key, value}
       }
     })
-    .then(response => { 
-        setShapeReturn(response.data); 
+      .then(response => {
+        console.log(fieldsdepara)
+
       }
-    )
-    .catch(err => {
-      console.log('deu ruim bb', err); 
-    });
+      )
+      .catch(err => {
+        console.log('deu ruim bb', err);
+      });
   }
- 
+
+
 
   const itensListDe = fieldsde.map((valor) =>
     <label className="fields">
