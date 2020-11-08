@@ -361,15 +361,17 @@ const Shape = () => {
 
   //Função para realizar a carga do DE-PARA
 
-  const carga = (map) => {
+  const carga = async() => {
     fieldsde.forEach(element => {
       fieldsdepara.set(element, document.getElementById(element).value);
+ 
     });
 
     for (var [key, value] of fieldsdepara) {
-      console.log("DE: " + key + " <-> PARA: " + value);      
-    }
-    api({
+      console.log("DE: " + key + " <-> PARA: " + value); 
+    
+
+    await api({
       method: 'post',
       url: '/shape-to-postgis',
       data: {
@@ -384,16 +386,14 @@ const Shape = () => {
       }
     })
       .then(response => {
-        console.log(fieldsdepara)
-
-      }
+          console.log(response)
+        }
       )
       .catch(err => {
         console.log('deu ruim bb', err);
       });
   }
-
-
+}
 
   const itensListDe = fieldsde.map((valor) =>
     <label className="fields">
