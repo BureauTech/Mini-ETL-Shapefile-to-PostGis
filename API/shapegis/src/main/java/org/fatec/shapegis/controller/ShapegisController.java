@@ -216,6 +216,9 @@ public class ShapegisController {
 				conn.close();
 			}
 		}
+		
+		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador);
+		DeletarArquivos.Pasta(dir);
 
 		return result;
 	}
