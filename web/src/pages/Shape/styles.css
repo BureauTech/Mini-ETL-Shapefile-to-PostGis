@@ -268,7 +268,7 @@ margin: 3rem 0 0 0;
 .drop-message {
     text-align: center;
     color: #ffffff;
-    font: 1.5rem Montserrat;
+    font: 2.5rem Montserrat;
 
 }
 
@@ -504,6 +504,12 @@ margin: 3rem 0 0 0;
 .db-container-title h1 {
     color: #fff;
     font: 700 3.0rem Montserrat;
+    margin-bottom: 20px;
+    }
+
+.db-container-title h2 {
+    color: #fff;
+    font: 300 1.5rem Montserrat;
     margin-bottom: 20px;
     }
 

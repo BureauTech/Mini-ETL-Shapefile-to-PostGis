@@ -381,6 +381,7 @@ const Shape = () => {
     })
       .then(response => {
         console.log(response)
+        alert("Carga realizada com sucesso!")
       })
       .catch(err => {
         console.log('deu ruim bb', err);
@@ -403,7 +404,7 @@ const Shape = () => {
     else {
       return (
         <>
-          <h1>Não há itens.</h1>
+          <h2 className="drop-message"><i>Realize os passos anteriores para visualização dos dados</i></h2>
         </>
       )
     }
@@ -434,7 +435,7 @@ const Shape = () => {
     else {
       return (
         <>
-          <h1>Não há itens.</h1>
+          <h2 className="drop-message"><i>Realize os passos anteriores para visualização dos dados</i></h2>
         </>
       )
     }
