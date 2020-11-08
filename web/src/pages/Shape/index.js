@@ -73,8 +73,7 @@ const Shape = () => {
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [fileSHP, setFileSHP] = useState([""]);
-  
-  var fieldsdepara = new Map();
+  const fieldsdepara = new Object();
 
   useEffect(() => {
       let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -361,17 +360,12 @@ const Shape = () => {
 
   //Função para realizar a carga do DE-PARA
 
-  const carga = async() => {
+  const carga = async () => {
+
     fieldsde.forEach(element => {
-      fieldsdepara.set(element, document.getElementById(element).value);
- 
+      fieldsdepara[element] = document.getElementById(element).value;
     });
-
-    for (var [key, value] of fieldsdepara) {
-      console.log("DE: " + key + " <-> PARA: " + value); 
-    
-
-    await api({
+    api({
       method: 'post',
       url: '/shape-to-postgis',
       data: {
@@ -382,18 +376,16 @@ const Shape = () => {
         "senha": password,
         "tabela": campos,
         "file": fileSHP,
-        "map": {key, value}
+        "map": fieldsdepara
       }
     })
       .then(response => {
-          console.log(response)
-        }
-      )
+        console.log(response)
+      })
       .catch(err => {
         console.log('deu ruim bb', err);
       });
   }
-}
 
   const itensListDe = fieldsde.map((valor) =>
     <label className="fields">
@@ -608,7 +600,7 @@ const Shape = () => {
         </div>
 
           <div>
-        <Link to="/" className="shape-send-button" onClick={carga}>
+        <Link /**to="/"*/ className="shape-send-button" onClick={carga}>
           REALIZAR CARGA
         </Link>
       </div>          
