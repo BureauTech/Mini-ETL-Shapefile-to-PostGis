@@ -467,7 +467,7 @@ const Shape = () => {
                       </div>
                       <img src={UploadShape} alt="Shape-Button" width="80%"/>
                       <div className="upload-icon" width="100%">
-                      <h2><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
+                      <h2 className="drop-message"><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
                       </div>
                   </div>                   
                   <input
