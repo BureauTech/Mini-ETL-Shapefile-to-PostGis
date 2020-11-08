@@ -163,9 +163,15 @@ public class ShapegisController {
 	@PostMapping(path = "/shape-to-postgis", consumes = "application/json")
 	public Integer shapeToPostgis(@RequestBody FormShapeParaPostgis form) throws Exception {
 		int result = 0;
-
-		String atributo = "";
-		String valor = "";
+		String atributo;
+		String valor;
+		HashMap<String, String> depara = new HashMap<>();
+		
+		for (Map.Entry<String, String> entrada : form.map.entrySet()) {
+			if (!entrada.getValue().equals("Para")) {
+				depara.put(entrada.getKey(), entrada.getValue());
+			}
+		}
 		HashMap<String, Object> tmpAtts;
 
 		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
@@ -174,17 +180,21 @@ public class ShapegisController {
 		SimpleFeatureType schema = source.getSchema();
 
 		Query query = new Query(schema.getTypeName());
+		query.setMaxFeatures(5);
 
 		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
 		try (FeatureIterator<SimpleFeature> features = collection.features()) {
 			while (features.hasNext()) {
-				SimpleFeature feature = features.next();
+				atributo = new String();
+				valor = new String();
 				tmpAtts = new HashMap<>();
+				
+				SimpleFeature feature = features.next();
 				for (Property attribute : feature.getProperties()) {
 					tmpAtts.put(attribute.getName().toString(), attribute.getValue());
 				}
 
-				for (Map.Entry<String, String> entrada : form.map.entrySet()) {
+				for (Map.Entry<String, String> entrada : depara.entrySet()) {
 					atributo += entrada.getValue() + " ,";
 					valor += "'" + tmpAtts.get("" + entrada.getKey() + "") + "',";
 				}
@@ -195,7 +205,6 @@ public class ShapegisController {
 				}
 
 				String sqlQuery = "INSERT INTO " + form.tabela + "(" + atributo + ") VALUES (" + valor + ");";
-
 				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
 						form.senha);
 				conn.connectToDatabase();
