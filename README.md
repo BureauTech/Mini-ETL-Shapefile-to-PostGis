@@ -57,12 +57,12 @@ Save time, save data. </h3> <br>
 
 Obs: A linha que representa o tempo restante (azul), fechou com valor negativo pois a equipe usou horas extras para a execução das atividades. Ou seja, apesar da equipe ter utilizado mais horas do que foi planejado, foi possível entregar as funcionalidades propostas.
 
-##Análise do Burndown
+### Análise do Burndown
 
 O gráfico abaixo demonstra a análise dos prazos durante a Sprint 3:
 
 <div align="center">
-    <img src="/assets/images/png/analise_burndown_sprint3.png">
+    <img width="500" src="/assets/images/png/analise_burndown_sprint3.png">
 </div>
 
 Quase metade das atividades foram entregues em atraso pelos seguintes motivos:
