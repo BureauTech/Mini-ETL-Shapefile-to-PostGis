@@ -27,13 +27,13 @@ Save time, save data. </h3> <br>
 * Seleção de Banco de Dados
 * Seleção de Tabela PostGIS
 * Implementação da solução DE-PARA, para carga de Shapefiles ao Banco
-* Carga do Shapefile para PostGIS (em desenvolvimento)
+* Carga do Shapefile para PostGIS
 * Documento de ambientação para execução da solução
 
 # Demonstração
 
 <div align="center">
-    <img src="/assets/images/gif/demo-sprint-2.gif">
+    <img src="/assets/images/gif/demo-sprint-3.gif">
 </div>
 
 # Modelo de Dados
@@ -52,5 +52,22 @@ Save time, save data. </h3> <br>
 # Burndown
 
 <div align="center">
-    <img src="/assets/images/png/burndown-sprint2.PNG">
+    <img src="/assets/images/png/burndown-sprint3.png">
 </div>
+
+Obs: A linha que representa o tempo restante (azul), fechou com valor negativo pois a equipe usou horas extras para a execução das atividades. Ou seja, apesar da equipe ter utilizado mais horas do que foi planejado, foi possível entregar as funcionalidades propostas.
+
+##Análise do Burndown
+
+O gráfico abaixo demonstra a análise dos prazos durante a Sprint 3:
+
+<div align="center">
+    <img src="/assets/images/png/analise_burndown_sprint3.png">
+</div>
+
+Quase metade das atividades foram entregues em atraso pelos seguintes motivos:
+
+- Dificuldade em tecnologias e ferramentas para o desenvolvimento
+- Integração de novos membros
+- Ambientação: API retirada do Heroku e executada localmente
+- Reestruturação do front
