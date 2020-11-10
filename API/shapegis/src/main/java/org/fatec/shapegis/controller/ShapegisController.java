@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
@@ -21,7 +19,6 @@ import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -119,7 +116,7 @@ public class ShapegisController {
 		return null;
 	}
 	
-	@PostMapping(path = "/upload/post-to-shape", consumes = "multipart/form-data", produces = "application/json")
+	@PostMapping(path = "/upload/postgis-to-shape", consumes = "multipart/form-data", produces = "application/json")
 	public ArrayList<String> uploadPostToShape(@RequestParam(value = "file") MultipartFile file) throws IOException {
 		
 		File dir = new File(local + tmp + separador + "PostToShape");
@@ -239,6 +236,7 @@ public class ShapegisController {
 
 		return result;
 	}
+	
 
 }
 
