@@ -10,6 +10,7 @@ import java.util.Map;
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.functions.DeletarArquivos;
 import org.fatec.shapegis.model.FormConexao;
+import org.fatec.shapegis.model.FormPostgisParaShape;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
@@ -34,10 +35,16 @@ import org.springframework.web.multipart.MultipartFile;
 public class ShapegisController {
 	String separador = System.getProperty("file.separator");
 	String local = System.getProperty("user.home");
+	String tmp = separador + "ShapeGIS" + separador + "tmp";
 
 	@GetMapping("/bomdia")
 	public String bomdia() {
 		return "bomdia";
+	}
+	
+	@GetMapping("/tmp")
+	public String userTemp() {
+		return System.getProperty("java.io.tmpdir");
 	}
 
 	@PostMapping(path = "/connect/postgres", consumes = "application/json", produces = "application/json")
@@ -81,18 +88,21 @@ public class ShapegisController {
 
 	// Upload dos arquivos
 	// Recebendo um arquivo de cada vez
-	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
-	public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile file) throws IOException {
 
-		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
+	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
+	public ArrayList<String> uploadShapeToPost(@RequestParam(value = "file") MultipartFile file) throws IOException {
+		
+		
+		File dir = new File(local + tmp + separador + "ShapeToPost");
 		dir.mkdirs();
 
-		File f = new File(dir.toString(), file.getOriginalFilename());
+		File f = new File(dir, file.getOriginalFilename());
 
-		// Verificando a extensão do arquivo
+		/* Verificando a extensão do arquivo
 		String fileName = f.toString();
 		int index = fileName.lastIndexOf('.');
 		String extension = fileName.substring(index + 1);
+		*/
 
 		// Salva o arquivo no diretório temporário
 		try {
@@ -103,16 +113,38 @@ public class ShapegisController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// Se a extensão for shp
-		if (extension.equals("shp")) {
-
-		}
-
+		
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
+	
+	@PostMapping(path = "/upload/postgis-to-shape", consumes = "multipart/form-data", produces = "application/json")
+	public ArrayList<String> uploadPostToShape(@RequestParam(value = "file") MultipartFile file) throws IOException {
+		
+		File dir = new File(local + tmp + separador + "PostToShape");
+		dir.mkdirs();
 
+		File f = new File(dir, file.getOriginalFilename());
+
+		/* Verificando a extensão do arquivo
+		String fileName = f.toString();
+		int index = fileName.lastIndexOf('.');
+		String extension = fileName.substring(index + 1);
+		*/
+
+		// Salva o arquivo no diretório temporário
+		try {
+			// Transfer or Saving in local memory
+			file.transferTo(f);		
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Retorna null caso o arquivo não seja .shp
+		return null;
+	}
 	@PostMapping(path = "/fields/{name}", consumes = "application/json")
 	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name) throws ClassNotFoundException, SQLException {
 		// Declarando ArrayList para retorno
@@ -222,7 +254,13 @@ public class ShapegisController {
 
 		return result;
 	}
+	
+	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
+	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
+		int result = 0;
 
+		return result;
+	}
 }
 
 // Old code
