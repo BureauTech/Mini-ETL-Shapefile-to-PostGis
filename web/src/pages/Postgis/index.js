@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import {Link} from 'react-router-dom';
 
 //Context
@@ -13,8 +13,7 @@ import api from '../../services/api';
 import MenuItem from '@material-ui/core/MenuItem';
 import postStep1 from '../../assets/img/notebook-background.png';
 import FormControl from '@material-ui/core/FormControl';
-import postStep2 from '../../assets/img/post-shape-new.png';
-
+import UploadPost from '../../assets/img/upload-post.png';
 
 //Style
 import "./styles.css";
@@ -64,6 +63,186 @@ const [field, setField] = useState([]);
 const [banco, setBanco] = useState();
 const [fieldsde, setFieldsDe] = useState([]);
 const [fieldspara, setFieldsPara] = useState([]);
+const fileInputRef = useRef();
+const modalImageRef = useRef();
+const modalRef = useRef();
+const progressRef = useRef();
+const uploadRef = useRef();
+const uploadModalRef = useRef();
+const [selectedFiles, setSelectedFiles] = useState([]);
+const [validFiles, setValidFiles] = useState([]);
+const [unsupportedFiles, setUnsupportedFiles] = useState([]);
+const [errorMessage, setErrorMessage] = useState('');
+const [dbf, setDbf] = useState(0);
+const [shp, setShp] = useState(0);
+const [shx, setShx] = useState(0);
+const [fileSHP, setFileSHP] = useState([""]);
+
+
+
+
+useEffect(() => {
+  let filteredArr = selectedFiles.reduce((acc, current) => {
+      const x = acc.find(item => item.name === current.name);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+  }, []);
+  setValidFiles([...filteredArr]);
+  
+}, [selectedFiles]);
+
+
+const preventDefault = (e) => {
+  e.preventDefault();
+  // e.stopPropagation();
+}
+
+const dragOver = (e) => {
+  preventDefault(e);
+}
+
+const dragEnter = (e) => {
+  preventDefault(e);
+}
+
+const dragLeave = (e) => {
+  preventDefault(e);
+}
+
+const fileDrop = (e) => {
+  preventDefault(e);
+  const files = e.dataTransfer.files;
+  if (files.length) {
+      handleFiles(files);
+  }
+}
+
+const filesSelected = () => {
+  if (fileInputRef.current.files.length) {
+      handleFiles(fileInputRef.current.files);
+  }
+}
+
+const fileInputClicked = () => {
+  fileInputRef.current.click();
+}
+
+const handleFiles = (files) => {
+  for(let i = 0; i < files.length; i++) {
+      if (validateFile(files[i])) {
+          setSelectedFiles(prevArray => [...prevArray, files[i]]);
+          typeNecessary(files[i]);
+      } else {
+          files[i]['invalid'] = true;
+          setSelectedFiles(prevArray => [...prevArray, files[i]]);
+          setErrorMessage('Tipo de arquivo não permitido.');
+          setUnsupportedFiles(prevArray => [...prevArray, files[i]]);
+      }
+  }
+}
+
+const typeNecessary = (data) => {
+const fileName = data.name;
+if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
+    setShp(1);
+} else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
+    setDbf(1);
+} else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
+    setShx(1);
+}
+}
+
+const validateFile = (data) => {
+  const validTypes = ['cpg', 'dbf', 'prj', 'qix', 'shp', 'shx'];
+  const fileName = data.name;
+  if (validTypes.indexOf(fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)) === -1) {
+      return false;
+  }
+  if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp' ){
+    setFileSHP(fileName)
+  }
+
+  return true;
+}
+
+//Remover arquivo
+const removeFile = (name) => {
+  const fileName = name;
+  if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
+      setShp(-1);
+  } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
+      setDbf(-1);
+  } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
+      setShx(-1);
+  }
+  const index = validFiles.findIndex(e => e.name === name);
+  const index2 = selectedFiles.findIndex(e => e.name === name);
+  const index3 = unsupportedFiles.findIndex(e => e.name === name);
+  validFiles.splice(index, 1);
+  selectedFiles.splice(index2, 1);
+  setValidFiles([...validFiles]);
+  setSelectedFiles([...selectedFiles]);
+  if (index3 !== -1) {
+      unsupportedFiles.splice(index3, 1);
+      setUnsupportedFiles([...unsupportedFiles]);
+  }
+  if (name.substring(name.lastIndexOf('.') + 1, name.length) === 'shp' ){
+    setFileSHP(null)
+  }      
+}
+
+const openImageModal = (file) => {
+  const reader = new FileReader();
+  modalRef.current.style.display = "block";
+  reader.readAsDataURL(file);
+  reader.onload = function(e) {
+      modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
+  }
+}
+
+const closeModal = () => {
+  modalRef.current.style.display = "none";
+  modalImageRef.current.style.backgroundImage = 'none';
+}
+
+//Upload de arquivo
+const uploadFiles = async () => {
+  uploadModalRef.current.style.display = 'block';
+  uploadRef.current.innerHTML = 'Enviado o(s) arquivo(s)...';
+  for (let i = 0; i < validFiles.length; i++) {
+      const formData = new FormData();
+      formData.append('file', validFiles[i]);
+      
+      api.post("/upload", formData, {
+          onUploadProgress: (progressEvent) => {
+              const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
+              progressRef.current.innerHTML = `${uploadPercentage}%`;
+              progressRef.current.style.width = `${uploadPercentage}%`;
+
+              if (uploadPercentage === 100) {
+                  uploadRef.current.innerHTML = 'Envio do(s) arquivo(s).';
+                  validFiles.length = 0;
+                  setValidFiles([...validFiles]);
+                  setSelectedFiles([...validFiles]);
+                  setUnsupportedFiles([...validFiles]);
+              }
+          },
+      })
+      .catch(() => {
+          uploadRef.current.innerHTML = `<span class="error">Erro no envio do(s) arquivo(s)</span>`;
+          progressRef.current.style.backgroundColor = 'red';
+      })
+  }
+}
+
+const closeUploadModal = () => {
+  uploadModalRef.current.style.display = 'none';
+}
+
+
 
 const handleChange2 = (event) => {
   setCampos(event.target.value);
@@ -174,6 +353,14 @@ const bdConnect = () => {
     console.log('deu ruim', err); 
   });
 }
+}
+
+const textLocal = useRef(null);
+
+function handleClick() {
+  uploadFiles();
+  textLocal.current.focus();
+  
 }
 
 const bdList = (tableSelected) => {
@@ -292,7 +479,7 @@ const bdList = (tableSelected) => {
             <label htmlFor="">Senha</label>
           </form>    
         <form className="forms-content-text-box">
-            <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)}/>
+            <input type="text" className="txtbox" ref = {textLocal} id="local" onChange={event => setLocal(event.target.value)}/>
             <input type="number" className="txtbox" id="porta" onChange={event => setPortal(event.target.value)}/>
              
             <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
@@ -341,10 +528,66 @@ const bdList = (tableSelected) => {
         </div>
           
         <div className="post-step2-button">
-        <form method="POST" enctype="multipart/form-data" action="/upload">
-          <img src={postStep2} alt="Shape-Button" width="100%"/>
-          </form>
-        </div>
+
+              <div className="drop-container2"
+                  onDragOver={dragOver}
+                  onDragEnter={dragEnter}
+                  onDragLeave={dragLeave}
+                  onDrop={fileDrop}
+                  onClick={fileInputClicked}
+              >
+                  <div className="drop-message" >
+                      <div className="upload-icon" width="100%">
+                      <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
+                      </div>
+                      <img src={UploadPost} alt="Shape-Button" width="80%"/>
+                      <div className="upload-icon" width="100%">
+                      <h2 className="drop-message"><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
+                      </div>
+                  </div>                   
+                  <input
+                      ref={fileInputRef}
+                      className="file-input"
+                      type="file"
+                      multiple
+                      onChange={filesSelected}
+                  />
+              </div>
+              {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => handleClick()}>Carregar Arquivo(s)</button> : ''} 
+              {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
+              <div className="file-display-container">
+              
+              {
+                      validFiles.map((data, i) => 
+                          <div className="file-status-bar" key={i}>
+                              <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
+                                  <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
+                              </div>
+                              <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
+                          </div>
+                      )
+                  }
+
+              </div>
+
+          </div>
+          <div className="overlay"></div>
+          <div className="modal" ref={modalRef}>
+              <span className="close" onClick={(() => closeModal())}>X</span>
+              <div className="modal-image" ref={modalImageRef}></div>
+          </div>
+          <div className="upload-modal" ref={uploadModalRef}>
+              <div className="close" onClick={(() => closeUploadModal())}>X</div>
+              <div className="progress-container">
+                  <span ref={uploadRef}></span>
+                  <div className="progress">
+                      <div className="progress-bar" ref={progressRef}></div>
+                  </div>
+              </div>
+          </div>
+
+
+
 
         <div className="post-step3-header">
           <p>3</p>
