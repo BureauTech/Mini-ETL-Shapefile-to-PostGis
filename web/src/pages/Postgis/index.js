@@ -15,6 +15,7 @@ import postStep1 from '../../assets/img/notebook-background.png';
 import FormControl from '@material-ui/core/FormControl';
 import postStep2 from '../../assets/img/post-shape-new.png';
 
+
 //Style
 import "./styles.css";
 
@@ -61,6 +62,8 @@ const [campos, setCampos] = React.useState(0);
 const classes = useStyles();
 const [field, setField] = useState([]);
 const [banco, setBanco] = useState();
+const [fieldsde, setFieldsDe] = useState([]);
+const [fieldspara, setFieldsPara] = useState([]);
 
 const handleChange2 = (event) => {
   setCampos(event.target.value);
@@ -207,33 +210,58 @@ const bdList = (tableSelected) => {
     (value, index) =>
     <label className="fields" id={index + 1} key={index}>{value}</label>
     );
+
+    const itensListDe = fieldsde.map((valor) =>
+    <label className="fields">
+      {valor}
+    </label>
+  );
     
-  function inputFill() {
-    console.log('inputFill()', shapeReturn.length);
-    if (shapeReturn.length > 0){
-      return (
-        shapeReturn.map(
-          (value, index) =>
-          <label className="fields" id={index + 1} key={index}>{value}</label>
+    function inputFillDE() { 
+      if (fieldsde.length > 0) {
+        return (
+          itensListDe
         )
-      )
+      }
+      else {
+        return (
+          <>
+            <h2 className="drop-message"><i>Realize os passos anteriores para visualização dos dados</i></h2>
+          </>
+        )
+      }
     }
-    
-    else {
-      return (
-        <>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-          <label className="fields">DE</label>
-        </>
-      )
+  
+    const itensListPara = fieldspara.map((valor) =>
+      <option value={valor}>
+        {valor}
+      </option>
+    );
+  
+    const listPara = fieldsde.map((valor) =>
+      <select id={valor} className="fields">
+        <option selected disabled>Para</option>
+        {itensListPara}
+      </select>
+    );
+  
+    //funcao para pegar colunas das tabelas
+    function inputFillPARA() { 
+      if (fieldspara.length > 0) {
+        for (let y = 0; y < fieldsde.length; y++) {
+          return (
+            listPara
+          )
+        }
+      }
+      else {
+        return (
+          <>
+            <h2 className="drop-message"><i>Realize os passos anteriores para visualização dos dados</i></h2>
+          </>
+        )
+      }
     }
-  }
 
   return (
     <>
@@ -326,20 +354,14 @@ const bdList = (tableSelected) => {
         <div className="post-step3-de-para">        
           <h1>DE-PARA</h1>
 
-          <div className="shape-step3-selection">
-            <form className="columns">
-              {inputFill()}
+          <div className="post-step3-selection">
+          <form className="columns">
+              {inputFillDE()}
             </form>
 
             <form className="columns">
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
-              <label className="fields">PARA</label>
+
+              {inputFillPARA()}
             </form>
           </div>      
         </div>
