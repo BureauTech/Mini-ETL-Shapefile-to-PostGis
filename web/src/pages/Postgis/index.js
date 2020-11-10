@@ -356,18 +356,17 @@ const bdList = (tableSelected) => {
 
           <div className="post-step3-selection">
           <form className="columns">
-              {inputFillDE()}
+              {inputFillPARA()}
             </form>
 
             <form className="columns">
-
-              {inputFillPARA()}
+            {inputFillDE()}
             </form>
           </div>      
         </div>
 
         <Link to="/" className="post-send-button">
-          REALIZAR CARGA
+          GERAR SHAPEFILE
         </Link>
       </div>
 
