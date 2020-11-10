@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ShapegisController {
 	String separador = System.getProperty("file.separator");
 	String local = System.getProperty("user.home");
+	String tmp = separador + "ShapeGIS" + separador + "tmp";
 
 	@GetMapping("/bomdia")
 	public String bomdia() {
@@ -90,9 +91,10 @@ public class ShapegisController {
 	// Recebendo um arquivo de cada vez
 
 	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
-	public ArrayList<String> upload(@RequestParam(value = "file") MultipartFile file) throws IOException {
+	public ArrayList<String> uploadShapeToPost(@RequestParam(value = "file") MultipartFile file) throws IOException {
 		
-		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp");
+		
+		File dir = new File(local + tmp + separador + "ShapeToPost");
 		dir.mkdirs();
 
 		File f = new File(dir, file.getOriginalFilename());
@@ -116,7 +118,34 @@ public class ShapegisController {
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
+	
+	@PostMapping(path = "/upload/post-to-shape", consumes = "multipart/form-data", produces = "application/json")
+	public ArrayList<String> uploadPostToShape(@RequestParam(value = "file") MultipartFile file) throws IOException {
+		
+		File dir = new File(local + tmp + separador + "PostToShape");
+		dir.mkdirs();
 
+		File f = new File(dir, file.getOriginalFilename());
+
+		/* Verificando a extensão do arquivo
+		String fileName = f.toString();
+		int index = fileName.lastIndexOf('.');
+		String extension = fileName.substring(index + 1);
+		*/
+
+		// Salva o arquivo no diretório temporário
+		try {
+			// Transfer or Saving in local memory
+			file.transferTo(f);		
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Retorna null caso o arquivo não seja .shp
+		return null;
+	}
 	@PostMapping(path = "/fields/{name}", consumes = "application/json")
 	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name) throws ClassNotFoundException, SQLException {
 		// Declarando ArrayList para retorno
