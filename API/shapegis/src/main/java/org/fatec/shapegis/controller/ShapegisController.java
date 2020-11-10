@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.model.FormConexao;
+import org.fatec.shapegis.model.FormPostgisParaShape;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
@@ -237,7 +238,12 @@ public class ShapegisController {
 		return result;
 	}
 	
+	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
+	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
+		int result = 0;
 
+		return result;
+	}
 }
 
 // Old code
