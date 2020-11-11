@@ -51,7 +51,7 @@ const Post = () => {
 // ------------------------------------------------------------
 //Código componente Connection
 const [local, setLocal] = useState();
-const [portal, setPortal] = useState();
+const [porta, setPorta] = useState();
 const [table, setTable] = useState(''); 
 const [user, setUser] = useState();
 const [password, setPassword] = useState();
@@ -260,7 +260,7 @@ const PARAList = async (field) => {
     url: '/fields/' + field,
     data: {
       "host": local,
-      "porta": portal,
+      "porta": porta,
       "bd": table, 
       "usuario": user,
       "senha": password
@@ -338,7 +338,7 @@ const bdConnect = () => {
     url: '/connect/postgres',
     data: { 
       "host": local,
-      "porta": portal,
+      "porta": porta,
       "bd": null, 
       "usuario": user,
       "senha": password
@@ -369,7 +369,7 @@ const bdList = (tableSelected) => {
     url: '/connect/database',
     data: { 
       "host": local,
-      "porta": portal,
+      "porta": porta,
       "bd": tableSelected, 
       "usuario": user,
       "senha": password
@@ -388,6 +388,51 @@ const bdList = (tableSelected) => {
 
 // fim código connection
 // ------------------------------------------------------------
+
+  //Retorno dos atributos dos arquivos no DE
+  const returnAtributos = () => {
+    api({
+      method: 'get',
+      url: '/attributes/'+ fileSHP,
+    })
+    .then(response => { 
+      setFieldsDe(response.data);
+    }
+  )
+  .catch(err => {
+    console.log('deu ruim', err); 
+  });
+}
+
+  //Retorno das colunas das tabelas no PARA
+  const returnPARA = async (field) => {
+    await api({  
+      method: 'post',
+      url: '/fields/' + field,
+      data: {
+        "host": local,
+        "porta": porta,
+        "bd": table, 
+        "usuario": user,
+        "senha": password
+      }
+    })
+    .then(response => {
+      setFieldsPara(response.data);
+      }
+    )
+    .catch(err => {
+      console.log('deu ruim bb', err); 
+    });
+  }
+
+const Banco = (event) => {
+  setCampos(event.target.value);
+};
+
+const dadosPARA = (event) => {
+  returnPARA(event.target.value);
+}
 
   useEffect(() => {
     console.log('contexto aqui: ', shapeReturn);
@@ -480,7 +525,7 @@ const bdList = (tableSelected) => {
           </form>    
         <form className="forms-content-text-box">
             <input type="text" className="txtbox" ref = {textLocal} id="local" onChange={event => setLocal(event.target.value)}/>
-            <input type="number" className="txtbox" id="porta" onChange={event => setPortal(event.target.value)}/>
+            <input type="number" className="txtbox" id="porta" onChange={event => setPorta(event.target.value)}/>
              
             <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
             <input type="password" className="txtbox" id="password" onChange={event => setPassword(event.target.value)}/>
@@ -507,8 +552,8 @@ const bdList = (tableSelected) => {
         </div>
         <div className={classes.text}>    
 
-        <FormControl className={classes.text} onChange={handleNew}>
-          <select value={campos} onChange={handleChange2} className={classes.select}>
+        <FormControl className={classes.text} onChange={dadosPARA}>
+        <select value={campos} onChange={Banco} onClick={returnAtributos} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
             { shapeReturn && shapeReturn.length > 0 && 
               shapeReturn.map((item)=>{
@@ -585,9 +630,6 @@ const bdList = (tableSelected) => {
                   </div>
               </div>
           </div>
-
-
-
 
         <div className="post-step3-header">
           <p>3</p>
