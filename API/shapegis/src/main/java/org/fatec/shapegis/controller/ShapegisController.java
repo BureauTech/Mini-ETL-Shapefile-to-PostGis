@@ -258,69 +258,10 @@ public class ShapegisController {
 	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
 	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
 		int result = 0;
-
-		 transaction = new DefaultTransaction("create");
-
-	        String typeName = newDataStore.getTypeNames()[0];
-	        SimpleFeatureSource featureSource = newDataStore.getFeatureSource(typeName);
-
-	        if (featureSource instanceof SimpleFeatureStore) {
-	            SimpleFeatureStore featureStore = (SimpleFeatureStore) featureSource;
-
-	            featureStore.setTransaction(transaction);
-	            try {
-	                featureStore.addFeatures(collection);
-	                transaction.commit();
-
-	            } catch (Exception problem) {
-	                problem.printStackTrace();
-	                transaction.rollback();
-
-	            } finally {
-	                transaction.close();
-	            }
-	            System.exit(0); // success!
-	        } else {
-	            System.out.println(typeName + " does not support read/write access");
-	            System.exit(1);
-	        }
-		
-		
 		
 		return result;
 	}
 }
-
-
-/* escreve as coisas tudo aqui
- * 
- transaction = new DefaultTransaction("create");
-
-        String typeName = newDataStore.getTypeNames()[0];
-        SimpleFeatureSource featureSource = newDataStore.getFeatureSource(typeName);
-
-        if (featureSource instanceof SimpleFeatureStore) {
-            SimpleFeatureStore featureStore = (SimpleFeatureStore) featureSource;
-
-            featureStore.setTransaction(transaction);
-            try {
-                featureStore.addFeatures(collection);
-                transaction.commit();
-
-            } catch (Exception problem) {
-                problem.printStackTrace();
-                transaction.rollback();
-
-            } finally {
-                transaction.close();
-            }
-            System.exit(0); // success!
-        } else {
-            System.out.println(typeName + " does not support read/write access");
-            System.exit(1);
-        }
-    }
-  */
 
 
 // Old code
