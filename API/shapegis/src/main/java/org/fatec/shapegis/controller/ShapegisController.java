@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.fatec.shapegis.dao.PostgisConnection;
-import org.fatec.shapegis.functions.DeletarArquivos;
+import org.fatec.shapegis.functions.DeletarArquivo;
 import org.fatec.shapegis.model.FormConexao;
 import org.fatec.shapegis.model.FormPostgisParaShape;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
@@ -250,7 +250,7 @@ public class ShapegisController {
 		}
 		
 		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador);
-		DeletarArquivos.Pasta(dir);
+		DeletarArquivo.DelArq(dir, form.file);
 
 		return result;
 	}
