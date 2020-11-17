@@ -163,7 +163,7 @@ public class ShapegisController {
 	@GetMapping("attributes/{file}")
 	public ArrayList<String> atributosArquivo(@PathVariable("file") String file) throws IOException {
 		// Declara o caminho do arquivo
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + "ShapeToPost" + separador + file);
 		//Declara o ArrayList 
 		ArrayList<String> fields = new ArrayList<String>();
 		
@@ -210,7 +210,7 @@ public class ShapegisController {
 		//File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador);
 		//DeletarArquivos.Pasta(dir);
 
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + "ShapeToPost" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
 		SimpleFeatureSource source = myData.getFeatureSource();
 		SimpleFeatureType schema = source.getSchema();
@@ -259,9 +259,69 @@ public class ShapegisController {
 	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
 		int result = 0;
 
+		 transaction = new DefaultTransaction("create");
+
+	        String typeName = newDataStore.getTypeNames()[0];
+	        SimpleFeatureSource featureSource = newDataStore.getFeatureSource(typeName);
+
+	        if (featureSource instanceof SimpleFeatureStore) {
+	            SimpleFeatureStore featureStore = (SimpleFeatureStore) featureSource;
+
+	            featureStore.setTransaction(transaction);
+	            try {
+	                featureStore.addFeatures(collection);
+	                transaction.commit();
+
+	            } catch (Exception problem) {
+	                problem.printStackTrace();
+	                transaction.rollback();
+
+	            } finally {
+	                transaction.close();
+	            }
+	            System.exit(0); // success!
+	        } else {
+	            System.out.println(typeName + " does not support read/write access");
+	            System.exit(1);
+	        }
+		
+		
+		
 		return result;
 	}
 }
+
+
+/* escreve as coisas tudo aqui
+ * 
+ transaction = new DefaultTransaction("create");
+
+        String typeName = newDataStore.getTypeNames()[0];
+        SimpleFeatureSource featureSource = newDataStore.getFeatureSource(typeName);
+
+        if (featureSource instanceof SimpleFeatureStore) {
+            SimpleFeatureStore featureStore = (SimpleFeatureStore) featureSource;
+
+            featureStore.setTransaction(transaction);
+            try {
+                featureStore.addFeatures(collection);
+                transaction.commit();
+
+            } catch (Exception problem) {
+                problem.printStackTrace();
+                transaction.rollback();
+
+            } finally {
+                transaction.close();
+            }
+            System.exit(0); // success!
+        } else {
+            System.out.println(typeName + " does not support read/write access");
+            System.exit(1);
+        }
+    }
+  */
+
 
 // Old code
 //------------------------------------------------------------------------------
