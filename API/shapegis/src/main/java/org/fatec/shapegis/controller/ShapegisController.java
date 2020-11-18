@@ -163,7 +163,7 @@ public class ShapegisController {
 	@GetMapping("attributes/{file}")
 	public ArrayList<String> atributosArquivo(@PathVariable("file") String file) throws IOException {
 		// Declara o caminho do arquivo
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file);
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + "ShapeToPost" + separador + file);
 		//Declara o ArrayList 
 		ArrayList<String> fields = new ArrayList<String>();
 		
@@ -210,7 +210,7 @@ public class ShapegisController {
 		//File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador);
 		//DeletarArquivos.Pasta(dir);
 
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
+		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + "ShapeToPost" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
 		SimpleFeatureSource source = myData.getFeatureSource();
 		SimpleFeatureType schema = source.getSchema();
@@ -258,10 +258,11 @@ public class ShapegisController {
 	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
 	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
 		int result = 0;
-
+		
 		return result;
 	}
 }
+
 
 // Old code
 //------------------------------------------------------------------------------

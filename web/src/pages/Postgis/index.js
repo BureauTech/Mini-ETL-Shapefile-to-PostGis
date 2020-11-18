@@ -77,6 +77,7 @@ const [dbf, setDbf] = useState(0);
 const [shp, setShp] = useState(0);
 const [shx, setShx] = useState(0);
 const [fileSHP, setFileSHP] = useState([""]);
+const fieldsdepara = new Object();
 
 
 
@@ -216,7 +217,7 @@ const uploadFiles = async () => {
       const formData = new FormData();
       formData.append('file', validFiles[i]);
       
-      api.post("/upload", formData, {
+      api.post("/upload/postgis-to-shape", formData, {
           onUploadProgress: (progressEvent) => {
               const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
               progressRef.current.innerHTML = `${uploadPercentage}%`;
@@ -404,6 +405,34 @@ const bdList = (tableSelected) => {
   });
 }
 
+const carga = async () => {
+
+  fieldsde.forEach(element => {
+    fieldsdepara[element] = document.getElementById(element).value;
+  });
+  api({
+    method: 'post',
+    url: '/postgis-to-shape',
+    data: {
+      "host": local,
+      "porta": porta,
+      "bd": table,
+      "usuario": user,
+      "senha": password,
+      "tabela": campos,
+      "file": fileSHP,
+      "map": fieldsdepara
+    }
+  })
+    .then(response => {
+      console.log(response)
+      alert("Carga realizada com sucesso!")
+    })
+    .catch(err => {
+      console.log('deu ruim bb', err);
+    });
+}
+
   //Retorno das colunas das tabelas no PARA
   const returnPARA = async (field) => {
     await api({  
@@ -503,7 +532,71 @@ const dadosPARA = (event) => {
       <div className="main-container">
         <div className="post-step1-header">
           <p>1</p>
-          <span>Conecte-se com o seu Banco de Dados.</span>
+          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
+        </div>
+
+        <div className="post-step2-button">
+
+        <div className="drop-container2"
+            onDragOver={dragOver}
+            onDragEnter={dragEnter}
+            onDragLeave={dragLeave}
+            onDrop={fileDrop}
+            onClick={fileInputClicked}
+        >
+            <div className="drop-message" >
+                <div className="upload-icon" width="100%">
+                <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
+                </div>
+                <img src={UploadPost} alt="Shape-Button" width="80%"/>
+                <div className="upload-icon" width="100%">
+                <h2 className="drop-message"><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
+                </div>
+            </div>                   
+            <input
+                ref={fileInputRef}
+                className="file-input"
+                type="file"
+                multiple
+                onChange={filesSelected}
+            />
+        </div>
+        {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => handleClick()}>Carregar Arquivo(s)</button> : ''} 
+        {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
+        <div className="file-display-container">
+
+        {
+                validFiles.map((data, i) => 
+                    <div className="file-status-bar" key={i}>
+                        <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
+                            <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
+                        </div>
+                        <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
+                    </div>
+                )
+            }
+
+        </div>
+
+        </div>
+        <div className="overlay"></div>
+        <div className="modal" ref={modalRef}>
+        <span className="close" onClick={(() => closeModal())}>X</span>
+        <div className="modal-image" ref={modalImageRef}></div>
+        </div>
+        <div className="upload-modal" ref={uploadModalRef}>
+        <div className="close" onClick={(() => closeUploadModal())}>X</div>
+        <div className="progress-container">
+            <span ref={uploadRef}></span>
+            <div className="progress">
+                <div className="progress-bar" ref={progressRef}></div>
+            </div>
+        </div>
+        </div>
+
+        <div className="post-step2-header">
+          <p>2</p>
+          <span> Conecte-se com o seu Banco de Dados.</span>
         </div>
           
         <div className="db-container" width="100%">
@@ -565,71 +658,7 @@ const dadosPARA = (event) => {
           </select>          
         </FormControl>
         </div>
-      </div>
-
-        <div className="post-step2-header">
-          <p>2</p>
-          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
-        </div>
-          
-        <div className="post-step2-button">
-
-              <div className="drop-container2"
-                  onDragOver={dragOver}
-                  onDragEnter={dragEnter}
-                  onDragLeave={dragLeave}
-                  onDrop={fileDrop}
-                  onClick={fileInputClicked}
-              >
-                  <div className="drop-message" >
-                      <div className="upload-icon" width="100%">
-                      <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
-                      </div>
-                      <img src={UploadPost} alt="Shape-Button" width="80%"/>
-                      <div className="upload-icon" width="100%">
-                      <h2 className="drop-message"><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
-                      </div>
-                  </div>                   
-                  <input
-                      ref={fileInputRef}
-                      className="file-input"
-                      type="file"
-                      multiple
-                      onChange={filesSelected}
-                  />
-              </div>
-              {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => handleClick()}>Carregar Arquivo(s)</button> : ''} 
-              {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
-              <div className="file-display-container">
-              
-              {
-                      validFiles.map((data, i) => 
-                          <div className="file-status-bar" key={i}>
-                              <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
-                                  <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
-                              </div>
-                              <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
-                          </div>
-                      )
-                  }
-
-              </div>
-
-          </div>
-          <div className="overlay"></div>
-          <div className="modal" ref={modalRef}>
-              <span className="close" onClick={(() => closeModal())}>X</span>
-              <div className="modal-image" ref={modalImageRef}></div>
-          </div>
-          <div className="upload-modal" ref={uploadModalRef}>
-              <div className="close" onClick={(() => closeUploadModal())}>X</div>
-              <div className="progress-container">
-                  <span ref={uploadRef}></span>
-                  <div className="progress">
-                      <div className="progress-bar" ref={progressRef}></div>
-                  </div>
-              </div>
-          </div>
+      </div>        
 
         <div className="post-step3-header">
           <p>3</p>
@@ -650,7 +679,7 @@ const dadosPARA = (event) => {
           </div>      
         </div>
 
-        <Link to="/" className="post-send-button">
+        <Link to="/" className="post-send-button" onClick={carga}>
           GERAR SHAPEFILE
         </Link>
       </div>
