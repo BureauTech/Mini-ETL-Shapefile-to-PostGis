@@ -231,8 +231,8 @@ public class ShapegisController {
 				}
 
 				for (Map.Entry<String, String> entrada : depara.entrySet()) {
-					atributo += entrada.getValue() + " ,";
-					valor += "'" + tmpAtts.get("" + entrada.getKey() + "") + "',";
+					atributo += entrada.getKey() + " ,";
+					valor += "'" + tmpAtts.get("" + entrada.getValue() + "") + "',";
 				}
 
 				if (atributo.length() > 0 && valor.length() > 0) {

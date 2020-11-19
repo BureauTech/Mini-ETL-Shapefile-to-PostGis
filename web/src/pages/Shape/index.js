@@ -327,7 +327,7 @@ const Shape = () => {
       }
     })
     .then(response => {
-      setFieldsPara(response.data);
+      setFieldsDe(response.data);
       }
     )
     .catch(err => {
@@ -350,7 +350,7 @@ const Shape = () => {
       url: '/attributes/'+ fileSHP,
     })
     .then(response => { 
-      setFieldsDe(response.data);
+      setFieldsPara(response.data);
     }
   )
   .catch(err => {
