@@ -1,7 +1,9 @@
 package org.fatec.shapegis.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -255,10 +257,32 @@ public class ShapegisController {
 		return result;
 	}
 	
-	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
-	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
-		int result = 0;
+	@PostMapping(path = "/postgis-to-shape")
+	public String PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
+		String result = null;
 		
+		String tmp = local + separador + "ShapeGIS" + separador + "tmp"+ separador + "PostToShape" + separador ;
+		File fileTmp = new File(tmp);
+		fileTmp.mkdirs();
+		
+		String command = "pgsql2shp -f " + tmp + form.tabela + " -h localhost -p 5432 -u "+ form.usuario + " -P "+ form.senha + " " + form.bd + " " + "public."+ form.tabela;
+		
+		final Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command,null, new File("C:\\Program Files\\PostgreSQL\\10\\bin"));
+        System.out.println(command);
+        final BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        final BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        String output;
+        while ((output = stdInput.readLine()) != null) {
+            System.out.println(output);
+        }
+        while ((output = stdError.readLine()) != null) {
+            System.out.println(output);
+            result = result + output;
+        }
+        p.waitFor();
+        System.out.println("Process finished !\n");
+        
+        //-----------------------------
 		return result;
 	}
 }
