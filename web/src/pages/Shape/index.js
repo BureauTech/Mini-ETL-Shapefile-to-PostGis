@@ -14,7 +14,6 @@ import FormControl from '@material-ui/core/FormControl';
 import {Link} from 'react-router-dom'; //link da biblioteca, n tá pegando nenhum caminho
 import UploadShape from '../../assets/img/upload-shape.png';
 
-
 //Styles
 import "./styles.css"; 
 
@@ -327,7 +326,7 @@ const Shape = () => {
       }
     })
     .then(response => {
-      setFieldsPara(response.data);
+      setFieldsDe(response.data);
       }
     )
     .catch(err => {
@@ -350,7 +349,7 @@ const Shape = () => {
       url: '/attributes/'+ fileSHP,
     })
     .then(response => { 
-      setFieldsDe(response.data);
+      setFieldsPara(response.data);
     }
   )
   .catch(err => {

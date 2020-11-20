@@ -80,8 +80,6 @@ const [fileSHP, setFileSHP] = useState([""]);
 const fieldsdepara = new Object();
 
 
-
-
 useEffect(() => {
   let filteredArr = selectedFiles.reduce((acc, current) => {
       const x = acc.find(item => item.name === current.name);
