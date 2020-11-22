@@ -259,18 +259,40 @@ public class ShapegisController {
 	
 	@PostMapping(path = "/postgis-to-shape")
 	public String PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
+		// Inicia a variável de retorno 
 		String result = null;
 		
-		String tmp = local + separador + "ShapeGIS" + separador + "tmp"+ separador + "PostToShape" + separador ;
-		File fileTmp = new File(tmp);
-		fileTmp.mkdirs();
+		// Declara o caminho do diretório de saída
+		String dir = local + tmp + separador + "PostToShape" + separador ;
 		
-		String command = "pgsql2shp -f " + tmp + form.tabela + " -h localhost -p 5432 -u "+ form.usuario + " -P "+ form.senha + " " + form.bd + " " + "public."+ form.tabela;
+		// Cria diretório se já não existir
+		File fileDir = new File(tmp);
+		fileDir.mkdirs();
 		
-		final Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command,null, new File("C:\\Program Files\\PostgreSQL\\10\\bin"));
-        System.out.println(command);
-        final BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        final BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		// Declara qual o processo a ser executado no comando
+		String process = "pgsql2shp";
+		// Controi a String do comando 
+		String command = process + "-f" + dir + form.tabela // -f para nome do arquivo de saida
+		+ "-h" + form.host // -h para host
+		+ "-p" + form.porta // -p para porta
+		+ "-u" + form.usuario // -u para usuário
+		+ "-P" + form.senha // -P para senha
+		+ " " + form.bd // espaço, nome do banco
+		+ " " + "public."+ form.tabela; // espaço, schema.tabela
+		
+		// Executa o commando no CMD do runtime que a aplicação está rodando, no diretório de instalação
+		// do PostgreSQL
+		Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command, null, new File("C:\\Program Files\\PostgreSQL\\10\\bin"));
+		
+		// Printa o comando no console (teste)
+		System.out.println(command);
+        
+		// Recupera as mensagens geradas pela execução do processo
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        
+        // Printa no console as mensagens
+        // Em caso de erro é devolvida a mensagem como resposta da requisição
         String output;
         while ((output = stdInput.readLine()) != null) {
             System.out.println(output);
@@ -280,9 +302,11 @@ public class ShapegisController {
             result = result + output;
         }
         p.waitFor();
+        
+        // Sinaliza que o processo terminou
         System.out.println("Process finished !\n");
         
-        //-----------------------------
+        // Retorna String como nula ou, em caso de erro, com a mensagem gerada pelo processo
 		return result;
 	}
 }
