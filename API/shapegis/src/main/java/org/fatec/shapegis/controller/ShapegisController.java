@@ -1,7 +1,9 @@
 package org.fatec.shapegis.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -255,10 +257,56 @@ public class ShapegisController {
 		return result;
 	}
 	
-	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
-	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
-		int result = 0;
+	@PostMapping(path = "/postgis-to-shape")
+	public String PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
+		// Inicia a variável de retorno 
+		String result = null;
 		
+		// Declara o caminho do diretório de saída
+		String dir = local + tmp + separador + "PostToShape" + separador ;
+		
+		// Cria diretório se já não existir
+		File fileDir = new File(tmp);
+		fileDir.mkdirs();
+		
+		// Declara qual o processo a ser executado no comando
+		String process = "pgsql2shp";
+		// Controi a String do comando 
+		String command = process + "-f" + dir + form.tabela // -f para nome do arquivo de saida
+		+ "-h" + form.host // -h para host
+		+ "-p" + form.porta // -p para porta
+		+ "-u" + form.usuario // -u para usuário
+		+ "-P" + form.senha // -P para senha
+		+ " " + form.bd // espaço, nome do banco
+		+ " " + "public."+ form.tabela; // espaço, schema.tabela
+		
+		// Executa o commando no CMD do runtime que a aplicação está rodando, no diretório de instalação
+		// do PostgreSQL
+		Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command, null, new File("C:\\Program Files\\PostgreSQL\\10\\bin"));
+		
+		// Printa o comando no console (teste)
+		System.out.println(command);
+        
+		// Recupera as mensagens geradas pela execução do processo
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        
+        // Printa no console as mensagens
+        // Em caso de erro é devolvida a mensagem como resposta da requisição
+        String output;
+        while ((output = stdInput.readLine()) != null) {
+            System.out.println(output);
+        }
+        while ((output = stdError.readLine()) != null) {
+            System.out.println(output);
+            result = result + output;
+        }
+        p.waitFor();
+        
+        // Sinaliza que o processo terminou
+        System.out.println("Process finished !\n");
+        
+        // Retorna String como nula ou, em caso de erro, com a mensagem gerada pelo processo
 		return result;
 	}
 }
