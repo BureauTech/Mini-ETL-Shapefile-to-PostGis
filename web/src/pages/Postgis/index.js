@@ -57,6 +57,9 @@ const [bdList2, setBdList] = useState('');
 const [lista, setLista] = useState();
 const [campos, setCampos] = React.useState(0); 
 const classes = useStyles();
+const [fileSHP, setFileSHP] = useState([""]);
+const fieldsdepara = new Object();
+
 
 const handleChange = (e) => {
   console.log(e.target.value);
@@ -133,7 +136,35 @@ const bdList = (tableSelected) => {
 const Banco = (event) => {
   setCampos(event.target.value);
 };
-  
+
+const Gerar = async () => {
+
+  //fieldsde.forEach(element => {
+    //fieldsdepara[element] = document.getElementById(element).value;
+  //});
+  api({
+    method: 'post',
+    url: '/postgis-to-shape',
+    data: {
+      "host": local,
+      "porta": porta,
+      "bd": table,
+      "usuario": user,
+      "senha": password,
+      "tabela": campos,
+      "file": fileSHP,
+      "map": fieldsdepara
+    }
+  })
+    .then(response => {
+      console.log(response)
+      alert("Arquivo gerado com sucesso!")
+    })
+    .catch(err => {
+      console.log('deu ruim bb', err);
+      alert("Não foi possível gerar o arquivo.\n" + err)
+    });
+}
 
   return (
     <>
@@ -208,7 +239,7 @@ const Banco = (event) => {
         </div>
       </div>        
 
-        <Link to="/" className="post-send-button">
+        <Link to="/" className="post-send-button" onClick={Gerar}>
           GERAR SHAPEFILE
         </Link>
       </div>
