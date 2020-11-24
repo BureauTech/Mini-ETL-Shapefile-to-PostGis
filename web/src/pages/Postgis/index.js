@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useState } from 'react';
 import {Link} from 'react-router-dom';
 
 //Context
@@ -10,10 +10,8 @@ import Faq from '../../components/Faq';
 import Footer from '../../components/Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import api from '../../services/api';
-import MenuItem from '@material-ui/core/MenuItem';
 import postStep1 from '../../assets/img/notebook-background.png';
 import FormControl from '@material-ui/core/FormControl';
-import UploadPost from '../../assets/img/upload-post.png';
 
 //Style
 import "./styles.css";
@@ -59,251 +57,6 @@ const [bdList2, setBdList] = useState('');
 const [lista, setLista] = useState();
 const [campos, setCampos] = React.useState(0); 
 const classes = useStyles();
-const [field, setField] = useState([]);
-const [banco, setBanco] = useState();
-const [fieldsde, setFieldsDe] = useState([]);
-const [fieldspara, setFieldsPara] = useState([]);
-const fileInputRef = useRef();
-const modalImageRef = useRef();
-const modalRef = useRef();
-const progressRef = useRef();
-const uploadRef = useRef();
-const uploadModalRef = useRef();
-const [selectedFiles, setSelectedFiles] = useState([]);
-const [validFiles, setValidFiles] = useState([]);
-const [unsupportedFiles, setUnsupportedFiles] = useState([]);
-const [errorMessage, setErrorMessage] = useState('');
-const [dbf, setDbf] = useState(0);
-const [shp, setShp] = useState(0);
-const [shx, setShx] = useState(0);
-const [fileSHP, setFileSHP] = useState([""]);
-const fieldsdepara = new Object();
-
-
-useEffect(() => {
-  let filteredArr = selectedFiles.reduce((acc, current) => {
-      const x = acc.find(item => item.name === current.name);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-  }, []);
-  setValidFiles([...filteredArr]);
-  
-}, [selectedFiles]);
-
-
-const preventDefault = (e) => {
-  e.preventDefault();
-  // e.stopPropagation();
-}
-
-const dragOver = (e) => {
-  preventDefault(e);
-}
-
-const dragEnter = (e) => {
-  preventDefault(e);
-}
-
-const dragLeave = (e) => {
-  preventDefault(e);
-}
-
-const fileDrop = (e) => {
-  preventDefault(e);
-  const files = e.dataTransfer.files;
-  if (files.length) {
-      handleFiles(files);
-  }
-}
-
-const filesSelected = () => {
-  if (fileInputRef.current.files.length) {
-      handleFiles(fileInputRef.current.files);
-  }
-}
-
-const fileInputClicked = () => {
-  fileInputRef.current.click();
-}
-
-const handleFiles = (files) => {
-  for(let i = 0; i < files.length; i++) {
-      if (validateFile(files[i])) {
-          setSelectedFiles(prevArray => [...prevArray, files[i]]);
-          typeNecessary(files[i]);
-      } else {
-          files[i]['invalid'] = true;
-          setSelectedFiles(prevArray => [...prevArray, files[i]]);
-          setErrorMessage('Tipo de arquivo não permitido.');
-          setUnsupportedFiles(prevArray => [...prevArray, files[i]]);
-      }
-  }
-}
-
-const typeNecessary = (data) => {
-const fileName = data.name;
-if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
-    setShp(1);
-} else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
-    setDbf(1);
-} else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
-    setShx(1);
-}
-}
-
-const validateFile = (data) => {
-  const validTypes = ['cpg', 'dbf', 'prj', 'qix', 'shp', 'shx'];
-  const fileName = data.name;
-  if (validTypes.indexOf(fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)) === -1) {
-      return false;
-  }
-  if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp' ){
-    setFileSHP(fileName)
-  }
-
-  return true;
-}
-
-//Remover arquivo
-const removeFile = (name) => {
-  const fileName = name;
-  if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
-      setShp(-1);
-  } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'dbf') {
-      setDbf(-1);
-  } else if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shx'){
-      setShx(-1);
-  }
-  const index = validFiles.findIndex(e => e.name === name);
-  const index2 = selectedFiles.findIndex(e => e.name === name);
-  const index3 = unsupportedFiles.findIndex(e => e.name === name);
-  validFiles.splice(index, 1);
-  selectedFiles.splice(index2, 1);
-  setValidFiles([...validFiles]);
-  setSelectedFiles([...selectedFiles]);
-  if (index3 !== -1) {
-      unsupportedFiles.splice(index3, 1);
-      setUnsupportedFiles([...unsupportedFiles]);
-  }
-  if (name.substring(name.lastIndexOf('.') + 1, name.length) === 'shp' ){
-    setFileSHP(null)
-  }      
-}
-
-const openImageModal = (file) => {
-  const reader = new FileReader();
-  modalRef.current.style.display = "block";
-  reader.readAsDataURL(file);
-  reader.onload = function(e) {
-      modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
-  }
-}
-
-const closeModal = () => {
-  modalRef.current.style.display = "none";
-  modalImageRef.current.style.backgroundImage = 'none';
-}
-
-//Upload de arquivo
-const uploadFiles = async () => {
-  uploadModalRef.current.style.display = 'block';
-  uploadRef.current.innerHTML = 'Enviado o(s) arquivo(s)...';
-  for (let i = 0; i < validFiles.length; i++) {
-      const formData = new FormData();
-      formData.append('file', validFiles[i]);
-      
-      api.post("/upload/postgis-to-shape", formData, {
-          onUploadProgress: (progressEvent) => {
-              const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
-              progressRef.current.innerHTML = `${uploadPercentage}%`;
-              progressRef.current.style.width = `${uploadPercentage}%`;
-
-              if (uploadPercentage === 100) {
-                  uploadRef.current.innerHTML = 'Envio do(s) arquivo(s).';
-                  validFiles.length = 0;
-                  setValidFiles([...validFiles]);
-                  setSelectedFiles([...validFiles]);
-                  setUnsupportedFiles([...validFiles]);
-              }
-          },
-      })
-      .catch(() => {
-          uploadRef.current.innerHTML = `<span class="error">Erro no envio do(s) arquivo(s)</span>`;
-          progressRef.current.style.backgroundColor = 'red';
-      })
-  }
-}
-
-const closeUploadModal = () => {
-  uploadModalRef.current.style.display = 'none';
-}
-
-
-
-const handleChange2 = (event) => {
-  setCampos(event.target.value);
-  setBanco(event.target.value)
-};
-
-const handleNew = (event) => {
-  setField(event.target.value);
-  PARAList(event.target.value);
-}
-
-const PARAList = async (field) => {
-  await api({  
-    method: 'post',
-    url: '/fields/' + field,
-    data: {
-      "host": local,
-      "porta": porta,
-      "bd": table, 
-      "usuario": user,
-      "senha": password
-    }
-  })
-  .then(response => { 
-    }
-  )
-  .catch(err => {
-    console.log('deu ruim bb', err); 
-  });
-}
-
-const listItems2 = shapeReturn.map(
-  (value, index) =>
-  <option className="fields" id={index + 1} key={index}>{value}</option>
-);
-
-function inputFill2() { //func 
-  if (shapeReturn.length > 0){
-    return (
-      shapeReturn.map(
-        (value, index) =>
-        <option className="fields" id={index + 1} key={index}>{value}</option>
-      )
-    )}
-  
-  else {
-    return (
-      <>
-
-        <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-        <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-        <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-        <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-        <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-        <MenuItem value={''} className={classes.text}><em>None</em></MenuItem>
-      </>
-    )
-  }
-}
-useEffect(() => {
-  console.log('context here: ', shapeReturn);
-}, [shapeReturn]);
 
 const handleChange = (e) => {
   console.log(e.target.value);
@@ -353,15 +106,7 @@ const bdConnect = () => {
   });
 }
 }
-
-const textLocal = useRef(null);
-
-function handleClick() {
-  uploadFiles();
-  textLocal.current.focus();
-  
-}
-
+ 
 const bdList = (tableSelected) => {
   api({  
     method: 'post',
@@ -385,142 +130,10 @@ const bdList = (tableSelected) => {
   });
 } 
 
-// fim código connection
-// ------------------------------------------------------------
-
-  //Retorno dos atributos dos arquivos no DE
-  const returnAtributos = () => {
-    api({
-      method: 'get',
-      url: '/attributes/'+ fileSHP,
-    })
-    .then(response => { 
-      setFieldsDe(response.data);
-    }
-  )
-  .catch(err => {
-    console.log('deu ruim', err); 
-  });
-}
-
-const carga = async () => {
-
-  fieldsde.forEach(element => {
-    fieldsdepara[element] = document.getElementById(element).value;
-  });
-  api({
-    method: 'post',
-    url: '/postgis-to-shape',
-    data: {
-      "host": local,
-      "porta": porta,
-      "bd": table,
-      "usuario": user,
-      "senha": password,
-      "tabela": campos,
-      "file": fileSHP,
-      "map": fieldsdepara
-    }
-  })
-    .then(response => {
-      console.log(response)
-      alert("Carga realizada com sucesso!")
-    })
-    .catch(err => {
-      console.log('deu ruim bb', err);
-    });
-}
-
-  //Retorno das colunas das tabelas no PARA
-  const returnPARA = async (field) => {
-    await api({  
-      method: 'post',
-      url: '/fields/' + field,
-      data: {
-        "host": local,
-        "porta": porta,
-        "bd": table, 
-        "usuario": user,
-        "senha": password
-      }
-    })
-    .then(response => {
-      setFieldsPara(response.data);
-      }
-    )
-    .catch(err => {
-      console.log('deu ruim bb', err); 
-    });
-  }
-
 const Banco = (event) => {
   setCampos(event.target.value);
 };
-
-const dadosPARA = (event) => {
-  returnPARA(event.target.value);
-}
-
-  useEffect(() => {
-    console.log('contexto aqui: ', shapeReturn);
-  }, [shapeReturn]);
   
-  const listItems = shapeReturn.map(
-    (value, index) =>
-    <label className="fields" id={index + 1} key={index}>{value}</label>
-    );
-
-    const itensListDe = fieldsde.map((valor) =>
-    <label className="fields">
-      {valor}
-    </label>
-  );
-    
-    function inputFillDE() { 
-      if (fieldsde.length > 0) {
-        return (
-          itensListDe
-        )
-      }
-      else {
-        return (
-          <>
-            <h2 className="drop-message"><i>Realize os passos anteriores para visualização dos dados</i></h2>
-          </>
-        )
-      }
-    }
-  
-    const itensListPara = fieldspara.map((valor) =>
-      <option value={valor}>
-        {valor}
-      </option>
-    );
-  
-    const listPara = fieldsde.map((valor) =>
-      <select id={valor} className="fields">
-        <option selected disabled>Para</option>
-        {itensListPara}
-      </select>
-    );
-  
-    //funcao para pegar colunas das tabelas
-    function inputFillPARA() { 
-      if (fieldspara.length > 0) {
-        for (let y = 0; y < fieldsde.length; y++) {
-          return (
-            listPara
-          )
-        }
-      }
-      else {
-        return (
-          <>
-            <h2 className="drop-message"><i>Realize os passos anteriores para visualização dos dados</i></h2>
-          </>
-        )
-      }
-    }
 
   return (
     <>
@@ -528,72 +141,9 @@ const dadosPARA = (event) => {
       <Faq />
       
       <div className="main-container">
-        <div className="post-step1-header">
-          <p>1</p>
-          <span> Gere arquivos SHAPEFILE do seu banco de dados POSTGRESQL com segurança e confiabilidade.</span>
-        </div>
-
-        <div className="post-step2-button">
-
-        <div className="drop-container2"
-            onDragOver={dragOver}
-            onDragEnter={dragEnter}
-            onDragLeave={dragLeave}
-            onDrop={fileDrop}
-            onClick={fileInputClicked}
-        >
-            <div className="drop-message" >
-                <div className="upload-icon" width="100%">
-                <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
-                </div>
-                <img src={UploadPost} alt="Shape-Button" width="80%"/>
-                <div className="upload-icon" width="100%">
-                <h2 className="drop-message"><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
-                </div>
-            </div>                   
-            <input
-                ref={fileInputRef}
-                className="file-input"
-                type="file"
-                multiple
-                onChange={filesSelected}
-            />
-        </div>
-        {unsupportedFiles.length === 0 && validFiles.length && dbf > 0 && shp > 0  && shx > 0 ? <button className="file-upload-btn" onClick={() => handleClick()}>Carregar Arquivo(s)</button> : ''} 
-        {unsupportedFiles.length ? <p> Por favor, remova o(s) arquivo(s) não suportado(s). </p> : ''}
-        <div className="file-display-container">
-
-        {
-                validFiles.map((data, i) => 
-                    <div className="file-status-bar" key={i}>
-                        <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
-                            <span className={`file-name ${data.invalid ? 'file-error' : ''}`}>{data.name}</span>
-                        </div>
-                        <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
-                    </div>
-                )
-            }
-
-        </div>
-
-        </div>
-        <div className="overlay"></div>
-        <div className="modal" ref={modalRef}>
-        <span className="close" onClick={(() => closeModal())}>X</span>
-        <div className="modal-image" ref={modalImageRef}></div>
-        </div>
-        <div className="upload-modal" ref={uploadModalRef}>
-        <div className="close" onClick={(() => closeUploadModal())}>X</div>
-        <div className="progress-container">
-            <span ref={uploadRef}></span>
-            <div className="progress">
-                <div className="progress-bar" ref={progressRef}></div>
-            </div>
-        </div>
-        </div>
 
         <div className="post-step2-header">
-          <p>2</p>
+          <p>1</p>
           <span> Conecte-se com o seu Banco de Dados.</span>
         </div>
           
@@ -615,7 +165,7 @@ const dadosPARA = (event) => {
             <label htmlFor="">Senha</label>
           </form>    
         <form className="forms-content-text-box">
-            <input type="text" className="txtbox" ref = {textLocal} id="local" onChange={event => setLocal(event.target.value)}/>
+            <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)}/>
             <input type="number" className="txtbox" id="porta" onChange={event => setPorta(event.target.value)}/>
              
             <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
@@ -643,8 +193,8 @@ const dadosPARA = (event) => {
         </div>
         <div className={classes.text}>    
 
-        <FormControl className={classes.text} onChange={dadosPARA}>
-        <select value={campos} onChange={Banco} onClick={returnAtributos} className={classes.select}>
+        <FormControl className={classes.text} >
+        <select value={campos} onChange={Banco} className={classes.select}>
             <option value={0} selected disabled>Selecione a Tabela</option>
             { shapeReturn && shapeReturn.length > 0 && 
               shapeReturn.map((item)=>{
@@ -658,26 +208,7 @@ const dadosPARA = (event) => {
         </div>
       </div>        
 
-        <div className="post-step3-header">
-          <p>3</p>
-          <span>Selecione os campos para a realização do de-para.</span>
-        </div>
-          
-        <div className="post-step3-de-para">        
-          <h1>DE-PARA</h1>
-
-          <div className="post-step3-selection">
-          <form className="columns">
-              {inputFillPARA()}
-            </form>
-
-            <form className="columns">
-            {inputFillDE()}
-            </form>
-          </div>      
-        </div>
-
-        <Link to="/" className="post-send-button" onClick={carga}>
+        <Link to="/" className="post-send-button">
           GERAR SHAPEFILE
         </Link>
       </div>
