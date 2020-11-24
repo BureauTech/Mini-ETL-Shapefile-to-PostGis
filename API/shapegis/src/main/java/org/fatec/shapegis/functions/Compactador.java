@@ -31,6 +31,7 @@ public class Compactador {
 		try {
 			destino = new FileOutputStream(new File(local + tmp + separador + "PostToShape" + separador + nomeArq + ".zip"));
 			saida = new ZipOutputStream(new BufferedOutputStream(destino));
+			result = (local + tmp + separador + "PostToShape" + separador + nomeArq + ".zip");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			result = e.getMessage();

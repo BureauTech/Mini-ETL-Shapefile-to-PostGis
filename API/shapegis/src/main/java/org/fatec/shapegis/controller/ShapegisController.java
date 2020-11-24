@@ -2,13 +2,18 @@ package org.fatec.shapegis.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.functions.Compactador;
 import org.fatec.shapegis.functions.DeletarArquivo;
@@ -261,7 +266,8 @@ public class ShapegisController {
 	}
 
 	@PostMapping(path = "/postgis-to-shape")
-	public String PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
+	public String PostgisToShape(HttpServletResponse response, @RequestBody FormPostgisParaShape form)
+			throws Exception {
 		// Inicia a variável de retorno
 		String result = null;
 
@@ -275,11 +281,11 @@ public class ShapegisController {
 		// Declara qual o processo a ser executado no comando
 		String process = "pgsql2shp";
 		// Controi a String do comando
-		String command = process + "-f" + dir + form.tabela // -f para nome do arquivo de saida
-				+ "-h" + form.host // -h para host
-				+ "-p" + form.porta // -p para porta
-				+ "-u" + form.usuario // -u para usuário
-				+ "-P" + form.senha // -P para senha
+		String command = process + " -f " + dir + form.tabela // -f para nome do arquivo de saida
+				+ " -h " + form.host // -h para host
+				+ " -p " + form.porta // -p para porta
+				+ " -u " + form.usuario // -u para usuário
+				+ " -P " + form.senha // -P para senha
 				+ " " + form.bd // espaço, nome do banco
 				+ " " + "public." + form.tabela; // espaço, schema.tabela
 
@@ -314,9 +320,23 @@ public class ShapegisController {
 			e.printStackTrace();
 		}
 
+		File file = new File(result);
+
+		response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+		response.setContentType("application/zip");
+		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+
+		OutputStream out = response.getOutputStream();
+		FileInputStream in = new FileInputStream(file);
+
+		IOUtils.copy(in, out);
+
+		out.close();
+		in.close();
+		file.delete();
 		// Sinaliza que o processo terminou
 		System.out.println("Process finished !\n");
-		
+
 		// Retorna String como nula ou, em caso de erro, com a mensagem gerada pelo
 		// processo
 		return result;
