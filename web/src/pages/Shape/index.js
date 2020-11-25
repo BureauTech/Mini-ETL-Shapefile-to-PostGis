@@ -600,7 +600,7 @@ const Shape = () => {
         </div>
 
           <div>
-        <Link /**to="/"*/ className="shape-send-button" onClick={carga}>
+        <Link to="/" className="shape-send-button" onClick={carga}>
           REALIZAR CARGA
         </Link>
       </div>          
