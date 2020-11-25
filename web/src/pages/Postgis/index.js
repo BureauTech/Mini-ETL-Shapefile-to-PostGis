@@ -57,8 +57,6 @@ const [bdList2, setBdList] = useState('');
 const [lista, setLista] = useState();
 const [campos, setCampos] = React.useState(0); 
 const classes = useStyles();
-const [fileSHP, setFileSHP] = useState([""]);
-const fieldsdepara = new Object();
 
 
 const handleChange = (e) => {
@@ -138,10 +136,6 @@ const Banco = (event) => {
 };
 
 const Gerar = async () => {
-
-  //fieldsde.forEach(element => {
-    //fieldsdepara[element] = document.getElementById(element).value;
-  //});
   api({
     method: 'post',
     url: '/postgis-to-shape',
@@ -152,8 +146,6 @@ const Gerar = async () => {
       "usuario": user,
       "senha": password,
       "tabela": campos,
-      "file": fileSHP,
-      "map": fieldsdepara
     }
   })
     .then(response => {
