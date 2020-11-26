@@ -1,3 +1,4 @@
+# EM DESENVOLVIMENTO
 <div align="center">
     <img src="/assets/images/png/shapegis-logo.png">
 </div>
@@ -6,7 +7,7 @@
 Save time, save data. </h3> <br>
 
  <p align="center">
-    <a href="#Proposta-para-Sprint-3">Proposta para Sprint 3</a> •
+    <a href="#Proposta-para-Sprint-3">Proposta para Sprint 4</a> •
     <a href="#Entrega-da-Sprint">Entregas da Sprint</a> •
     <a href="#Demonstração">Demonstração</a> •
     <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
@@ -15,50 +16,59 @@ Save time, save data. </h3> <br>
  </p> 
  <br>
 
-# Proposta para Sprint 3
+# Proposta para Sprint 4
 <div align="center">
     <img src="/assets/images/png/cards-sprint3.png">
 </div>
 
 # Entregas da Sprint
  
-* Desenvolvimento da API
-* Desenvolvimento do Backend
-* API e Back hospedados no Heroku
-* Componente para conectar banco de dados à solução
-* Componente de seleção de arquivo .shp
-* Carregar arquivo no front
-* Fazer upload do arquivo para API
-* Estilizar componente de conexao ao banco de dados
-* Retorno dos campos das tabelas Postgis na solução
-* Correções do frontend (erros de digitação, visual...)
+* Upload de múltiplos formatos de arquivos Shapefile
+* UI/UX: Alerta e não permite que o usuário conecte ao banco de dados caso um dos campos estiver vazio, upload mínimo de 3 arquivos das extensões .shp/.shx/.dbf
+* Seleção de Banco de Dados
+* Seleção de Tabela PostGIS
+* Implementação da solução DE-PARA, para carga de Shapefiles ao Banco
+* Carga do Shapefile para PostGIS
+* Documento de ambientação para execução da solução
 
 # Demonstração
 
 <div align="center">
-    <img src="/assets/images/gif/demo-sprint-2.gif">
+    <img src="/assets/images/gif/demo-sprint-3.gif">
+</div>
+
+# Modelo de Dados
+
+<div align="center">
+    <img src="/assets/images/png/Diagrama_ERv2.png">
 </div>
 
 # Tecnologias utilizadas na Sprint
 
-- Heroku
 - React JS
 - Context API
 - Spring boot
 - Java
 
-# Conexão ao Banco de Dados
-
-Para conexão ao banco, é necessária a inclusão das credenciais, conforme dados abaixo:
-
-Local: ec2-54-236-146-234.compute-1.amazonaws.com<br>
-Porta: 5432<br>
-Banco: d37cv1n45fhse1<br>
-Usuário: thpzxfrcqwklpj<br>
-Senha: 7909494e783d4cca6849e4fc9c936cfb2c7a98d81d9972c066e92c911f956063<br>
-
 # Burndown
 
 <div align="center">
-    <img src="/assets/images/png/burndown-sprint2.PNG">
+    <img src="/assets/images/png/burndown-sprint3.png">
 </div>
+
+Obs: A linha que representa o tempo restante (azul), fechou com valor negativo pois a equipe usou horas extras para a execução das atividades. Ou seja, apesar da equipe ter utilizado mais horas do que foi planejado, foi possível entregar as funcionalidades propostas.
+
+### Análise do Burndown
+
+O gráfico abaixo demonstra a análise dos prazos durante a Sprint 3:
+
+<div align="center">
+    <img width="500" src="/assets/images/png/analise_burndown_sprint3.png">
+</div>
+
+Quase metade das atividades foram entregues em atraso pelos seguintes motivos:
+
+- Dificuldade em tecnologias e ferramentas para o desenvolvimento
+- Integração de novos membros
+- Ambientação: API retirada do Heroku e executada localmente
+- Reestruturação do front

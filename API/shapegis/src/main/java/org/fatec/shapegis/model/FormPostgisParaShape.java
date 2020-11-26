@@ -1,7 +1,5 @@
 package org.fatec.shapegis.model;
 
-import java.util.HashMap;
-
 public class FormPostgisParaShape {
 	public String host;
 	public String porta;
@@ -9,6 +7,4 @@ public class FormPostgisParaShape {
 	public String usuario;
 	public String senha;
 	public String tabela;
-	public String file;
-	public HashMap<String, String> map;
 }

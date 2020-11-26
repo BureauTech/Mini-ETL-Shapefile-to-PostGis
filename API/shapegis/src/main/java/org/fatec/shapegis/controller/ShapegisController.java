@@ -1,13 +1,22 @@
 package org.fatec.shapegis.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.fatec.shapegis.dao.PostgisConnection;
+import org.fatec.shapegis.functions.Compactador;
+import org.fatec.shapegis.functions.DeletarArquivo;
 import org.fatec.shapegis.model.FormConexao;
 import org.fatec.shapegis.model.FormPostgisParaShape;
 import org.fatec.shapegis.model.FormShapeParaPostgis;
@@ -35,12 +44,14 @@ public class ShapegisController {
 	String separador = System.getProperty("file.separator");
 	String local = System.getProperty("user.home");
 	String tmp = separador + "ShapeGIS" + separador + "tmp";
+	static final int TAMANHO_BUFFER = 1024;
 
 	@GetMapping("/bomdia")
-	public String bomdia() {
+	public String bomdia(@RequestParam String tabela) throws Exception {
+		Compactador.compactarParaZip(tabela);
 		return "bomdia";
 	}
-	
+
 	@GetMapping("/tmp")
 	public String userTemp() {
 		return System.getProperty("java.io.tmpdir");
@@ -90,68 +101,68 @@ public class ShapegisController {
 
 	@PostMapping(path = "/upload", consumes = "multipart/form-data", produces = "application/json")
 	public ArrayList<String> uploadShapeToPost(@RequestParam(value = "file") MultipartFile file) throws IOException {
-		
-		
+
 		File dir = new File(local + tmp + separador + "ShapeToPost");
 		dir.mkdirs();
 
 		File f = new File(dir, file.getOriginalFilename());
 
-		/* Verificando a extensão do arquivo
-		String fileName = f.toString();
-		int index = fileName.lastIndexOf('.');
-		String extension = fileName.substring(index + 1);
-		*/
+		/*
+		 * Verificando a extensão do arquivo String fileName = f.toString(); int index =
+		 * fileName.lastIndexOf('.'); String extension = fileName.substring(index + 1);
+		 */
 
 		// Salva o arquivo no diretório temporário
 		try {
 			// Transfer or Saving in local memory
-			file.transferTo(f);		
+			file.transferTo(f);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
-	
+
 	@PostMapping(path = "/upload/postgis-to-shape", consumes = "multipart/form-data", produces = "application/json")
 	public ArrayList<String> uploadPostToShape(@RequestParam(value = "file") MultipartFile file) throws IOException {
-		
+
 		File dir = new File(local + tmp + separador + "PostToShape");
 		dir.mkdirs();
 
 		File f = new File(dir, file.getOriginalFilename());
 
-		/* Verificando a extensão do arquivo
-		String fileName = f.toString();
-		int index = fileName.lastIndexOf('.');
-		String extension = fileName.substring(index + 1);
-		*/
+		/*
+		 * Verificando a extensão do arquivo String fileName = f.toString(); int index =
+		 * fileName.lastIndexOf('.'); String extension = fileName.substring(index + 1);
+		 */
 
 		// Salva o arquivo no diretório temporário
 		try {
 			// Transfer or Saving in local memory
-			file.transferTo(f);		
+			file.transferTo(f);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Retorna null caso o arquivo não seja .shp
 		return null;
 	}
+
 	@PostMapping(path = "/fields/{name}", consumes = "application/json")
-	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> fields(@RequestBody FormConexao form, @PathVariable("name") String name)
+			throws ClassNotFoundException, SQLException {
 		// Declarando ArrayList para retorno
-		ArrayList<String> fields = new ArrayList<String>(); 
-		// Abre conexao 
+		ArrayList<String> fields = new ArrayList<String>();
+		// Inicia o objeto de conexão
 		PostgisConnection conn = new PostgisConnection(form);
-		// Pega os campos da tabela especificada na URL
-		fields = conn.fields(name); 
+		// Abre conexão com o banco de dados
+		conn.connectToDatabase();
+		fields = conn.fields(name);
 		// Fecha conexao
 		conn.close();
 		// Retorna os campos do arquivo
@@ -161,10 +172,10 @@ public class ShapegisController {
 	@GetMapping("attributes/{file}")
 	public ArrayList<String> atributosArquivo(@PathVariable("file") String file) throws IOException {
 		// Declara o caminho do arquivo
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + file + ".shp");
-		//Declara o ArrayList 
+		File f = new File(local + tmp + separador + "ShapeToPost" + separador + file);
+		// Declara o ArrayList
 		ArrayList<String> fields = new ArrayList<String>();
-		
+
 		// Processa o arquivo
 		// -----------------------------------------------------------
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
@@ -185,7 +196,7 @@ public class ShapegisController {
 			}
 		}
 		// -----------------------------------------------------------
-		
+
 		// Retorna os campos
 		return fields;
 
@@ -194,31 +205,40 @@ public class ShapegisController {
 	@PostMapping(path = "/shape-to-postgis", consumes = "application/json")
 	public Integer shapeToPostgis(@RequestBody FormShapeParaPostgis form) throws Exception {
 		int result = 0;
+		String atributo;
+		String valor;
+		HashMap<String, String> depara = new HashMap<>();
 
-		String atributo = "";
-		String valor = "";
+		for (Map.Entry<String, String> entrada : form.map.entrySet()) {
+			if (!entrada.getValue().equals("Para")) {
+				depara.put(entrada.getKey(), entrada.getValue());
+			}
+		}
 		HashMap<String, Object> tmpAtts;
 
-		File f = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador + form.file);
+		File f = new File(local + tmp + separador + "ShapeToPost" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
 		SimpleFeatureSource source = myData.getFeatureSource();
 		SimpleFeatureType schema = source.getSchema();
 
 		Query query = new Query(schema.getTypeName());
-		query.setMaxFeatures(1);
+		query.setMaxFeatures(5);
 
 		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
 		try (FeatureIterator<SimpleFeature> features = collection.features()) {
 			while (features.hasNext()) {
-				SimpleFeature feature = features.next();
+				atributo = new String();
+				valor = new String();
 				tmpAtts = new HashMap<>();
+
+				SimpleFeature feature = features.next();
 				for (Property attribute : feature.getProperties()) {
 					tmpAtts.put(attribute.getName().toString(), attribute.getValue());
 				}
 
-				for (Map.Entry<String, String> entrada : form.map.entrySet()) {
-					atributo += entrada.getValue() + " ,";
-					valor += "'" + tmpAtts.get("" + entrada.getKey() + "") + "',";
+				for (Map.Entry<String, String> entrada : depara.entrySet()) {
+					atributo += entrada.getKey() + " ,";
+					valor += "'" + tmpAtts.get("" + entrada.getValue() + "") + "',";
 				}
 
 				if (atributo.length() > 0 && valor.length() > 0) {
@@ -227,21 +247,90 @@ public class ShapegisController {
 				}
 
 				String sqlQuery = "INSERT INTO " + form.tabela + "(" + atributo + ") VALUES (" + valor + ");";
-
 				PostgisConnection conn = new PostgisConnection(form.host, form.porta, form.bd, form.usuario,
 						form.senha);
+				conn.connectToDatabase();
 				result = conn.gravarDados(sqlQuery);
 				conn.close();
 			}
 		}
 
+		File dir = new File(local + tmp + separador + "ShapeToPost" + separador);
+		DeletarArquivo.DelArq(dir, form.file);
+
 		return result;
 	}
-	
-	@PostMapping(path = "/postgis-to-shape", consumes = "application/json")
-	public Integer PostgisToShape(@RequestBody FormPostgisParaShape form) throws Exception {
-		int result = 0;
 
+	@PostMapping(path = "/postgis-to-shape")
+	public String PostgisToShape(HttpServletResponse response, @RequestBody FormPostgisParaShape form)
+			throws Exception {
+		// Inicia a variável de retorno
+		String result = null;
+
+		// Declara o caminho do diretório de saída
+		String dir = local + tmp + separador + "PostToShape" + separador;
+
+		// Cria diretório se já não existir
+		File fileDir = new File(tmp);
+		fileDir.mkdirs();
+
+		// Declara qual o processo a ser executado no comando
+		String process = "pgsql2shp";
+		// Controi a String do comando
+		String command = process + " -f \"" + dir + form.tabela // -f para nome do arquivo de saida
+				+ "\" -h " + form.host // -h para host
+				+ " -p " + form.porta // -p para porta
+				+ " -u " + form.usuario // -u para usuário
+				+ " -P " + form.senha // -P para senha
+				+ " " + form.bd // espaço, nome do banco
+				+ " " + "public." + form.tabela; // espaço, schema.tabela
+
+		// Executa o commando no CMD do runtime que a aplicação está rodando, no
+		// diretório de instalação
+		// do PostgreSQL
+		Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command, null,
+				new File("C:\\Program Files\\PostgreSQL\\10\\bin"));
+
+		// Printa o comando no console (teste)
+		System.out.println(command);
+
+		// Recupera as mensagens geradas pela execução do processo
+		BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
+		// Printa no console as mensagens
+		// Em caso de erro é devolvida a mensagem como resposta da requisição
+		String output;
+		while ((output = stdInput.readLine()) != null) {
+			System.out.println(output);
+		}
+		while ((output = stdError.readLine()) != null) {
+			System.out.println(output);
+			result = result + output;
+		}
+		p.waitFor();
+
+		try {
+			result = Compactador.compactarParaZip(form.tabela);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		byte[] bytes = Files.readAllBytes(Paths.get(result));
+
+		response.reset();
+		response.setBufferSize(TAMANHO_BUFFER);
+		response.setContentType("application/zip");
+		BufferedOutputStream saida;
+		saida = new BufferedOutputStream(response.getOutputStream(), TAMANHO_BUFFER);
+		saida.write(bytes);
+		saida.close();
+
+		// Sinaliza que o processo terminou
+		System.out.println("Process finished !\n");
+
+		// Retorna String como nula ou, em caso de erro, com a mensagem gerada pelo
+		// processo
 		return result;
 	}
 }
