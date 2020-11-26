@@ -1,11 +1,12 @@
 package org.fatec.shapegis.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.fatec.shapegis.dao.PostgisConnection;
 import org.fatec.shapegis.functions.Compactador;
 import org.fatec.shapegis.functions.DeletarArquivo;
@@ -44,9 +44,11 @@ public class ShapegisController {
 	String separador = System.getProperty("file.separator");
 	String local = System.getProperty("user.home");
 	String tmp = separador + "ShapeGIS" + separador + "tmp";
+	static final int TAMANHO_BUFFER = 1024;
 
 	@GetMapping("/bomdia")
-	public String bomdia() {
+	public String bomdia(@RequestParam String tabela) throws Exception {
+		Compactador.compactarParaZip(tabela);
 		return "bomdia";
 	}
 
@@ -170,8 +172,7 @@ public class ShapegisController {
 	@GetMapping("attributes/{file}")
 	public ArrayList<String> atributosArquivo(@PathVariable("file") String file) throws IOException {
 		// Declara o caminho do arquivo
-		File f = new File(
-				local + separador + "ShapeGIS" + separador + "tmp" + separador + "ShapeToPost" + separador + file);
+		File f = new File(local + tmp + separador + "ShapeToPost" + separador + file);
 		// Declara o ArrayList
 		ArrayList<String> fields = new ArrayList<String>();
 
@@ -215,12 +216,7 @@ public class ShapegisController {
 		}
 		HashMap<String, Object> tmpAtts;
 
-		// File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" +
-		// separador);
-		// DeletarArquivos.Pasta(dir);
-
-		File f = new File(
-				local + separador + "ShapeGIS" + separador + "tmp" + separador + "ShapeToPost" + separador + form.file);
+		File f = new File(local + tmp + separador + "ShapeToPost" + separador + form.file);
 		FileDataStore myData = FileDataStoreFinder.getDataStore(f);
 		SimpleFeatureSource source = myData.getFeatureSource();
 		SimpleFeatureType schema = source.getSchema();
@@ -259,7 +255,7 @@ public class ShapegisController {
 			}
 		}
 
-		File dir = new File(local + separador + "ShapeGIS" + separador + "tmp" + separador);
+		File dir = new File(local + tmp + separador + "ShapeToPost" + separador);
 		DeletarArquivo.DelArq(dir, form.file);
 
 		return result;
@@ -281,8 +277,8 @@ public class ShapegisController {
 		// Declara qual o processo a ser executado no comando
 		String process = "pgsql2shp";
 		// Controi a String do comando
-		String command = process + " -f " + dir + form.tabela // -f para nome do arquivo de saida
-				+ " -h " + form.host // -h para host
+		String command = process + " -f \"" + dir + form.tabela // -f para nome do arquivo de saida
+				+ "\" -h " + form.host // -h para host
 				+ " -p " + form.porta // -p para porta
 				+ " -u " + form.usuario // -u para usuário
 				+ " -P " + form.senha // -P para senha
@@ -320,20 +316,16 @@ public class ShapegisController {
 			e.printStackTrace();
 		}
 
-		File file = new File(result);
+		byte[] bytes = Files.readAllBytes(Paths.get(result));
 
-		response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+		response.reset();
+		response.setBufferSize(TAMANHO_BUFFER);
 		response.setContentType("application/zip");
-		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+		BufferedOutputStream saida;
+		saida = new BufferedOutputStream(response.getOutputStream(), TAMANHO_BUFFER);
+		saida.write(bytes);
+		saida.close();
 
-		OutputStream out = response.getOutputStream();
-		FileInputStream in = new FileInputStream(file);
-
-		IOUtils.copy(in, out);
-
-		out.close();
-		in.close();
-		file.delete();
 		// Sinaliza que o processo terminou
 		System.out.println("Process finished !\n");
 
