@@ -502,7 +502,7 @@ const Shape = () => {
             >
               <div className="drop-message" >
                 <div className="upload-icon" width="100%">
-                  <h1>Clique ou arraste o(s) arquivo(s) aqui para fazer o upload.</h1>
+                  <h1>Clique ou arraste os arquivos aqui para fazer o upload.</h1>
                 </div>
                 <img src={UploadShape} alt="Shape-Button" width="80%" />
                 <div className="upload-icon" width="100%">
