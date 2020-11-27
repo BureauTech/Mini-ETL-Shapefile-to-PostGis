@@ -10,7 +10,7 @@ Save time, save data. </h3> <br>
     <a href="#Entregas-da-Sprint">Entregas da Sprint</a> •
     <a href="#Demonstração">Demonstração</a> •
     <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
-    <a href="#Conexão-ao-Banco-de-Dados">Conexão ao Banco de Dados</a> •
+    <a href="#Modelo-de-Dados">Modelo de Dados</a> •
     <a href="#Burndown">Burndown</a> •
  </p> 
  <br>
