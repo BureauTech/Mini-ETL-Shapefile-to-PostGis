@@ -9,8 +9,8 @@ Save time, save data. </h3> <br>
     <a href="#Proposta-para-Sprint-3">Proposta para Sprint 3</a> •
     <a href="#Entregas-da-Sprint">Entregas da Sprint</a> •
     <a href="#Demonstração">Demonstração</a> •
-    <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
     <a href="#Modelo-de-Dados">Modelo de Dados</a> •
+    <a href="#Tecnologias-utilizadas-na-Sprint">Tecnologias utilizadas na Sprint</a> •
     <a href="#Burndown">Burndown</a> •
  </p> 
  <br>
