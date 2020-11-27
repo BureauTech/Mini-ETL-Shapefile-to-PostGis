@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import api from '../../services/api';
 import postStep1 from '../../assets/img/notebook-background.png';
 import FormControl from '@material-ui/core/FormControl';
-import ReactLoading from 'react-loading';
 
 //Style
 import "./styles.css";
@@ -58,8 +57,7 @@ const [bdList2, setBdList] = useState('');
 const [lista, setLista] = useState();
 const [campos, setCampos] = React.useState(0); 
 const classes = useStyles();
-const [stateCon, setStateCon] = useState(false);
-const [statDown, setStateDown] = useState(false);
+
 
 const handleChange = (e) => {
   console.log(e.target.value);
@@ -67,15 +65,6 @@ const handleChange = (e) => {
   console.log(table);
   bdList(e.target.value); //Para isso é só passar a tabela selecionada como um parâmetro para a próxima função.
 }
-
-//funcao que gera um loading da conexão com o bd
-const Loadingcon = ({ type, color }) => (
-  <ReactLoading type={"balls"} color={'white'} height={'10%'} width={'10%'}  />
-);
-//funcao que gera um loading do dowload do arquivo do banco
-const Loadingdown = ({ type, color }) => (
-  <ReactLoading type={"spin"} color={'#06a6ce'} height={'10%'} width={'10%'}  />
-);
 
 const bdConnect = () => {
 
@@ -97,7 +86,6 @@ const bdConnect = () => {
     alert("Favor preencher o campo <Senha>.");
     document.getElementById("password").focus();
   } else {
-    setStateCon(true);
   api({  
     method: 'post',
     url: '/connect/postgres',
@@ -110,13 +98,11 @@ const bdConnect = () => {
     }
   })
   .then(response => { 
-    setStateCon(false);
       console.log(response.data);
       setBdList(response.data);
     }
   )
   .catch(err => {
-    setStateCon(false);
     console.log('deu ruim', err); 
   });
 }
@@ -150,7 +136,6 @@ const Banco = (event) => {
 };
 
 const Gerar = async () => {
-  setStateDown(true);
   api({
     method: 'POST',
     url: '/postgis-to-shape',
@@ -172,11 +157,9 @@ const Gerar = async () => {
       document.body.appendChild(link);
       link.click();
       link.remove();
-      setStateDown(false);
       alert("Arquivo gerado com sucesso!")
     })
     .catch(err => {
-      setStateDown(false);
       console.log('deu ruim bb', err);
       alert("Não foi possível gerar o arquivo.\n" + err)
     });
@@ -212,7 +195,7 @@ const Gerar = async () => {
             <label htmlFor="">Senha</label>
           </form>    
         <form className="forms-content-text-box">
-            <input type="text" autofocus='true' className="txtbox" id="local" onChange={event => setLocal(event.target.value)}/>
+            <input type="text" className="txtbox" id="local" onChange={event => setLocal(event.target.value)}/>
             <input type="number" className="txtbox" id="porta" onChange={event => setPorta(event.target.value)}/>
              
             <input type="text" className="txtbox" id="user" onChange={event => setUser(event.target.value)}/>
@@ -221,7 +204,6 @@ const Gerar = async () => {
         </form>
 
         <button type="button" onClick={bdConnect}>CONECTAR</button>   
-        { stateCon== 1 ? < Loadingcon /> : null}
       
           <div className={classes.text}>  
           <form className={classes.text}> 
@@ -254,15 +236,13 @@ const Gerar = async () => {
           </select>          
         </FormControl>
         </div>
-      </div> 
-      <div align="center">
-      { statDown == 1 ? < Loadingdown /> : null}   
-      </div>    
+      </div>        
 
-        <Link /*to="/"*/ className="post-send-button" onClick={Gerar}>
+        <Link to="/" className="post-send-button" onClick={Gerar}>
           GERAR SHAPEFILE
         </Link>
       </div>
+
       <Footer/>
     </>
   );
