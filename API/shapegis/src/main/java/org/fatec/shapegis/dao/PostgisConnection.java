@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.fatec.shapegis.model.FormConexao;
 
-import lombok.*;
+import lombok.Data;
 
 @Data // Adiciona os métodos get e set, com a biblioteca lombok
 public class PostgisConnection {
