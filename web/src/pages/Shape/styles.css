@@ -273,7 +273,12 @@ margin: 3rem 0 0 0;
     text-align: center;
     color: #ffffff;
     font: 2.5rem Montserrat;
+}
 
+.drop-message-2 {
+    text-align: center;
+    color: #ffffff;
+    font: 2rem Montserrat;
 }
 
 .file-progressBar {

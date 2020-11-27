@@ -507,6 +507,7 @@ const Shape = () => {
                 <img src={UploadShape} alt="Shape-Button" width="80%" />
                 <div className="upload-icon" width="100%">
                   <h2 className="drop-message"><i>Arquivos suportados: .cpg .dbf .prj .qix .shp .shx</i></h2>
+                  <h3 className="drop-message-2"><i>Arquivos obrigatórios: .shp .shx e .dbf</i></h3>
                 </div>
               </div>
               <input
