@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'; //3 hooks de estados 
+import LoadingOverlay from 'react-loading-overlay';
 
 //Context
 import AppContext from '../../context';
@@ -73,6 +74,7 @@ const Shape = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [fileSHP, setFileSHP] = useState([""]);
   const fieldsdepara = new Object();
+  const [isActive, setActive] = useState();
 
   useEffect(() => {
       let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -163,6 +165,7 @@ const Shape = () => {
 
   //Remover arquivo
   const removeFile = (name) => {
+      setActive(true);
       const fileName = name;
       if (fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) === 'shp'){
           setShp(-1);
@@ -184,7 +187,8 @@ const Shape = () => {
       }
       if (name.substring(name.lastIndexOf('.') + 1, name.length) === 'shp' ){
         setFileSHP(null)
-      }      
+      }
+      setActive(false);      
   }
 
   const openImageModal = (file) => {
@@ -203,6 +207,7 @@ const Shape = () => {
 
   //Upload de arquivo
   const uploadFiles = async () => {
+    setActive(true);
       uploadModalRef.current.style.display = 'block';
       uploadRef.current.innerHTML = 'Enviado o(s) arquivo(s)...';
       for (let i = 0; i < validFiles.length; i++) {
@@ -225,6 +230,7 @@ const Shape = () => {
               },
           })
           .catch(() => {
+            setActive(false);
               uploadRef.current.innerHTML = `<span class="error">Erro no envio do(s) arquivo(s)</span>`;
               progressRef.current.style.backgroundColor = 'red';
           })
@@ -260,6 +266,7 @@ const Shape = () => {
       alert("Favor preencher o campo <Senha>.");
       document.getElementById("password").focus();
     } else {
+      setActive(true);
       api({
         method: 'post',
         url: '/connect/postgres',
@@ -273,9 +280,12 @@ const Shape = () => {
       })
         .then(response => {
           setBdList(response.data);
+          setActive(false);
         }
         )
         .catch(err => {
+          setActive(false);
+          alert('Erro ao buscar DBs:', err)
           console.log('deu ruim', err);
         });
     }
@@ -292,6 +302,7 @@ const Shape = () => {
 
   //Função de seleção da tabela do banco de dados
   const bdList = (tableSelected) => {
+    setActive(true);
     api({  
       method: 'post',
       url: '/connect/database',
@@ -304,16 +315,20 @@ const Shape = () => {
       }
     })
     .then(response => { 
-        setShapeReturn(response.data); 
+        setShapeReturn(response.data);
+        setActive(false); 
       }
     )
     .catch(err => {
+      setActive(false);
+      alert('Erro ao buscar DB Tables:', err)
       console.log('deu ruim bb', err); 
     });
   } 
   
   //Retorno das colunas das tabelas no PARA
   const returnPARA = async (field) => {
+    setActive(true);
     await api({  
       method: 'post',
       url: '/fields/' + field,
@@ -327,9 +342,12 @@ const Shape = () => {
     })
     .then(response => {
       setFieldsDe(response.data);
+      setActive(false);
       }
     )
     .catch(err => {
+      setActive(false);
+      alert('Erro ao buscar Atributos DB:', err)
       console.log('deu ruim bb', err); 
     });
   }
@@ -344,15 +362,19 @@ const Shape = () => {
 
   //Retorno dos atributos dos arquivos no DE
   const returnAtributos = () => {
+    setActive(true);
     api({
       method: 'get',
       url: '/attributes/'+ fileSHP,
     })
     .then(response => { 
       setFieldsPara(response.data);
+      setActive(false);
     }
   )
   .catch(err => {
+    setActive(false);
+    alert('Erro ao buscar Atributos SHP:', err)
     console.log('deu ruim', err); 
   });
 }
@@ -360,7 +382,7 @@ const Shape = () => {
   //Função para realizar a carga do DE-PARA
 
   const carga = async () => {
-
+    setActive(true);
     fieldsde.forEach(element => {
       fieldsdepara[element] = document.getElementById(element).value;
     });
@@ -380,9 +402,12 @@ const Shape = () => {
     })
       .then(response => {
         console.log(response)
+        setActive(false);
         alert("Carga realizada com sucesso!")
       })
       .catch(err => {
+        setActive(false);
+        alert('Erro ao realizar Carga:', err)
         console.log('deu ruim bb', err);
       });
   }
@@ -441,6 +466,11 @@ const Shape = () => {
   }
 
   return (
+    <LoadingOverlay
+    active={isActive}
+    spinner
+    text='Aguarde. Carregando o conteúdo...'
+  >
     <>
       <Header />
       <Faq />
@@ -609,6 +639,7 @@ const Shape = () => {
 
         <Footer/>
       </>
+    </LoadingOverlay>
   );
 }
 

@@ -1,2 +1,5 @@
 
 API/shapegis/src/main/java/org/fatec/shapegis/controller/ShapegisController.java
+web/package.json
+web/package-lock_old.json
+web/package-lock.json
