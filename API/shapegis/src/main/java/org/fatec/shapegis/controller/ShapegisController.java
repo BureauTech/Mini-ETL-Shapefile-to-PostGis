@@ -270,7 +270,7 @@ public class ShapegisController {
 		String dir = local + tmp + separador + "PostToShape" + separador;
 
 		// Cria diretório se já não existir
-		File fileDir = new File(tmp);
+		File fileDir = new File(dir);
 		fileDir.mkdirs();
 
 		// Declara qual o processo a ser executado no comando
