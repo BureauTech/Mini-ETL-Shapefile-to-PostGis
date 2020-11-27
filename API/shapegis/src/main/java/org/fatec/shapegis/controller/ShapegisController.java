@@ -1,12 +1,11 @@
 package org.fatec.shapegis.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -315,17 +314,29 @@ public class ShapegisController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		File zipFile = new File(result);
 
-		byte[] bytes = Files.readAllBytes(Paths.get(result));
-
-		response.reset();
-		response.setBufferSize(TAMANHO_BUFFER);
 		response.setContentType("application/zip");
-		BufferedOutputStream saida;
-		saida = new BufferedOutputStream(response.getOutputStream(), TAMANHO_BUFFER);
-		saida.write(bytes);
-		saida.close();
+		response.addHeader("Content-Disposition", "attachment; filename=" + zipFile.getName());
+		response.setContentLength((int) zipFile.length());
 
+		try {
+			FileInputStream fileInputStream = new FileInputStream(zipFile);
+			OutputStream responseOutputStream = response.getOutputStream();
+			int bytes;
+			while ((bytes = fileInputStream.read()) != -1) {
+				responseOutputStream.write(bytes);
+			}
+			fileInputStream.close();
+			responseOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		zipFile.delete();
+		File dirPostToShape = new File(local + tmp + separador + "PostToShape" + separador);
+		DeletarArquivo.DelArq(dirPostToShape, form.tabela);
 		// Sinaliza que o processo terminou
 		System.out.println("Process finished !\n");
 
