@@ -114,6 +114,10 @@
 
     font: 700 4.0rem Montserrat;
     color: #fff;
+
+    
+    border: 10px solid;
+    border-color: cyan;
 }
 
 .post-step3-de-para {

@@ -207,7 +207,6 @@ const Shape = () => {
 
   //Upload de arquivo
   const uploadFiles = async () => {
-    setActive(true);
     uploadModalRef.current.style.display = 'block';
     uploadRef.current.innerHTML = 'Enviado o(s) arquivo(s)...';
     for (let i = 0; i < validFiles.length; i++) {
@@ -221,7 +220,6 @@ const Shape = () => {
           progressRef.current.style.width = `${uploadPercentage}%`;
 
           if (uploadPercentage === 100) {
-            setActive(false);
             uploadRef.current.innerHTML = 'Envio do(s) arquivo(s).';
             validFiles.length = 0;
             setValidFiles([...validFiles]);
@@ -231,8 +229,7 @@ const Shape = () => {
         },
       })
         .catch(() => {
-          setActive(false);
-          uploadRef.current.innerHTML = `<span class="error">Erro no envio do(s) arquivo(s)</span>`;
+          uploadRef.current.innerHTML = `<span class="error">Erro no envio dos arquivos</span>`;
           progressRef.current.style.backgroundColor = 'red';
         })
     }

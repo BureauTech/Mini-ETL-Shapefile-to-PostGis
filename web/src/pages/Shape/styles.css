@@ -147,6 +147,10 @@
 
     font: 700 4.0rem Montserrat;
     color: #fff;
+
+    border: 10px solid;
+    border-color: salmon;
+
 }
 
 .shape-step4-de-para {
