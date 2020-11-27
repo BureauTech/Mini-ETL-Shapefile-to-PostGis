@@ -137,8 +137,9 @@ const Banco = (event) => {
 
 const Gerar = async () => {
   api({
-    method: 'post',
+    method: 'POST',
     url: '/postgis-to-shape',
+    responseType: 'blob',
     data: {
       "host": local,
       "porta": porta,
@@ -149,7 +150,13 @@ const Gerar = async () => {
     }
   })
     .then(response => {
-      console.log(response)
+      const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.setAttribute('download', campos+".zip");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
       alert("Arquivo gerado com sucesso!")
     })
     .catch(err => {
