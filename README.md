@@ -28,7 +28,7 @@ Save time, save data. </h3> <br>
 * Seleção de Tabela PostGIS
 * Implementação da solução DE-PARA, para carga de Shapefiles ao Banco
 * Carga do Shapefile para PostGIS
-* Documento de ambientação para execução da solução
+* [Documento de ambientação para execução da solução](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3/docs/Documento_Ambientacao_ShapeGis.pdf)
 
 # Demonstração
 
