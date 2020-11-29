@@ -43,7 +43,7 @@ Para visualizar as Contribuições da Equipe, clique [aqui](https://github.com/B
 # Modelo de Dados
 
 <div align="center">
-    <img src="/assets/images/jpeg/Diagrama_ERv3.jpeg">
+    <img src="/assets/images/jpeg/Diagrama_ERv4.jpeg">
 </div>
 
 # Tecnologias utilizadas na Sprint
