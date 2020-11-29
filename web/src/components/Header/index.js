@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import Pdf from '../../assets/pdf/Manual_Usuario_ShapeGis.pdf';
 
 import "./styles.css";
 
@@ -14,7 +15,7 @@ function Header () {
       
       <div className="buttons-container">
         <Link to="/" className="converter">CONVERSOR</Link>
-        <Link to="/how-to-use" className="use-guide">COMO USAR</Link>
+        <a href = {Pdf} target = "_blank" className="use-guide">COMO USAR</a>
       </div>
     </div>
   )

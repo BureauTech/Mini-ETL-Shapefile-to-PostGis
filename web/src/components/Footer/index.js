@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Pdf from '../../assets/pdf/Manual_Usuario_ShapeGis.pdf';
 
 //Assets
 import Logo from '../../assets/img/logo.png'; 
@@ -27,9 +28,7 @@ function Footer() {
           </div>
           <div>
             <p>COMO USAR</p>
-            <Link to="/how-to-use">
-              <span>Guia de uso</span>
-            </Link>
+            <a href = {Pdf} target = "_blank"><span>Guia de uso</span></a>
           </div>
           <div>
             <p>CONTATO</p>
