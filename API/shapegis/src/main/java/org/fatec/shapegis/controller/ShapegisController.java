@@ -221,7 +221,6 @@ public class ShapegisController {
 		SimpleFeatureType schema = source.getSchema();
 
 		Query query = new Query(schema.getTypeName());
-		query.setMaxFeatures(5);
 
 		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures(query);
 		try (FeatureIterator<SimpleFeature> features = collection.features()) {
