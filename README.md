@@ -30,7 +30,7 @@ Save time, save data. </h3> <br>
 * Criação do endpoint para download do shapefile
 * Carga do PostGIS para Shapefile
 * [Manual do usuário](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4/docs/Manual_Usuario_ShapeGis.pdf)
-* [Atualização do Documento de Ambientação](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4/docs/Ambientacao_ShapeGIS.pdf)
+* [Atualização do Documento de Ambientação](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4/docs/Ambientação%20ShapeGIS.pdf)
 
 # Demonstração
 
