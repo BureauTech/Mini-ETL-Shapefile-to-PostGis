@@ -32,10 +32,12 @@ Save time, save data. </h3> <br>
 * [Manual do usuário](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4/docs/Manual_Usuario_ShapeGis.pdf)
 * [Atualização do Documento de Ambientação](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4/docs/Ambientação%20ShapeGIS.pdf)
 
+Para visualizar as Contribuições da Equipe, clique [aqui](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/blob/sprint-4/docs/Contribui%C3%A7%C3%B5es%20da%20Equipe_v4.pdf)
+
 # Demonstração
 
 <div align="center">
-    <img src="/assets/images/gif/demo-sprint-3.gif"> MUDAR
+    <img src="/assets/images/gif/demo-sprint-3.gif">
 </div>
 
 # Modelo de Dados
