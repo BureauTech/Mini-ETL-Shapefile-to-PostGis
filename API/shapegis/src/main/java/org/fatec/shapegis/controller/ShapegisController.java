@@ -287,8 +287,7 @@ public class ShapegisController {
 		// Executa o commando no CMD do runtime que a aplicação está rodando, no
 		// diretório de instalação
 		// do PostgreSQL
-		Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command, null,
-				new File("C:\\Program Files\\PostgreSQL\\10\\bin"));
+		Process p = Runtime.getRuntime().exec("cmd cmd.exe /c " + command);
 
 		// Printa o comando no console (teste)
 		System.out.println(command);
