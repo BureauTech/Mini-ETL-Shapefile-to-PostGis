@@ -37,7 +37,7 @@ Para visualizar as Contribuições da Equipe, clique [aqui](https://github.com/B
 # Demonstração
 
 <div align="center">
-    <img src="/assets/images/gif/demo-sprint-3.gif">
+    <img src="/assets/images/gif/demo-sprint-4.gif">
 </div>
 
 # Modelo de Dados
