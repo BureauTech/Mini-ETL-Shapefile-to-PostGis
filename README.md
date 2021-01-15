@@ -71,6 +71,8 @@ Pesquisas concluídas.
 |    08/11/2020    |[Sprint 3](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-3) |
 |    29/11/2020    |[Sprint 4](https://github.com/BureauTech/Mini-ETL-Shapefile-to-PostGis/tree/sprint-4) |
 
+## Nosso Vídeo de apresentação da solução pode ser acessado aqui: [:tv:](https://www.youtube.com/watch?v=Vg5b7eITRV8&feature=youtu.be)
+
 # Equipe 
 
 ### [![GitHub Badge](https://img.shields.io/github/followers/bibiacoutinho?label=bibiacoutinho&style=for-the-badge&color=black&link=https://github.com/bibiacoutinho)](https://github.com/bibiacoutinho) - Master <br/>
